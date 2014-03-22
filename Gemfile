@@ -39,6 +39,8 @@ group :development, :test do
   gem 'better_errors'
 end
 
+gem 'oauth2'
+
 ruby "2.1.0"
 
 # Use ActiveModel has_secure_password
