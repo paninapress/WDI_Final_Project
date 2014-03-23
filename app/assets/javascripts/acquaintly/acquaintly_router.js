@@ -1,14 +1,15 @@
-var AcquaintlyApp = angular.module('AcquaintlyApp', ['ngRoute', 'AppController']);
+var AppRouter = angular.module('AppRouter', ['ngRoute']);
 
-AcquaintlyApp.config(['$routeProvider',
+AppRouter.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
         templateUrl: '/site',
         controller: 'AquaintlyController'
       }).
-      when('/site/new', {
+      when('/new', {
         templateUrl: '/site/new.html.erb',
         controller: 'AquaintlyController'
       });
-  }]);
+  }
+]);
