@@ -1,8 +1,8 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AcquaintlyController", function($scope) {
+AppController.controller("AppCtrl", function($scope) {
 
-    $scope.testName = "Spartacus";
+    $scope.appName = "Acquaintly";
 
     $scope.testList = [1,2,3,4,5];
     
