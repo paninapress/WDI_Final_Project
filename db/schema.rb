@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324004632) do
+ActiveRecord::Schema.define(version: 20140325231940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 20140324004632) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "linkedins", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "linkedins", ["contact_id"], name: "index_linkedins_on_contact_id", using: :btree
+  add_index "linkedins", ["user_id"], name: "index_linkedins_on_user_id", using: :btree
 
   create_table "logs", force: true do |t|
     t.integer  "connection_id"
