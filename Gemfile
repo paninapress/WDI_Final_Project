@@ -40,6 +40,8 @@ group :development, :test do
 end
 
 gem 'oauth2'
+gem 'omniauth-linkedin-oauth2'
+
 
 ruby "2.1.0"
 
