@@ -5,10 +5,10 @@ AcquaintlyApp.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: '/site',
-        controller: 'AquaintlyController'
+        controller: 'AppCtrl'
       }).
       when('/site/new', {
         templateUrl: '/site/new.html.erb',
-        controller: 'AquaintlyController'
+        controller: 'AppCtrl'
       });
   }]);
