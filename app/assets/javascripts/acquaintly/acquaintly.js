@@ -1,14 +1,24 @@
-var AcquaintlyApp = angular.module('AcquaintlyApp', ['ngRoute', 'AppController']);
+var AcquaintlyApp = angular.module('AcquaintlyApp', ['AppRouter', 'AppController']);
 
-AcquaintlyApp.config(['$routeProvider',
+var AppRouter = angular.module('AppRouter', ['ngRoute']);
+
+AppRouter.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: '/site',
+        templateUrl: '/templates/index.html',
         controller: 'AppCtrl'
       }).
       when('/site/new', {
-        templateUrl: '/site/new.html.erb',
+        templateUrl: '/templates/new.html',
+        controller: 'AppCtrl'
+      }).
+      when('/dashboard', {
+        templateUrl: '/templates/dashboard.html',
+        controller: 'AppCtrl'
+      }).
+      otherwise({
+        templateUrl: '/templates/index.html',
         controller: 'AppCtrl'
       });
   }]);
