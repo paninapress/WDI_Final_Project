@@ -1,9 +1,9 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope', function($scope) {
+AppController.controller("AppCtrl",['$scope', '$http', function($scope, $http) {
 
-    $scope.appName = "Acquaintly";
-
-    $scope.testList = [1,2,3,4,5];
+    $http.get('/auth/linkedin/callback.json').then(function(response){
+        $scope.data = response;
+      });
     
   }])
