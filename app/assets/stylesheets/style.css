@@ -1,9 +1,19 @@
 /* Table Of Contents */
-/* 01- HEADERS */
+/* 01- HEADERS       */
+/* 02- BODY          */
+/* 03- GLOBAL STYLES */
 
 
-/*-----------------HEADERS-----------------*/
+/*--------------01-HEADERS-----------------*/
 
 h1, h4 {
   text-align: center;
+}
+
+/*--------------02-BODY--------------------*/
+
+/*--------------03-GLOBAL STYLES-----------*/
+
+button {
+  width: 100%
 }
