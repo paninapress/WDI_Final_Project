@@ -10,12 +10,6 @@ class SiteController < ApplicationController
     # and wrap that up in JSON for the Angular controller to collect via $http
     # User.get_info (provider, request.env['omniauth.auth']
     auth = request.env['omniauth.auth']
-    binding.pry
-    # respond_to do |f|
-    #   f.html
-    #   f.json {render :json => auth}
-    # end
-    # respond_with auth
     render :json => auth
   end
   
