@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :last_name
   has_one :linkedin
   has_many :connections
+  has_one :picture
 
   def self.create_with_omniauth auth
     # auth == request.env['omniauth.auth']
@@ -63,7 +64,7 @@ class User < ActiveRecord::Base
     # contact.picture = auth.info.image
 
 
-    # Now to create/update all the user's connections:
+    # create/update user's connections:
     linkedin_connections_array.each do |c|
       # 1.a) look for existing LinkedIN ID in DB
       if (Linkedin.find_by(linkedin_id: c.id))
