@@ -10,7 +10,14 @@
 </head>
 <body class='container'>
 
+  <% if notice %>
+    <p class="notice"><%= notice %></p>
+  <% elsif alert %>
+    <p class="alert"><%= alert %></p>
+  <% end %>
+
   <div ng-view>
   </div>
+
 </body>
 </html>
