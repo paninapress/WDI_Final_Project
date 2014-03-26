@@ -6,7 +6,7 @@ AppRouter.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: '/templates/index.html',
+        templateUrl: '/templates/login.html',
         controller: 'AppCtrl'
       }).
       when('/signup', {
@@ -22,7 +22,7 @@ AppRouter.config(['$routeProvider',
         controller: 'AppCtrl'
       }).
       otherwise({
-        templateUrl: '/templates/index.html',
+        templateUrl: '/templates/login.html',
         controller: 'AppCtrl'
       });
   }]);
