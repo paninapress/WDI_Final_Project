@@ -39,12 +39,18 @@ class User < ActiveRecord::Base
     li_id = (Linkedin.find_by(linkedin_id: auth.uid))
     # if the LinkedIn ID is already in DB:
     if li_id != nil
-      # check to see if user is already in DB as a LinkedIn user
+      # check to see if user is already in DB as a LinkedIn user (and thus is a contact)
       if li_id.user != nil
         user = User.find(Linkedin.find_by(linkedin_id: auth.uid).user_id)
-      #else check to see if ID is in database but not assigned to user
+        contact = Contact.find(Linkedin.find_by(linkedin_id: auth.uid).contact_id)
+      #else check to see if ID is in database but not assigned to user (but may be a contact)
       else
         user = User.create()
+        contact = Contact.find(Linkedin.find_by(Linkedin_id: auth.uid).contact_id)
+        if (contact == nil)
+          contact = Contact.create()
+          li_id.contact = contact
+        end
         li_id.user = user
       end
     # else if LinkedIn ID is NOT in DB:
@@ -58,11 +64,11 @@ class User < ActiveRecord::Base
     # we now have our user -- set/reset first name, last name, picture
     first_name = FirstName.find_by(name: auth.info.first_name) || FirstName.create(name: auth.info.first_name)
     last_name = LastName.find_by(name: auth.info.last_name) || LastName.create(name: auth.info.last_name)
+    picture = Picture.find_by(linkedin_pic: auth.info.image) || Picture.create(linkedin_pic: auth.info.image)
     first_name.users << user
     last_name.users << user
-    # user.picture = auth.info.image
-    # contact.picture = auth.info.image
-
+    user.picture = picture
+    contact.picture = picture
 
     # create/update user's connections:
     linkedin_connections_array.each do |c|
@@ -82,11 +88,13 @@ class User < ActiveRecord::Base
         user.connections << connection
         contact.connections << connection
       end
-      # create/update names
+      # create/update names/picture
       first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
       last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
+      picture = Picture.find_by(linkedin_pic: c.pictureUrl) || Picture.create(linkedin_pic: c.pictureUrl)
       first_name.connections << connection
       last_name.connections << connection
+      contact.picture = picture
     end
   end
 
