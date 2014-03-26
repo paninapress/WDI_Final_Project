@@ -43,6 +43,8 @@ end
 gem 'oauth2'
 gem 'omniauth-linkedin-oauth2'
 
+gem 'devise'
+
 
 ruby "2.1.0"
 
