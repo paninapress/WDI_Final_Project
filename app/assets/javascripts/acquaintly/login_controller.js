@@ -97,8 +97,8 @@ AppController.controller('LoginCtrl', ['$scope', '$http', function($scope, $http
       url: '/users.json',
       data: {
         user: { 
-                first_name: $scope.register_user.first_name
-                last_name: $scope.register_user.last_name
+                first_name: $scope.register_user.first_name,
+                last_name: $scope.register_user.last_name,
                 email: $scope.register_user.email,
                 password: $scope.register_user.password,
                 password_confirmation: $scope.register_user.password_confirmation

@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 20140326183516) do
   add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.integer  "first_name_id"
-    t.integer  "last_name_id"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "access_token"
@@ -109,8 +109,6 @@ ActiveRecord::Schema.define(version: 20140326183516) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["first_name_id"], name: "index_users_on_first_name_id", using: :btree
-  add_index "users", ["last_name_id"], name: "index_users_on_last_name_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
