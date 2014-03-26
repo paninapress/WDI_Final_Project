@@ -87,8 +87,37 @@ class User < ActiveRecord::Base
       first_name.connections << connection
       last_name.connections << connection
     end
-
-
   end
 
+  def get_contacts user
+    # assemble a 'contacts' array with all of the user's connections
+    # need first_name, last_name, linkedin_id, category
+    contacts = []
+    list = Connection.where(user_id: user.id)
+    list.each do |contact|
+      item = {
+              id: Linkedin.find_by(contact_id: contact.contact_id).linkedin_id,
+              first_name: FirstName.find(contact.first_name_id).name,
+              last_name: LastName.find(contact.last_name_id).name,
+              category: contact.category
+              }
+      contacts << item
+    end
+    # return the 'contacts' array
+    contacts
+    # Input the following into Angular view for drop-down sorting:
+      # <input type="text" ng-model="query" />
+      #   <select ng-model="contactSort">
+      #     <option value="first_name">First Name</option>
+      #     <option value="last_name"> Last Name</option>
+      #     <option value="category">Category</option>
+      #   </select>
+      # <div ng-repeat="contact in contacts | filter: query | orderBy: contactSort">
+      #   ...
+      # </div>
+  end
 end
+
+
+
+
