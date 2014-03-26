@@ -7,11 +7,11 @@ AppRouter.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: '/templates/login.html',
-        controller: 'AppCtrl'
+        controller: 'LoginCtrl'
       }).
       when('/signup', {
         templateUrl: '/templates/signup.html',
-        controller: 'AppCtrl'
+        controller: 'LoginCtrl'
       }).
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',
@@ -23,6 +23,8 @@ AppRouter.config(['$routeProvider',
       }).
       otherwise({
         templateUrl: '/templates/login.html',
-        controller: 'AppCtrl'
+        controller: 'LoginCtrl'
       });
   }]);
+
+// login = index

@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def render_with_protection(json_content, parameters = {})
-    render parameters.merge(content_type: 'application/json', text: ")]}',\n"  json_content)
+    render parameters.merge(content_type: 'application/json', text: ")]}',\n" + json_content)
   end
 
 
   protected
-  
+
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation)}
   end
