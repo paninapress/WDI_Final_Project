@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140325234705) do
   create_table "linkedins", force: true do |t|
     t.integer  "user_id"
     t.integer  "contact_id"
+    t.string   "linkedin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
