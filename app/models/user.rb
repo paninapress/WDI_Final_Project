@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     # picture = auth.info.image
 
 
-    # USER CREATION -- UNTIL WE GET CURRENT_USER
+    # USER CREATION
 
     user = nil
     contact = nil

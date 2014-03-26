@@ -13,5 +13,11 @@ class SiteController < ApplicationController
     User.create_with_omniauth(auth) if auth != nil
     redirect_to '/#/dashboard'
   end
+
+  def show
+    user = User.find(params[:id])
+    contacts = User.get_contacts(user)
+    render :json => contacts
+  end
   
 end
