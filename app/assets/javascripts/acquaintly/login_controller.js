@@ -19,7 +19,11 @@ AppController.controller('LoginCtrl', ['$scope', '$http', function($scope, $http
   };
 
   $scope.register_error = {
+    first_name: null,
+    last_name: null,
     email: null,
+    password: null,
+    password_confirmation: null,
     errors: {}
   };
 
@@ -61,31 +65,31 @@ AppController.controller('LoginCtrl', ['$scope', '$http', function($scope, $http
     });
   };
 
-  $scope.unlock = function() {
-    $scope.submit({
-      method: 'POST',
-      url: '/users/unlock.json',
-      data: {
-        user: { email: $scope.login_user.email
-        }
-      },
-      success_message: "An unlock e-mail has been sent to your e-mail address.",
-      error_entity: $scope.login_error
-    });
-  };
+  // $scope.unlock = function() {
+  //   $scope.submit({
+  //     method: 'POST',
+  //     url: '/users/unlock.json',
+  //     data: {
+  //       user: { email: $scope.login_user.email
+  //       }
+  //     },
+  //     success_message: "An unlock e-mail has been sent to your e-mail address.",
+  //     error_entity: $scope.login_error
+  //   });
+  // };
 
-  $scope.confirm = function() {
-    $scope.submit({
-      method: 'POST',
-      url: '/users/confirmation.json',
-      data: {
-        user: { email: $scope.login_user.email
-        }
-      },
-      success_message: "A new confirmation link has been sent to your e-mail address.",
-      error_entity: $scope.login_error
-    });
-  };
+  // $scope.confirm = function() {
+  //   $scope.submit({
+  //     method: 'POST',
+  //     url: '/users/confirmation.json',
+  //     data: {
+  //       user: { email: $scope.login_user.email
+  //       }
+  //     },
+  //     success_message: "A new confirmation link has been sent to your e-mail address.",
+  //     error_entity: $scope.login_error
+  //   });
+  // };
 
   $scope.register = function() {
     $scope.submit({
