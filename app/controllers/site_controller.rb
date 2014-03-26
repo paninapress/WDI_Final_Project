@@ -11,7 +11,7 @@ class SiteController < ApplicationController
     # User.get_info (provider, request.env['omniauth.auth']
     auth = request.env['omniauth.auth'] || nil
     User.create_with_omniauth(auth) if auth != nil
-    render :json => auth
+    redirect_to '/#/dashboard'
   end
   
 end
