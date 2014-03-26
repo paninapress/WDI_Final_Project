@@ -1,8 +1,8 @@
 <!-- Site#Index: Landing page & sign in-->
 <nav class="navbar navbar-default navbar-fixed-bottom visible-xs" role="navigation">
   <ul class="nav nav-pills">
-    <li><a href="#">Sign In</a></li>
-    <li><a href="#">Get Started now</a></li>
+    <li ng-click="scrollTo('signInUser')"><a>Sign In</a></li>
+    <li ng-click="go('/signup')"><a>Get Started now</a></li>
   </ul>
 </nav>
 <div class="row">
@@ -13,7 +13,17 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h4>Get better acquainted with your contacts! =P</h4>
-    <h4 class="visible-xs"><a href="#learn">Learn more --></a></h4>
+
+    <!-- Learn more is visible if xs viewport 
+    size otherwise the page displays the 
+    get started button -->
+    <h4 class="visible-xs">
+      <a href="#learn">Learn more --></a>
+    </h4>
+    <button type="button" class="btn btn-info hidden-xs" ng-click="go('/signup')">
+      Get started now -->
+    </button>
+
   </div>
 </div>
 
@@ -26,8 +36,7 @@
   </div>
 </div>
 
-<div class="row">
-<a name="learn"></a> 
+<div id="signInUser" class="row"> 
   <div class="col-md-8 col-md-offset-2">
     <!-- Add Sign In Form HERE -->
   </div>
