@@ -10,7 +10,7 @@ AppRouter.config(['$routeProvider',
         controller: 'AppCtrl'
       }).
       when('/signup', {
-        templateUrl: '/templates/new.html',
+        templateUrl: '/templates/signup.html',
         controller: 'AppCtrl'
       }).
       when('/dashboard', {
