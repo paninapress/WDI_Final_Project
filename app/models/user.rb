@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  belongs_to :first_name
-  belongs_to :last_name
   has_one :linkedin
   has_many :connections
   has_one :picture
