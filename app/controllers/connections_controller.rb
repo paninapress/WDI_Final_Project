@@ -1,14 +1,8 @@
-class UsersController < ApplicationController
+class ConnectionsController < ApplicationController
 
   before_filter :authenticate_user!
 
-  def new
-  end
-
-  def create
-  end
-
-  def omniauth
+  def index
     auth = request.env['omniauth.auth'] || nil
     @current_user = current_user
     User.create_with_omniauth(auth, @current_user) if auth != nil
@@ -19,12 +13,6 @@ class UsersController < ApplicationController
     user = current_user
     contacts = User.get_contacts(user)
     render :json => contacts
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
 end
