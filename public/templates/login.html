@@ -11,4 +11,37 @@
     Semiotics Vice flexitarian, cray pork belly whatever fixie synth chillwave. Quinoa Wes Anderson Pinterest Shoreditch Vice slow-carb, ethical fanny pack keffiyeh seitan 90's chia next level. Put a bird on it meh Portland cornhole before they sold out. Pinterest ethnic twee, meh PBR&B umami 3 wolf moon selvage Echo Park Thundercats disrupt chambray Neutra Blue Bottle Odd Future. Fap quinoa swag hella normcore occupy. Authentic literally shabby chic, banjo selvage Cosby sweater bespoke High Life deep v hoodie cardigan Austin forage. Banh mi disrupt 3 wolf moon locavore Williamsburg.</p>
 </div>
 <div> <!-- Add Sign In Form HERE -->
+  <div class="login">
+    <h1>Login</h1>
+  </div>
+
+  <div class="error" ng-show="login_error.message">
+    <p>{{ login_error.message }}</p>
+  </div>  
+
+
+  <div class="login-body">
+    <div id='login-email' ng-class="{ error: login_error.errors.email }" >  Email: <br>
+      <input ng-model="login_user.email" />
+      <div ng-show="login_errors.errors.email">
+        <div ng-repeat="field_error in login_error.errors.email">
+          {{ field_error }}
+        </div>
+      </div>
+    </div>
+
+    <div id="login-password" ng-class="{ error: login_error.errors.password }"> 
+      Password: <br>
+      <input type="password" ng-model="login_user.password" />
+      <div ng-show="login_error.errors.password">
+        <div ng-repeat="field_error in login_error.errors.password">{{ field_error }}</div>
+      </div>
+    </div>
+
+    <button ng-click="login()" class="btn">Login</button>
+    <button ng-click="logout()" class="btn">Logout</button>
+    <button ng-click="password_reset()" class="btn">Reset Password</button>
+    <button ng-click="unlock()" class="btn">Unlock</button>
+    <button ng-click="confirm()" class="btn">Confirm</button>
+  </div>
 </div>
