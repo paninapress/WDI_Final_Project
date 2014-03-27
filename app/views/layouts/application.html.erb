@@ -9,8 +9,20 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-  <div class='container-fluid' ng-view>
+  <div class='container-fluid'>
+
+    <% if notice %>
+      <p class="notice"><%= notice %></p>
+    <% elsif alert %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <div ng-view>
+    </div>
+
   </div>
+
 </body>
 </html>

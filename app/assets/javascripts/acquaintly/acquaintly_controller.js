@@ -1,6 +1,9 @@
 var AppController = angular.module('AppController', []);
 
 AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', function($scope, $location, $anchorScroll) {
+    // $http.get('/auth/linkedin/callback.json').then(function(response){
+    //     $scope.data = response;
+    //   });
 
     $scope.appName = "Acquaintly";
 
@@ -8,6 +11,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', functi
       $location.hash(id);
       $anchorScroll();
     };
+
     $scope.go = function(path){
       $location.path(path);
     };

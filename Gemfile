@@ -37,10 +37,13 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   gem 'dotenv-rails'
   gem 'better_errors'
+  gem 'pry'
 end
 
 gem 'oauth2'
 gem 'omniauth-linkedin-oauth2'
+
+gem 'devise'
 
 
 ruby "2.1.0"

@@ -36,8 +36,39 @@
   </div>
 </div>
 
-<div id="signInUser" class="row"> 
-  <div class="col-md-8 col-md-offset-2">
-    <!-- Add Sign In Form HERE -->
+<div id="signInUser" class="row">
+  <div class="login col-md-8 col-md-offset-2">
+    <h1>Login</h1>
+  </div>
+
+  <div class="error" ng-show="login_error.message">
+    <p>{{ login_error.message }}</p>
+  </div>  
+
+
+  <div class="login-body">
+    <div id='login-email' ng-class="{ error: login_error.errors.email }" >  Email: <br>
+      <input ng-model="login_user.email" />
+      <div ng-show="login_errors.errors.email">
+        <div ng-repeat="field_error in login_error.errors.email">
+          {{ field_error }}
+        </div>
+      </div>
+    </div>
+
+    <div id="login-password" ng-class="{ error: login_error.errors.password }"> 
+      Password: <br>
+      <input type="password" ng-model="login_user.password" />
+      <div ng-show="login_error.errors.password">
+        <div ng-repeat="field_error in login_error.errors.password">{{ field_error }}</div>
+      </div>
+    </div>
+
+    <button ng-click="login()" class="btn">Login</button>
+    <button ng-click="logout()" class="btn">Logout</button>
+    <button ng-click="password_reset()" class="btn">Reset Password</button>
+    <button ng-click="unlock()" class="btn">Unlock</button>
+    <button ng-click="confirm()" class="btn">Confirm</button>
+    
   </div>
 </div>
