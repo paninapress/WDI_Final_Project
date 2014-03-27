@@ -5,13 +5,13 @@ class ConnectionsController < ApplicationController
   def collect
     auth = request.env['omniauth.auth'] || nil
     @current_user = current_user
-    User.create_with_omniauth(auth, @current_user) if auth != nil
+    Connection.collect_data(auth, @current_user) if auth != nil
     redirect_to '/#/dashboard'
   end
 
   def index
     user = current_user
-    contacts = User.get_contacts(user)
+    contacts = Connection.get_connections(user)
     render :json => contacts
   end
 

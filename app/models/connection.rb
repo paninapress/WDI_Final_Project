@@ -5,7 +5,7 @@ class Connection < ActiveRecord::Base
   belongs_to :last_name
 
 
-  def self.create_with_omniauth (auth, user)
+  def self.collect_data (auth, user)
     # auth == oauth response object, user = current_user
 
     linkedin_connections_array = auth.extra.raw_info.connections.values[1]
