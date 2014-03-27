@@ -7,14 +7,11 @@ class Connection < ActiveRecord::Base
 
   def self.collect_data (auth, user)
     # auth == oauth response object, user = current_user
-
     linkedin_connections_array = auth.extra.raw_info.connections.values[1]
 
     # USER CREATION
 
     l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
-    # user = current_user || User.find(l_id.user_id)
-    # user = User.where(first_name: auth.info.first_name).where(last_name: auth.info.last_name)
     picture = Picture.where(user_id: user.id)[0] || Picture.find_by(linkedin_pic: auth.info.image) || Picture.create(linkedin_pic: auth.info.image)
     # find user & set/update linkedin_id/access_token/linkedin picture
     user.linkedin = l_id
@@ -78,7 +75,7 @@ class Connection < ActiveRecord::Base
       connections << item
     end
     # return the 'contacts' array
-    contacts
+    connections
   end
 
   def self.get_connection(user, connection)
@@ -90,40 +87,8 @@ class Connection < ActiveRecord::Base
             category: connection.category,
             picture: contact.picture.linkedin_pic
           }
-    return item
+    item
   end
 
 
 end
-
-# LinkedIn connections values:
-  # linkedin_connections_array.each do |connection|
-  #   id             =  connection.id
-  #   first_name     =  connection.firstName
-  #   last_name      =  connection.lastName
-  #   industry       =  connection.industry
-  #   location       =  connection.location.name
-  #   picture_url    =  connection.pictureUrl
-  #   linkedin_url   =  connection.siteStandardProfileRequest.url
-
-# access_token = auth.credentials.token
-# token_expiration = auth.credentials.expires_at
-# token_expires = auth.credentials.expires
-
-# uid = auth.uid
-# first_name = auth.info.first_name
-# last_name = auth.info.last_name
-# picture = auth.info.image
-
-
-
-# Input the following into Angular view for drop-down sorting:
-  # <input type="text" ng-model="query" />
-  #   <select ng-model="contactSort">
-  #     <option value="first_name">First Name</option>
-  #     <option value="last_name"> Last Name</option>
-  #     <option value="category">Category</option>
-  #   </select>
-  # <div ng-repeat="contact in contacts | filter: query | orderBy: contactSort">
-  #   ...
-  # </div>
