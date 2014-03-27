@@ -1,5 +1,7 @@
 class SiteController < ApplicationController
   # respond_to :json
+    before_filter :authenticate_user!, except: :index
+
   def index
   end
 
@@ -15,9 +17,12 @@ class SiteController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
-    contacts = User.get_contacts(user)
-    render :json => contacts
+    @current_user = current_user
+    # # user = User.find(params[:id])
+    # contacts = User.get_contacts(@current_user)
+    # render :json => contacts
   end
+
+
   
 end
