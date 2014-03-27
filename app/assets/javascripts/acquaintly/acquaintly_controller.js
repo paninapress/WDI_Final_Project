@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', function($scope, $location, $anchorScroll) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
     // $http.get('/auth/linkedin/callback.json').then(function(response){
     //     $scope.data = response;
     //   });
@@ -15,8 +15,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', functi
     $scope.go = function(path){
       $location.path(path);
     };
-
-    $scope.connections = [{first_name: 'Stephen', last_name: 'Bauer'},{first_name: 'Nina', last_name: 'Pacifico'}];
-
+    Connection = $resource('/connections/:id', {id: "@id"});
+    $scope.connections = Connection.query();
 
   }]);
