@@ -59,7 +59,7 @@ class Connection < ActiveRecord::Base
 
 
   def self.get_all_connections(user)
-    # assemble a 'contacts' array with all of the user's connections
+    # assemble a 'connections' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
     connections = []
     list = Connection.where(user_id: user.id)
@@ -70,7 +70,7 @@ class Connection < ActiveRecord::Base
               first_name: FirstName.find(connection.first_name_id).name,
               last_name: LastName.find(connection.last_name_id).name,
               category: connection.category,
-              picture: connection.picture.linkedin_pic
+              picture: contact.picture.linkedin_pic
               }
       connections << item
     end
