@@ -1,9 +1,15 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope', function($scope) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', function($scope, $location, $anchorScroll) {
 
     $scope.appName = "Acquaintly";
 
-    $scope.testList = [1,2,3,4,5];
-    
-  }])
+    $scope.scrollTo = function(id){
+      $location.hash(id);
+      $anchorScroll();
+    };
+    $scope.go = function(path){
+      $location.path(path);
+    };
+
+  }]);

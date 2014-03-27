@@ -9,12 +9,16 @@ AppRouter.config(['$routeProvider',
         templateUrl: '/templates/index.html',
         controller: 'AppCtrl'
       }).
-      when('/site/new', {
+      when('/signup', {
         templateUrl: '/templates/new.html',
         controller: 'AppCtrl'
       }).
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',
+        controller: 'AppCtrl'
+      }).
+      when('/categorize', {
+        templateUrl: '/templates/categorize.html',
         controller: 'AppCtrl'
       }).
       otherwise({
