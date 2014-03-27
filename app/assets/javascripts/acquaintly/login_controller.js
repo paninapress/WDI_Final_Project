@@ -104,12 +104,14 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
                 email: $scope.register_user.email,
                 password: $scope.register_user.password,
                 password_confirmation: $scope.register_user.password_confirmation
-        }
+        },
       },
       success_message: "You have been registered and logged in.  A confirmation e-mail has been sent to your e-mail address, your access will terminate in 2 days if you do not use the link in that e-mail.",
       error_entity: $scope.register_error
-    });
-    $location.path("/dashboard");
+    },
+      function (){
+        $location.path("/dashboard");}
+    );
   };
 
   $scope.change_password = function() {
@@ -127,7 +129,7 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
     });
   };
 
-  $scope.submit = function(parameters) {
+  $scope.submit = function(parameters, redirect) {
     $scope.reset_messages();
 
     $http({
@@ -139,6 +141,7 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
       if (status == 201 || status == 204){
         parameters.error_entity.message = parameters.success_message;
         $scope.reset_users();
+        redirect();
       } else {
         if (data.error) {
           parameters.error_entity.message = data.error;
