@@ -16,4 +16,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', functi
       $location.path(path);
     };
 
+    $scope.connections = [{first_name: 'Stephen', last_name: 'Bauer'},{first_name: 'Nina', last_name: 'Pacifico'}];
+
+
   }]);
