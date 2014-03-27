@@ -19,7 +19,7 @@ class Connection < ActiveRecord::Base
     user.expires_at = auth.credentials.expires_at
     user.picture = picture
     # find/create corresponding contact to user
-    if Contact.find(l_id.contact_id).nil?
+    if l_id.contact_id.nil?
       user_contact = Contact.create()
       user_contact.linkedin = l_id
     else 
@@ -66,7 +66,7 @@ class Connection < ActiveRecord::Base
     list.each do |connection|
       item = {
               connection_id: connection.id,
-              linkedin_id: Linkedin.find_by(connection_id: connection.contact_id).linkedin_id,
+              linkedin_id: Linkedin.find_by(contact_id: connection.contact_id).linkedin_id,
               first_name: FirstName.find(connection.first_name_id).name,
               last_name: LastName.find(connection.last_name_id).name,
               category: connection.category,
