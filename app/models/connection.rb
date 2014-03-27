@@ -19,7 +19,7 @@ class Connection < ActiveRecord::Base
     user.expires_at = auth.credentials.expires_at
     user.picture = picture
     # find/create corresponding contact to user
-    if Contact.find(l_id.contact_id).nil?
+    if l_id.contact_id.nil?
       user_contact = Contact.create()
       user_contact.linkedin = l_id
     else 
