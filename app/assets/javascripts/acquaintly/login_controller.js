@@ -40,8 +40,10 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
       },
       success_message: "You have been logged in.",
       error_entity: $scope.login_error
-    });
-    $location.path("/dashboard");
+    },
+      function (){
+        $location.path("/dashboard");}
+    );
   };
 
   $scope.logout = function() {
@@ -50,22 +52,24 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
       url: '/users/sign_out.json',
       success_message: 'You have been logged out.',
       error_entity: $scope.login_error
-    });
-    $location.path("/");
+    },
+      function (){
+        $location.path("/");}
+    );
   };
 
-  $scope.password_reset = function() {
-    $scope.submit({
-      method: 'POST',
-      url: '/users/password.json',
-      data: {
-        user: { email: $scope.login_user.email
-        }
-      },
-        success_message: "Reset instructions have been sent to your e-mail address.",
-        error_entity: $scope.login_error
-    });
-  };
+  // $scope.password_reset = function() {
+  //   $scope.submit({
+  //     method: 'POST',
+  //     url: '/users/password.json',
+  //     data: {
+  //       user: { email: $scope.login_user.email
+  //       }
+  //     },
+  //       success_message: "Reset instructions have been sent to your e-mail address.",
+  //       error_entity: $scope.login_error
+  //   });
+  // };
 
   // $scope.unlock = function() {
   //   $scope.submit({
@@ -114,20 +118,20 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
     );
   };
 
-  $scope.change_password = function() {
-    $scope.submit({
-      method: "POST",
-      url: '/users/password.json',
-      data: {
-        user: { email: $scope.register_user.email,
-          password: $scope.register_user.password,
-          password_confirmation: $scope.register_user.password_confirmation
-        }
-      },
-      success_message: "Your password has been updated.",
-      error_entity: $scope.register_error
-    });
-  };
+  // $scope.change_password = function() {
+  //   $scope.submit({
+  //     method: "POST",
+  //     url: '/users/password.json',
+  //     data: {
+  //       user: { email: $scope.register_user.email,
+  //         password: $scope.register_user.password,
+  //         password_confirmation: $scope.register_user.password_confirmation
+  //       }
+  //     },
+  //     success_message: "Your password has been updated.",
+  //     error_entity: $scope.register_error
+  //   });
+  // };
 
   $scope.submit = function(parameters, redirect) {
     $scope.reset_messages();
@@ -172,8 +176,8 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
   };
 
   $scope.reset_users = function() {
-    $scope.register_user.first_name = null,
-    $scope.register_user.first_name = null,
+    $scope.register_user.first_name = null;
+    $scope.register_user.first_name = null;
     $scope.login_user.email = null;
     $scope.login_user.password = null;
     $scope.register_user.email = null;
