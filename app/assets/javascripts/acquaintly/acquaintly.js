@@ -1,4 +1,4 @@
-var AcquaintlyApp = angular.module('AcquaintlyApp', ['AppRouter', 'AppController']);
+var AcquaintlyApp = angular.module('AcquaintlyApp', ['AppRouter', 'AppController', 'ngResource']);
 
 var AppRouter = angular.module('AppRouter', ['ngRoute']);
 
