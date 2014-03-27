@@ -20,7 +20,6 @@ class Connection < ActiveRecord::Base
     user.linkedin = l_id
     user.access_token = auth.credentials.token
     user.expires_at = auth.credentials.expires_at
-    binding.pry
     user.picture = picture
     # find/create corresponding contact to user
     if Contact.find(l_id.contact_id).nil?
@@ -62,22 +61,36 @@ class Connection < ActiveRecord::Base
 
 
 
-  def self.get_connections(user)
+  def self.get_all_connections(user)
     # assemble a 'contacts' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
-    contacts = []
+    connections = []
     list = Connection.where(user_id: user.id)
-    list.each do |contact|
+    list.each do |connection|
       item = {
-              id: Linkedin.find_by(contact_id: contact.contact_id).linkedin_id,
-              first_name: FirstName.find(contact.first_name_id).name,
-              last_name: LastName.find(contact.last_name_id).name,
-              category: contact.category
+              connection_id: connection.id,
+              linkedin_id: Linkedin.find_by(connection_id: connection.contact_id).linkedin_id,
+              first_name: FirstName.find(connection.first_name_id).name,
+              last_name: LastName.find(connection.last_name_id).name,
+              category: connection.category,
+              picture: connection.picture.linkedin_pic
               }
-      contacts << item
+      connections << item
     end
     # return the 'contacts' array
     contacts
+  end
+
+  def self.get_connection(user, connection)
+    contact = Contact.find(connection.contact_id)
+    item = {
+            linkedin_id: contact.linkedin,
+            first_name: FirstName.find(connection.first_name_id).name,
+            last_name: LastName.find(connection.first_name_id).name,
+            category: connection.category,
+            picture: contact.picture.linkedin_pic
+          }
+    return item
   end
 
 

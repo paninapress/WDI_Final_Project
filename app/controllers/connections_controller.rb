@@ -11,11 +11,15 @@ class ConnectionsController < ApplicationController
 
   def index
     user = current_user
-    contacts = Connection.get_connections(user)
+    contacts = Connection.get_all_connections(user)
     render :json => contacts
   end
 
   def show
+    user = current_user
+    conn = Connection.find(params[:id])
+    connection = Connection.get_connection(user, conn)
+    render :json => connection
   end
 
 end
