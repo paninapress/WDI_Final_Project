@@ -169,6 +169,8 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
   };
 
   $scope.reset_users = function() {
+    $scope.register_user.first_name = null,
+    $scope.register_user.first_name = null,
     $scope.login_user.email = null;
     $scope.login_user.password = null;
     $scope.register_user.email = null;
