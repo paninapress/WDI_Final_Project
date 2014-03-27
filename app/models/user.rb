@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
   has_many :connections
   has_one :picture
 
-    def self.create_with_omniauth auth
+
+    def self.create_with_omniauth (auth, user)
+      
     # auth == request.env['omniauth.auth']
     provider = auth.provider
     linkedin_connections_array = auth.extra.raw_info.connections.values[1]
@@ -16,14 +18,22 @@ class User < ActiveRecord::Base
 
     l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
     # user = current_user || User.find(l_id.user_id)
-    user = User.where(first_name: auth.info.first_name).where(last_name: auth.info.last_name)
-    binding.pry
+    # user = User.where(first_name: auth.info.first_name).where(last_name: auth.info.last_name)
     picture = Picture.where(user_id: user.id) || Picture.find_by(linkedin_pic: auth.info.image) || Picture.create(linkedin_pic: auth.info.image)
     # find user & set/update linkedin_id/access_token/linkedin picture
-    user.linkedin = l_id ; user.access_token = auth.credentials.token ; user.expires_at = auth.credentials.expires_at ; user.picture = picture
+    user.linkedin = l_id
+    user.access_token = auth.credentials.token
+    user.expires_at = auth.credentials.expires_at
+    user.picture = picture
     # find/create corresponding contact to user
-    if Contact.find(l_id.contact_id).nil? then user_contact = Contact.create(); user_contact.linkedin = l_id else user_contact = Contact.find(l_id.contact_id) end
-    user_contact.linkedin = l_id ; user_contact.picture = picture
+    if Contact.find(l_id.contact_id).nil?
+      user_contact = Contact.create()
+      user_contact.linkedin = l_id
+    else 
+      user_contact = Contact.find(l_id.contact_id) 
+    end
+    user_contact.linkedin = l_id
+    user_contact.picture = picture
 
     # create/update user's connections:
     linkedin_connections_array.each do |c|
@@ -32,25 +42,30 @@ class User < ActiveRecord::Base
         contact = Contact.find(Linkedin.find_by(linkedin_id: c.id).contact_id)
       # 1.b) if not in DB, need to create the contact
       else
-        contact = Contact.create() ; contact.linkedin = Linkedin.create(linkedin_id: c.id)
+        contact = Contact.create()
+        contact.linkedin = Linkedin.create(linkedin_id: c.id)
       end
       # 2) create/update the connection between user and contact
       connection = Connection.where(user_id: user.id).where(contact_id: contact.id)
         # create connection if none exist
       if (connection.empty?)
-        connection = Connection.create() ; user.connections << connection ; contact.connections << connection
+        connection = Connection.create()
+        user.connections << connection
+        contact.connections << connection
       end
       # create/update names/picture
       first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
       last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
       picture = Picture.find_by(linkedin_pic: c.pictureUrl) || Picture.create(linkedin_pic: c.pictureUrl)
-      first_name.connections << connection ; last_name.connections << connection ; contact.picture = picture
+      first_name.connections << connection
+      last_name.connections << connection
+      contact.picture = picture
     end
   end
 
 
 
-  def get_contacts user
+  def self.get_contacts(user)
     # assemble a 'contacts' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
     contacts = []
