@@ -41,6 +41,7 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
       success_message: "You have been logged in.",
       error_entity: $scope.login_error
     });
+    $location.path("/#/dashboard")
   };
 
   $scope.logout = function() {
@@ -50,6 +51,7 @@ AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function(
       success_message: 'You have been logged out.',
       error_entity: $scope.login_error
     });
+    $location.path("/#/login")
   };
 
   $scope.password_reset = function() {
