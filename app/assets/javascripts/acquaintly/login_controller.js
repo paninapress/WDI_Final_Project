@@ -1,4 +1,4 @@
-AppController.controller('LoginCtrl', ['$scope', '$http', function($scope, $http){
+AppController.controller('LoginCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 
   $scope.login_user = {
     email: null,
@@ -107,6 +107,7 @@ AppController.controller('LoginCtrl', ['$scope', '$http', function($scope, $http
       success_message: "You have been registered and logged in.  A confirmation e-mail has been sent to your e-mail address, your access will terminate in 2 days if you do not use the link in that e-mail.",
       error_entity: $scope.register_error
     });
+    $location.path("/#/dashboard");
   };
 
   $scope.change_password = function() {
