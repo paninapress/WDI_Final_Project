@@ -14,8 +14,9 @@ h1, h4 {
 body {
   padding-bottom: 70px;
 }
-/*--------------03-GLOBAL STYLES-----------*/
-
-button {
+.largeBtn {
   width: 100%
 }
+/*--------------03-GLOBAL STYLES-----------*/
+
+
