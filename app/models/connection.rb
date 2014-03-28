@@ -3,6 +3,7 @@ class Connection < ActiveRecord::Base
   belongs_to :contact
   belongs_to :first_name
   belongs_to :last_name
+  has_many :logs, include: [:comments]
 
 
   def self.collect_data (auth, user)
@@ -12,7 +13,11 @@ class Connection < ActiveRecord::Base
     # USER CREATION
 
     l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
-    picture = Picture.where(user_id: user.id)[0] || Picture.find_by(linkedin_pic: auth.info.image) || Picture.create(linkedin_pic: auth.info.image)
+    if auth.info.image.nil?
+      picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+    else
+      picture = Picture.where(user_id: user.id)[0] || Picture.create(linkedin_pic: auth.info.image)
+    end
     # find user & set/update linkedin_id/access_token/linkedin picture
     user.linkedin = l_id
     user.access_token = auth.credentials.token
@@ -49,7 +54,11 @@ class Connection < ActiveRecord::Base
       # create/update names/picture
       first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
       last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
-      picture = Picture.find_by(contact_id: c.id) || Picture.find_by(linkedin_pic: c.pictureUrl) || Picture.create(linkedin_pic: c.pictureUrl)
+      if c.pictureUrl.nil? 
+        picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+      else 
+        picture = Picture.find_by(contact_id: contact.id) || Picture.create(linkedin_pic: c.pictureUrl)
+      end
       first_name.connections << connection
       last_name.connections << connection
       contact.picture = picture
@@ -64,14 +73,16 @@ class Connection < ActiveRecord::Base
     connections = []
     list = Connection.where(user_id: user.id)
     list.each do |connection|
-
+      contact = Contact.find(connection.contact_id)
       item = {
               connection_id: connection.id,
               linkedin_id: Linkedin.find_by(contact_id: connection.contact_id).linkedin_id,
               first_name: FirstName.find(connection.first_name_id).name,
               last_name: LastName.find(connection.last_name_id).name,
               category: connection.category,
-              # picture: Contact.find(connection.contact_id).picture.linkedin_pic
+
+              picture: contact.picture.linkedin_pic
+
               }
       connections << item
     end
@@ -81,14 +92,20 @@ class Connection < ActiveRecord::Base
 
   def self.get_connection(user, connection)
     contact = Contact.find(connection.contact_id)
-    item = {
-            linkedin_id: contact.linkedin,
-            first_name: FirstName.find(connection.first_name_id).name,
-            last_name: LastName.find(connection.first_name_id).name,
-            category: connection.category,
-            # picture: contact.picture.linkedin_pic
-          }
-    item
+
+    result = {
+            info: {
+              linkedin_id: contact.linkedin,
+              first_name: FirstName.find(connection.first_name_id).name,
+              last_name: LastName.find(connection.first_name_id).name,
+              category: connection.category,
+              picture: contact.picture.linkedin_pic
+            },
+            logs:
+              Log.where(connection_id: connection.id)
+            }
+    result
+
   end
 
 
