@@ -22,4 +22,11 @@ class ConnectionsController < ApplicationController
     render :json => connection
   end
 
+  def update
+    id = params[:id]
+    connection = Connection.find(id)
+    connection.update_attributes(category: category)
+    render :status => 200
+  end
+
 end

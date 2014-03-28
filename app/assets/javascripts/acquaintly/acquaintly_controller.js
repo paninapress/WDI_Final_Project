@@ -16,28 +16,38 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $location.path(path);
     };
 
-    Connection = $resource('/connections/:id', {id: "@id"});
+    Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
 
     $scope.connections = Connection.query();
 
     $scope.toBeCategorized = function(){
-
+      var noCategory = [];
       for (i in $scope.connections) {
-        noCategory = [];
         if ($scope.connections[i]['category'] === null || $scope.connections[i]['category'] === 0) {
           noCategory.push($scope.connections[i]);
         }
-        noCategory[0]['category'] = 0;
-        return noCategory;
+        // noCategory[0]['category'] = 0;
+        // return noCategory;
+        $scope.connections[0].category = 0;
+        return $scope.connections;
       };
     };
 
-    $scope.categorized = function(id, category) {
+    $scope.categorized = function(contact, index, cat) {
       // $scope.toBeCategorized[id]['category'] = category;
       // find the id of $scope.connections we're looking for
       // make custom route to custom method in ConnectionsController to update
-      $http.put("/category/"+id+"/"+category);
-    }
+      $scope.connections[index]['category'] = cat;
+
+      contact['category'] = cat;
+      $scope.con = contact;
+      var conn = Connection.get({id: index});
+      conn.category = cat;
+      var $id = conn.id;
+      Connection.update({id: $id}, conn);
+      $scope.connections.shift();
+      $scope.connections[0]['category'] = 0;
+    };
 
   }]);
 
