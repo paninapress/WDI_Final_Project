@@ -3,6 +3,7 @@ class Connection < ActiveRecord::Base
   belongs_to :contact
   belongs_to :first_name
   belongs_to :last_name
+  has_many :logs, include: [:comments]
 
 
   def self.collect_data (auth, user)
@@ -89,15 +90,18 @@ class Connection < ActiveRecord::Base
 
   def self.get_connection(user, connection)
     contact = Contact.find(connection.contact_id)
-
-    item = {
-            linkedin_id: contact.linkedin,
-            first_name: FirstName.find(connection.first_name_id).name,
-            last_name: LastName.find(connection.first_name_id).name,
-            category: connection.category,
-            picture: contact.picture.linkedin_pic
-          }
-    item
+    result = {
+            info: {
+              linkedin_id: contact.linkedin,
+              first_name: FirstName.find(connection.first_name_id).name,
+              last_name: LastName.find(connection.first_name_id).name,
+              category: connection.category,
+              picture: contact.picture.linkedin_pic
+            },
+            logs:
+              Log.where(connection_id: connection.id)
+            }
+    result
   end
 
 
