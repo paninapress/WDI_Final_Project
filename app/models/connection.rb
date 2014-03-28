@@ -74,16 +74,18 @@ class Connection < ActiveRecord::Base
     list = Connection.where(user_id: user.id)
     list.each do |connection|
       contact = Contact.find(connection.contact_id)
-      item = {
-              connection_id: connection.id,
-              linkedin_id: Linkedin.find_by(contact_id: connection.contact_id).linkedin_id,
-              first_name: FirstName.find(connection.first_name_id).name,
-              last_name: LastName.find(connection.last_name_id).name,
-              category: connection.category,
-
-              picture: contact.picture.linkedin_pic
-
-              }
+      result = {
+              info: {
+                connection_id: connection.id,
+                linkedin_id: Linkedin.find_by(contact_id: connection.contact_id).linkedin_id,
+                first_name: FirstName.find(connection.first_name_id).name,
+                last_name: LastName.find(connection.last_name_id).name,
+                category: connection.category,
+                picture: contact.picture.linkedin_pic
+                },
+                logs: 
+                  Log.where(connection_id: connection.id)
+                }
       connections << item
     end
     # return the 'contacts' array
