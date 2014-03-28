@@ -56,7 +56,7 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <div id="contactsList" class="col-md-8" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+      <div class="contactsList col-md-8" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
           <img ng-src="{{contact.picture}}">
           {{contact.first_name}} 
           {{contact.last_name}}

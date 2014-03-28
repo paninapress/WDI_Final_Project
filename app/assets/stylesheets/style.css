@@ -25,7 +25,7 @@ body {
 .navbar-fixed-top li{
   float: right;
 }
-#contactsList img{
+.contactsList img{
   height: 100px;
 }
 /*--------------03-GLOBAL STYLES-----------*/
