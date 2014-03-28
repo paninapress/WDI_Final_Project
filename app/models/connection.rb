@@ -89,7 +89,6 @@ class Connection < ActiveRecord::Base
       connections << result
     end
     # return the 'contacts' array
-    binding.pry
     connections
   end
 

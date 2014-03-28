@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', '$timeout', function($scope, $location, $anchorScroll, $resource, $timeout) {
     // $http.get('/auth/linkedin/callback.json').then(function(response){
     //     $scope.data = response;
     //   });
@@ -39,12 +39,12 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.toBeCategorized = function(){
       var noCategory = [];
       for (i in $scope.connections) {
-        if ($scope.connections[i]['info']['category'] === null || $scope.connections[i]['info']['category'] === 0) {
-          noCategory.push($scope.connections[i]['info']);
-        }
-      };
-        noCategory[0]['category'] = 0;
-        return noCategory;
+        if ($scope.connections[i].info.category === null || $scope.connections[i].info.category === 0) {
+          noCategory.push($scope.connections[i]);
+        };
+      }
+      noCategory[0].info.category = 0;
+      return noCategory;
     };
 
     $scope.categorized = function(contact, index, cat) {
@@ -53,9 +53,9 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       // $scope.connections[index + 1]['category'] = 0;
     };
 
-  }]);
+}]);
 
 // ng-show if category === 0
 // upon iteration, category is set to 0
-// if "Slip" is clicked, category goes to 5
+// if "Skip" is clicked, category goes to 5
 // else, category is set to 1..4
