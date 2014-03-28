@@ -39,8 +39,8 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.toBeCategorized = function(){
       var noCategory = [];
       for (i in $scope.connections) {
-        if ($scope.connections[i]['category'] === null || $scope.connections[i]['category'] === 0) {
-          noCategory.push($scope.connections[i]);
+        if ($scope.connections[i]['info']['category'] === null || $scope.connections[i]['info']['category'] === 0) {
+          noCategory.push($scope.connections[i]['info']);
         }
       };
         noCategory[0]['category'] = 0;

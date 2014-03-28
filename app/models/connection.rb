@@ -86,9 +86,10 @@ class Connection < ActiveRecord::Base
                 logs: 
                   Log.where(connection_id: connection.id)
                 }
-      connections << item
+      connections << result
     end
     # return the 'contacts' array
+    binding.pry
     connections
   end
 
