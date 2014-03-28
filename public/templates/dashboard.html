@@ -34,14 +34,21 @@
       </h5>
     </div>
     <div class="col-md-4">
-      <label>Search</label>
-      <input type="text"></input>
+      <h5>
+        Search: <input type="text" ng-model="query" />
+        Order By:
+          <select ng-model="contactSort">
+            <option value="first_name">First Name</option>
+            <option value="last_name"> Last Name</option>
+            <option value="category">Category</option>
+          </select>
+      </h5>
     </div>
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <ul id="contactsList">
-        <li ng-repeat='contact in connections' ng-click='contactShow(contact)'>
+        <li ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
           <img ng-src="{{contact.picture}}"> 
           {{contact.first_name}} 
           {{contact.last_name}}
