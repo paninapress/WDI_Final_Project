@@ -25,8 +25,8 @@ class ConnectionsController < ApplicationController
   def update
     id = params[:id]
     connection = Connection.find(id)
-    connection.update_attributes(category: category)
-    render :status => 200
+    connection.update_attributes(category: params.require(:category))
+    render :json => {good: "job"}, :status => 200
   end
 
 end

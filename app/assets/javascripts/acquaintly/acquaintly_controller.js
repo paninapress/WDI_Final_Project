@@ -26,27 +26,15 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         if ($scope.connections[i]['category'] === null || $scope.connections[i]['category'] === 0) {
           noCategory.push($scope.connections[i]);
         }
-        // noCategory[0]['category'] = 0;
-        // return noCategory;
-        $scope.connections[0].category = 0;
-        return $scope.connections;
       };
+        noCategory[0]['category'] = 0;
+        return noCategory;
     };
 
     $scope.categorized = function(contact, index, cat) {
-      // $scope.toBeCategorized[id]['category'] = category;
-      // find the id of $scope.connections we're looking for
-      // make custom route to custom method in ConnectionsController to update
-      $scope.connections[index]['category'] = cat;
-
-      contact['category'] = cat;
-      $scope.con = contact;
-      var conn = Connection.get({id: index});
-      conn.category = cat;
-      var $id = conn.id;
-      Connection.update({id: $id}, conn);
-      $scope.connections.shift();
-      $scope.connections[0]['category'] = 0;
+      contact.$update({category: cat, id: contact.connection_id});
+      // Connection.update({id: $id}, conn);
+      // $scope.connections[index + 1]['category'] = 0;
     };
 
   }]);
