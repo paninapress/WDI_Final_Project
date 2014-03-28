@@ -18,7 +18,18 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Connection = $resource('/connections/:id', {id: "@id"});
     $scope.connections = Connection.query();
 
-    $scope.contactShow = function(id){
-      $location.path('/connections/'+id);
+    //allows all contacts to show
+    $scope.allContacts = true;
+
+    //click on a contact and will hide list 
+    //and show that contact's info
+    $scope.contactShow = function(contact){
+      $scope.allContacts = false;
+      $scope.thisContact = contact;
+    };
+
+    //click the back button to view the list again
+    $scope.allShow = function(){
+      $scope.allContacts = true;
     };
   }]);
