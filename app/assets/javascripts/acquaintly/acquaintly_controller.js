@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', '$timeout', function($scope, $location, $anchorScroll, $resource, $timeout) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', '$http', function($scope, $location, $anchorScroll, $resource, $http) {
     // $http.get('/auth/linkedin/callback.json').then(function(response){
     //     $scope.data = response;
     //   });
@@ -38,19 +38,26 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.toBeCategorized = function(){
       var noCategory = [];
-      for (i in $scope.connections) {
+      for (var i = 0; i < $scope.connections.length; i++) {
         if ($scope.connections[i].info.category === null || $scope.connections[i].info.category === 0) {
           noCategory.push($scope.connections[i]);
-        };
+        }
       }
       noCategory[0].info.category = 0;
       return noCategory;
     };
 
-    $scope.categorized = function(contact, index, cat) {
-      contact.$update({category: cat, id: contact.connection_id});
+    $scope.categorized = function(contact, cat) {
+      contact.$update({id: contact.connection_id}, {category: cat});
+      // $http.put("/connections/"+contact.connection_id+"", {category: cat}).success(function(){console.log("Updated");});
+      // Connection.put({id: contact.connection_id}, {category: cat});
       // Connection.update({id: $id}, conn);
       // $scope.connections[index + 1]['category'] = 0;
+    };
+
+    $scope.createLog = function(contact) {
+      var log = {id: contact.connection_id, source: $scope.newLog.source, time: Date()};
+      // $http.post("/connections/"+contact.connection_id+"/logs", log);
     };
 
 }]);

@@ -12,7 +12,6 @@
     </div>
     <div class="col-md-4">
       <h3>{{contact.info.first_name}} {{contact.info.last_name}}</h3>
-      {{contact.info.connection_id}}
     </div> 
   </div>
 
@@ -22,7 +21,7 @@
     <button>Exit</button>
       </div>
       <div class="col-md-6">
-    <button ng-click="categorized(contact.info, 5)">Skip/None</button>
+    <button ng-click="categorized(contact, 5)">Skip/None</button>
       </div>
     </div>
   </div>
@@ -30,10 +29,10 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="col-md-6">
-        <button ng-click="categorized(contact.info, 1)">Category 1</button>
+        <button ng-click="categorized(contact, 1)">Category 1</button>
       </div>
       <div class="col-md-6">
-        <button ng-click="categorized(contact.info, 2)">Category 2</button>
+        <button ng-click="categorized(contact, 2)">Category 2</button>
       </div>
     </div>
   </div>
@@ -41,10 +40,10 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="col-md-6">
-        <button ng-click="categorized(contact.info, 3)">Category 3</button>
+        <button ng-click="categorized(contact, 3)">Category 3</button>
       </div>
       <div class="col-md-6">
-        <button ng-click="categorized(contact.info, 4)">Category 4</buton>
+        <button ng-click="categorized(contact, 4)">Category 4</buton>
       </div>
     </div>
   </div>
