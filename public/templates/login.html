@@ -1,8 +1,9 @@
 <!-- Site#Index: Landing page & sign in-->
+<span ng-controller="AppCtrl"> <!-- fix later for now this allows AppCtrl to work on this page as well -->
 <nav class="navbar navbar-default navbar-fixed-bottom visible-xs" role="navigation">
   <ul class="nav nav-pills">
     <li ng-click="scrollTo('signInUser')"><a>Sign In</a></li>
-    <li ng-click="go('/signup')"><a>Get Started now</a></li>
+    <li ng-click="scrollTo('signUpUser')"><a>Get Started now</a></li>
   </ul>
 </nav>
 <div class="row">
@@ -20,7 +21,7 @@
     <h4 class="visible-xs">
       <a href="#learn">Learn more --></a>
     </h4>
-    <button type="button" class="btn btn-info hidden-xs" ng-click="go('/signup')">
+    <button type="button" class="btn btn-info hidden-xs" ng-click="scrollTo('signUpUser')">
       Get started now -->
     </button>
 
@@ -74,7 +75,7 @@
 
 <!-- THIS IS THE REGISTER SECTION -->
 
-<div class="row">
+<div id="signUpUser" class="row">
   <div class="col-md-8 col-md-offset-2">
     </h3>Add an image here that displays next steps to the user.</h3>
 
@@ -131,3 +132,4 @@
       <button ng-click="register()" class="btn btn-primary" >Register</button>
   </div>
 </div>
+</span>
