@@ -38,8 +38,8 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <ul>
-      <li ng-repeat='contact in connections'>
-        {{contact.first_name}} {{contact.last_name}}
+      <li ng-repeat='contact in connections' >
+        <span ng-click='contactShow(contact.connection_id)'>{{contact.connection_id}} {{contact.first_name}} {{contact.last_name}}</span>
       </li>
     </ul>
   </div>

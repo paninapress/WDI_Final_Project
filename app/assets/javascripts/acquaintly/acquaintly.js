@@ -24,6 +24,10 @@ AppRouter.config(['$routeProvider','$locationProvider',
       when('/site', {
         templateUrl: '/templates/dashboard.html',
         controller: 'AppCtrl'
+      }).
+      when('/connections/:id', {
+        templateUrl: '/templates/contact_show.html',
+        controller: 'AppCtrl'
       });
       // $locationProvider.html5Mode(true)
   }]);

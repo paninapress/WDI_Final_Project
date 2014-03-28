@@ -18,4 +18,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Connection = $resource('/connections/:id', {id: "@id"});
     $scope.connections = Connection.query();
 
+    $scope.contactShow = function(id){
+      $location.path('/connections/'+id);
+    };
   }]);

@@ -71,7 +71,7 @@ class Connection < ActiveRecord::Base
               first_name: FirstName.find(connection.first_name_id).name,
               last_name: LastName.find(connection.last_name_id).name,
               category: connection.category,
-              picture: Contact.find(connection.contact_id).picture.linkedin_pic
+              # picture: Contact.find(connection.contact_id).picture.linkedin_pic
               }
       connections << item
     end
@@ -86,7 +86,7 @@ class Connection < ActiveRecord::Base
             first_name: FirstName.find(connection.first_name_id).name,
             last_name: LastName.find(connection.first_name_id).name,
             category: connection.category,
-            picture: contact.picture.linkedin_pic
+            # picture: contact.picture.linkedin_pic
           }
     item
   end
