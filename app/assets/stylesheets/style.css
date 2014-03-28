@@ -13,12 +13,20 @@ h1, h4 {
 /*--------------02-BODY--------------------*/
 body {
   padding-bottom: 70px;
+  padding-top: 70px;
+
 }
 .largeBtn {
   width: 100%
 }
 #contactShowHide {
   padding-top: 50px;
+}
+.navbar-fixed-top li{
+  float: right;
+}
+.contactsList img{
+  height: 100px;
 }
 /*--------------03-GLOBAL STYLES-----------*/
 
