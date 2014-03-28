@@ -5,4 +5,5 @@ WdiFinal::Application.routes.draw do
   resources :connections
   get '/dashboard', to: 'site#show'
   get '/auth/:provider/callback', to: 'connections#collect'
+  put '/category/:id/:category', to: 'connection#category'
 end
