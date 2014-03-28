@@ -4,44 +4,49 @@
     <h1>{{appName}}</h1>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-md-4  col-md-offset-2">
-    insert contact image,
+{{obj}} {{con}}
+<div ng-repeat="contact in toBeCategorized()" ng-show="contact.category === 0">
+  <div class="row" >
+    <div class="col-md-4  col-md-offset-2">
+    <img src="{{contact.picture}}"></img>
+      
+    </div>
+    <div class="col-md-4">
+      <h3>{{contact.first_name}} {{contact.last_name}}</h3>
+      {{contact.connection_id}}
+    </div> 
   </div>
-  <div class="col-md-4">
-    first, and last name here
-  </div> 
-</div>
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="col-md-6">
-  <button>Exit</button>
-    </div>
-    <div class="col-md-6">
-  <button>Skip/None</button>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="col-md-6">
-      Category 1
-    </div>
-    <div class="col-md-6">
-      Category 2
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-6">
+    <button>Exit</button>
+      </div>
+      <div class="col-md-6">
+    <button ng-click="categorized(contact, $index, 5)">Skip/None</button>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="col-md-6">
-      Category 3
+  </br>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-6">
+        <button ng-click="categorized(contact, $index, 1)">Category 1</button>
+      </div>
+      <div class="col-md-6">
+        <button ng-click="categorized(contact, $index, 2)">Category 2</button>
+      </div>
     </div>
-    <div class="col-md-6">
-      Category 4
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-6">
+        <button ng-click="categorized(contact, $index, 3)">Category 3</button>
+      </div>
+      <div class="col-md-6">
+        <button ng-click="categorized(contact, $index, 4)">Category 4</buton>
+      </div>
     </div>
   </div>
 </div>
