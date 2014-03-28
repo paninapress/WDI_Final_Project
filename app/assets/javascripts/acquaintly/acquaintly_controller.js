@@ -35,6 +35,10 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.allShow = function(){
       $scope.allContacts = true;
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93b6ca7b58d72774153427f6407568152c892b8d
 
     $scope.toBeCategorized = function(){
       var noCategory = [];
