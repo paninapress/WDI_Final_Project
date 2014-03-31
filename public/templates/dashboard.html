@@ -1,30 +1,39 @@
 <!-- This is the main dashboard page -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <ul class="nav nav-pills">
+    <li ng-controller="LoginCtrl" ng-click="logout()">
+      <a>Logout</a>
+    </li>
+    <li>
+      <a href="/auth/linkedin">Sync'd In:<img src="http://www.africalegalaid.com/pics/linkedin-logo.png"></img></a>
+    </li>
+  </ul>
+</nav>
 <div class="row">
-  <button ng-controller="LoginCtrl" ng-click="logout()" class="btn">Logout</button>
   <div class="col-md-4 col-md-offset-4">
     <h1>{{appName}}</h1>
   </div> 
 <!-- Start all contacts span (show/hide) -->
 <span ng-show="allContacts">
   <div>
-      Get LinkedIn Info:
-      <a href="/auth/linkedin"><img src="http://www.africalegalaid.com/pics/linkedin-logo.png"></img></a>
+      
+      
     </br>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <button type="button" class="btn btn-danger largeBtn">Start Categorizing</button>
+      <button type="button" class="btn btn-danger largeBtn" ng-click="go('/categorize')">Start Categorizing</button>
     </div> 
    
-  <div class="row">
+<!--   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h5>
         Your overall social state: 
-        <!-- add % or img? -->
+        add % or img?
       </h5>
     </div>
-  </div>
+  </div> -->
   <br>
   <div class="row">
     <div class="col-md-4 col-md-offset-2">
@@ -83,4 +92,4 @@
       </div>
     </div>
   </div>
-</div> <!-- end contact show/hide section -->
+</div> <!-- end contact show/hide section

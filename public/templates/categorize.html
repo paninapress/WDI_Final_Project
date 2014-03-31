@@ -1,4 +1,15 @@
 <!-- This is the view users see while categorizing their contacts. -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <ul class="nav nav-pills">
+    <li ng-controller="LoginCtrl" ng-click="logout()">
+      <a>Logout</a>
+    </li>
+    <li ng-click="go('/dashboard')">
+      <a>Dashboard</a>
+    </li>
+  </ul>
+</nav>
+
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <h1>{{appName}}</h1>
@@ -8,7 +19,6 @@
   <div class="row" >
     <div class="col-md-4  col-md-offset-2">
     <img src="{{contact.info.picture}}"></img>
-      
     </div>
     <div class="col-md-4">
       <h3>{{contact.info.first_name}} {{contact.info.last_name}}</h3>
@@ -18,7 +28,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="col-md-6">
-    <button>Exit</button>
+    <button ng-click='go("/dashboard")'>Exit</button>
       </div>
       <div class="col-md-6">
     <button ng-click="categorized(contact, 5)">Skip/None</button>
