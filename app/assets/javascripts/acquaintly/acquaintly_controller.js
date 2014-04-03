@@ -1,9 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', '$http', function($scope, $location, $anchorScroll, $resource, $http) {
-    // $http.get('/auth/linkedin/callback.json').then(function(response){
-    //     $scope.data = response;
-    //   });
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
 
     $scope.appName = "Acquaintly";
 
@@ -23,7 +20,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     //allows all contacts to show
     $scope.allContacts = true;
-    // $scope.thisContact = undefined;
+
     //click on a contact and will hide list 
     //and show that contact's info
     $scope.contactShow = function(contact){

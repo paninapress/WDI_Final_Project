@@ -99,31 +99,4 @@ class Connection < ActiveRecord::Base
     connections
   end
 
-  def self.get_connection(user, connection)
-    contact = Contact.find(connection.contact_id)
-
-    result = {
-            info: {
-              linkedin_id: contact.linkedin,
-              first_name: FirstName.find(connection.first_name_id).name,
-              last_name: LastName.find(connection.first_name_id).name,
-              category: connection.category,
-              picture: contact.picture.linkedin_pic
-            }
-          }
-              # Log.where(connection_id: connection.id)
-    Log.where(connection_id: connection.id).each do |log|
-      comments = []
-      log.comments.each do |comment|
-        comments << comment
-      end
-      log = {log: comments}
-    end
-    result.logs = log
-    binding.pry
-    result
-
-  end
-
-
 end

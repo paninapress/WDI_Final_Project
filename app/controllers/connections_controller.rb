@@ -16,10 +16,6 @@ class ConnectionsController < ApplicationController
   end
 
   def show
-    user = current_user
-    conn = Connection.find(params[:id])
-    connection = Connection.get_connection(user, conn)
-    render :json => connection
   end
 
   def update
