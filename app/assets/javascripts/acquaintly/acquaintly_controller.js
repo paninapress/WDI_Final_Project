@@ -14,7 +14,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
-
+    Log = $resource('/connections/:connection_id/logs/:id');
     $scope.connections = Connection.query();
 
 
@@ -53,8 +53,9 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     $scope.createLog = function(contact) {
-      var log = {id: contact.connection_id, source: $scope.newLog.source, time: Date()};
-      // $http.post("/connections/"+contact.connection_id+"/logs", log);
+      console.log("Creating...");
+      console.log(contact);
+      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source}, function(){console.log("success!");});
     };
 
 }]);
