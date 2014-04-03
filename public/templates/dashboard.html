@@ -87,9 +87,11 @@
           <input type="hidden" ng-model="newLog.time"></placeholder>
           <button ng-click="createLog(thisContact)">Add New Log</button>
         <div ng-repeat="log in thisContact.logs">
-          {{log.timestamp}} - {{log.source}}
+          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.comments.length > 0"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
+          <div ng-show="showComment" ng-repeat="comment in log.comments">
+            {{comment.text}}
+          </div>
         </div>
-          {{thisContact}}
       </div>
     </div>
   </div>
