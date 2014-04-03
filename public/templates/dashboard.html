@@ -57,9 +57,9 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <ul id="contactsList">
-        <li ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact.info)'>
-          <img src={{contact.info.picture}}> 
-          {{contact['info'].first_name}} 
+        <li ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+          <img src="{{contact.info.picture}}"></img> 
+          {{contact['info'].first_name}}
           {{contact['info'].last_name}}
           Category: {{contact.info.category || "none"}}
         </li>
@@ -75,10 +75,10 @@
     <button ng-click='allShow()'>back</button>
     <div class="row">
       <div class="col-md-4  col-md-offset-2">
-        <img nsrc={{thisContact.picture}}>
+        <img src="{{thisContact.info.picture}}"></img>
       </div>
       <div class="col-md-4">
-         {{thisContact.first_name}} {{thisContact.last_name}}
+         {{thisContact.info.first_name}} {{thisContact.info.last_name}}
       </div> 
     </div>
     <div class="row">
@@ -87,8 +87,9 @@
           <input type="hidden" ng-model="newLog.time"></placeholder>
           <button ng-click="createLog(thisContact)">Add New Log</button>
         <div ng-repeat="log in thisContact.logs">
-          {{log.date}} - {{log.string}}
+          {{log.timestamp}} - {{log.source}}
         </div>
+          {{thisContact}}
       </div>
     </div>
   </div>

@@ -23,7 +23,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     //allows all contacts to show
     $scope.allContacts = true;
-
+    // $scope.thisContact = undefined;
     //click on a contact and will hide list 
     //and show that contact's info
     $scope.contactShow = function(contact){

@@ -82,13 +82,20 @@ class Connection < ActiveRecord::Base
                 last_name: LastName.find(connection.last_name_id).name,
                 category: connection.category,
                 picture: contact.picture.linkedin_pic
-                },
-                logs: 
-                  Log.where(connection_id: connection.id)
                 }
-      connections << result
+              }
+      result['logs'] = []
+      Log.where(connection_id: connection.id).each do |log|
+        comments = []
+        log.comments.each do |comment|
+          comments << comment
+        end
+        log = {log: log, comments: comments}
+        result['logs'] << log
+      end
+    connections << result
     end
-    # return the 'contacts' array
+    # return the 'connections' array
     connections
   end
 
@@ -102,10 +109,18 @@ class Connection < ActiveRecord::Base
               last_name: LastName.find(connection.first_name_id).name,
               category: connection.category,
               picture: contact.picture.linkedin_pic
-            },
-            logs:
-              Log.where(connection_id: connection.id)
             }
+          }
+              # Log.where(connection_id: connection.id)
+    Log.where(connection_id: connection.id).each do |log|
+      comments = []
+      log.comments.each do |comment|
+        comments << comment
+      end
+      log = {log: comments}
+    end
+    result.logs = log
+    binding.pry
     result
 
   end
