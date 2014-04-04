@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', 'connections', function($scope, $location, $anchorScroll, $resource, connections) {
 
     $scope.appName = "Acquaintly";
 
@@ -15,8 +15,8 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
-    $scope.connections = Connection.query();
 
+    $scope.connections = connections;
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -45,7 +45,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     $scope.categorized = function(contact, cat) {
-      contact.$update({id: contact.connection_id}, {category: cat});
+      Connection.update({id: contact.connection_id}, {category: cat});
       // $http.put("/connections/"+contact.connection_id+"", {category: cat}).success(function(){console.log("Updated");});
       // Connection.put({id: contact.connection_id}, {category: cat});
       // Connection.update({id: $id}, conn);
@@ -64,3 +64,14 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 // upon iteration, category is set to 0
 // if "Skip" is clicked, category goes to 5
 // else, category is set to 1..4
+
+
+AppController.resolve = {
+  connections: function($q, $http) {
+    var deferred = $q.defer();
+    $http.get("/connections").success(function(successData) {
+      deferred.resolve(successData);
+    })
+    return deferred.promise;
+  }
+}

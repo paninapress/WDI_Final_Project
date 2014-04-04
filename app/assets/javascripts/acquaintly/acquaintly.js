@@ -15,11 +15,13 @@ AppRouter.config(['$routeProvider','$locationProvider',
       }).
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',
-        controller: 'AppCtrl'
+        controller: 'AppCtrl',
+        resolve: AppController.resolve
       }).
       when('/categorize', {
         templateUrl: '/templates/categorize.html',
-        controller: 'AppCtrl'
+        controller: 'AppCtrl',
+        resolve: AppController.resolve
       }).
       when('/site', {
         templateUrl: '/templates/dashboard.html',
