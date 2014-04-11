@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource, connections) {
 
     $scope.appName = "Acquaintly";
 
@@ -15,8 +15,10 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
+    
+    // $scope.connections = Connection.get();
+    $scope.conns = connections;
     $scope.connections = Connection.query();
-
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -33,23 +35,27 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
+    $scope.noCategory = [];
+
     $scope.toBeCategorized = function(){
-      var noCategory = [];
+      $scope.noCategory = [];
       for (var i = 0; i < $scope.connections.length; i++) {
         if ($scope.connections[i].info.category === null || $scope.connections[i].info.category === 0) {
-          noCategory.push($scope.connections[i]);
+          $scope.noCategory.push($scope.connections[i]);
         }
       }
-      noCategory[0].info.category = 0;
-      return noCategory;
+      $scope.noCategory[0].info.category = 0;
+      return $scope.noCategory;
     };
 
     $scope.categorized = function(contact, cat) {
-      contact.$update({id: contact.connection_id}, {category: cat});
+      Connection.update({id: contact.info.connection_id}, {category: cat});
       // $http.put("/connections/"+contact.connection_id+"", {category: cat}).success(function(){console.log("Updated");});
       // Connection.put({id: contact.connection_id}, {category: cat});
       // Connection.update({id: $id}, conn);
       // $scope.connections[index + 1]['category'] = 0;
+      $scope.noCategory.shift();
+      $scope.noCategory[0].info.category = 0;
     };
 
     $scope.createLog = function(contact) {
@@ -64,3 +70,18 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 // upon iteration, category is set to 0
 // if "Skip" is clicked, category goes to 5
 // else, category is set to 1..4
+
+
+AppController.resolve = {
+  connections: function($q, $http) {
+    var deferred = $q.defer();
+    $http.get("/connections").
+      success(function(successData) {
+        deferred.resolve(successData);
+      }).
+      error(function(errorData){
+        deferred.resolve("Error");
+      });
+    return deferred.promise;
+  }
+};
