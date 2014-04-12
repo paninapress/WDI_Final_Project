@@ -16,16 +16,14 @@
 <!-- Start all contacts span (show/hide) -->
 <span ng-show="allContacts">
   <div>
-      
-      
     </br>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <button type="button" class="btn btn-danger largeBtn" ng-click="go('/categorize')">Start Categorizing</button>
+      <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div> 
-   
+   <div ng-show="categorize == true" ng-include="templates[0].url"></div>
 <!--   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h5>
@@ -85,13 +83,13 @@
         <!-- CREATE NEW LOG/COMMENT -->
           <!-- Dropdown menu to select source of communication -->
           <select name="Source"ng-model="newLog.source">
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-            <option value="in-person">In-Person</option>
-            <option value="im">Instant Message</option>
-            <option value="linkedin">LinkedIn</option>
-            <option value="facebook">Facebook</option>
-            <option value="twitter">Twitter</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+            <option value="In Person">In-Person</option>
+            <option value="IM">Instant Message</option>
+            <option value="Linkedin">LinkedIn</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Twitter">Twitter</option>
           </select></br>
           <input type="textarea" ng-model="newLog.comment" placeholder="text"></input></br>
           <input type="hidden" ng-model="newLog.time"></placeholder>
@@ -108,3 +106,4 @@
     </div>
   </div>
 </div> <!-- end contact show/hide section -->
+
