@@ -17,7 +17,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Log = $resource('/connections/:connection_id/logs/:id');
     Comment = $resource('/connections/:connection_id/logs/:log_id/comments/:id');
     
-    // $scope.connections = Connection.get();
     // $scope.conns = connections;
     $scope.connections = Connection.query();
 
@@ -36,43 +35,32 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
-    // $scope.noCategory = [];
-
     $scope.categorize = false;
 
     $scope.toBeCategorized = function(){
       $scope.noCategory = [];
       for (var i = 0; i < $scope.connections.length; i++) {
         if ($scope.connections[i].info.category === null || $scope.connections[i].info.category === 0) {
-          $scope.noCategory.push($scope.connections[i]);
-        } else {
-          $scope.noCategory.push(false);
-        }
+          var connection = {data: $scope.connections[i], index: i};
+          $scope.noCategory.push(connection);
+        } 
       }
-      // $scope.noCategory[0].info.category = 0;
       if ($scope.categorize === false) {
         $scope.categorize = true;
       } else {
         $scope.categorize = false;
       };
-      // return $scope.noCategory;
-
     };
 
     $scope.categorizeOff = function(){$scope.categorize = false;};
 
-    $scope.categorized = function(contact, cat) {
-      Connection.update({id: contact.info.connection_id}, {category: cat});
-      // $http.put("/connections/"+contact.connection_id+"", {category: cat}).success(function(){console.log("Updated");});
-      // Connection.put({id: contact.connection_id}, {category: cat});
-      // Connection.update({id: $id}, conn);
-      // $scope.connections[index + 1]['category'] = 0;
+    $scope.categorized = function(contact, cat, index) {
+      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index)});
       $scope.noCategory.shift();
-      while ($scope.noCategory[0] !== false) {
-        $scope.noCategory.shift();
-      }
-      // $scope.connections[] = Connection.get({id: contact.info.connection_id})
-      // $scope.noCategory[0].info.category = 0;
+    };
+
+    $scope.updateConnection = function(connection, data, index) {
+      $scope.connections[index] = data.response;
     };
 
     $scope.createLog = function(contact) {
@@ -80,8 +68,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       console.log(contact);
       var createdLog = {};
       Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source}, function(successResponse){$scope.createComment(successResponse, $scope.newLog.comment)});
-      // if ($scope.newLog.comment) {
-      // }
     };
 
     $scope.createComment = function(data, comment) {
@@ -91,14 +77,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     }
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
-    $scope.template = $scope.templates[0];
 }]);
-
-// ng-show if category === 0
-// upon iteration, category is set to 0
-// if "Skip" is clicked, category goes to 5
-// else, category is set to 1..4
-
 
 AppController.resolve = {
   connections: function($q, $http) {
