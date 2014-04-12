@@ -1,6 +1,6 @@
 var AppController = angular.module('AppController', []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource, connections) {
+AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
 
     $scope.appName = "Acquaintly";
 
@@ -17,7 +17,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Log = $resource('/connections/:connection_id/logs/:id');
     Comment = $resource('/connections/:connection_id/logs/:log_id/comments/:id');
     
-    // $scope.conns = connections;
     $scope.connections = Connection.query();
 
     //allows all contacts to show
@@ -78,17 +77,3 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 }]);
-
-AppController.resolve = {
-  connections: function($q, $http) {
-    var deferred = $q.defer();
-    $http.get("/connections").
-      success(function(successData) {
-        deferred.resolve(successData);
-      }).
-      error(function(errorData){
-        deferred.resolve("Error");
-      });
-    return deferred.promise;
-  }
-};
