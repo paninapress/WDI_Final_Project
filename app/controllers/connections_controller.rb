@@ -16,17 +16,15 @@ class ConnectionsController < ApplicationController
   end
 
   def show
-    user = current_user
-    conn = Connection.find(params[:id])
-    connection = Connection.get_connection(user, conn)
-    render :json => connection
   end
 
   def update
     id = params[:id]
+    user = current_user
     connection = Connection.find(id)
     connection.update_attributes(category: params.require(:category))
-    render :json => {good: "job"}, :status => 200
+    responseData = Connection.get_connection(user,connection)
+    render :json => {response: responseData}, :status => 200
   end
 
 end

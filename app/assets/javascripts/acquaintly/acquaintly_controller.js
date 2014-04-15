@@ -1,9 +1,6 @@
 var AppController = angular.module('AppController', []);
 
 AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
-    // $http.get('/auth/linkedin/callback.json').then(function(response){
-    //     $scope.data = response;
-    //   });
 
     $scope.appName = "Acquaintly";
 
@@ -17,9 +14,10 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
-
+    Log = $resource('/connections/:connection_id/logs/:id');
+    Comment = $resource('/connections/:connection_id/logs/:log_id/comments/:id');
+    
     $scope.connections = Connection.query();
-
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -36,26 +34,44 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
+    $scope.categorize = false;
+
     $scope.toBeCategorized = function(){
-      var noCategory = [];
-      for (i in $scope.connections) {
-        if ($scope.connections[i]['category'] === null || $scope.connections[i]['category'] === 0) {
-          noCategory.push($scope.connections[i]);
-        }
+      $scope.noCategory = [];
+      for (var i = 0; i < $scope.connections.length; i++) {
+        if ($scope.connections[i].info.category === null) {
+          var connection = {data: $scope.connections[i], index: i};
+          $scope.noCategory.push(connection);
+        } 
+      }
+      if ($scope.categorize === false) {
+        $scope.categorize = true;
+      } else {
+        $scope.categorize = false;
       };
-        noCategory[0]['category'] = 0;
-        return noCategory;
     };
 
-    $scope.categorized = function(contact, index, cat) {
-      contact.$update({category: cat, id: contact.connection_id});
-      // Connection.update({id: $id}, conn);
-      // $scope.connections[index + 1]['category'] = 0;
+    $scope.categorized = function(contact, cat, index) {
+      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index)});
+      $scope.noCategory.shift();
     };
 
-  }]);
+    $scope.updateConnection = function(connection, data, index) {
+      $scope.connections[index] = data.response;
+    };
 
-// ng-show if category === 0
-// upon iteration, category is set to 0
-// if "Slip" is clicked, category goes to 5
-// else, category is set to 1..4
+    $scope.createLog = function(contact) {
+      console.log("Creating...");
+      console.log(contact);
+      var createdLog = {};
+      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source}, function(successResponse){$scope.createComment(successResponse, $scope.newLog.comment)});
+    };
+
+    $scope.createComment = function(data, comment) {
+      Comment.save({connection_id:data.response.connection_id, log_id:data.response.id}, {comment: comment}, function(){console.log("comment saved!");});
+      console.log("hit the createComment function with:");
+      console.log(data);
+    }
+
+    $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
+}]);

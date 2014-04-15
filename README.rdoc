@@ -1,28 +1,7 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Acquaintly
 
-Things you may want to cover:
+Acquaintly is a CRM intended to assist users in keeping in touch with their friends and contacts.  Sign in to your LinkedIn, Facebook, Gmail and more, and merge these sources into one combined contact card for each of your connections.  Then, categorize your contacts into various time intervals to keep track of how often you wish to get in touch with them.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This App was created with Ruby version 2.1.0, Rails 4, and AngularJS.  The developers are Nina Pacifico and Stephen Bauer.
