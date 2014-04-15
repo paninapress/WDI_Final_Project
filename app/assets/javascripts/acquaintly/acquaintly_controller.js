@@ -57,7 +57,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.updateConnection = function(connection, data, index) {
       $scope.connections[index] = data.response;
-      console.log(data);
       $scope.thisContact = data.response;
     };
 
