@@ -23,7 +23,12 @@
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div> 
+
+    <!-- INCLUDE CATEGORIZE -->
    <div ng-show="categorize == true" ng-include="templates[0].url"></div>
+
+
+
 <!--   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h5>
@@ -97,9 +102,9 @@
         <!-- end of create new log/coment -->
         </br></br>
         <div ng-repeat="log in thisContact.logs">
-          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.comments.length > 0"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
-          <div ng-show="showComment" ng-repeat="comment in log.comments">
-            {{comment.text}}
+          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
+          <div ng-show="showComment">
+            {{log.log.comment}}
           </div>
         </div>
       </div>

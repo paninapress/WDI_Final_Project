@@ -34,7 +34,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
-    $scope.categorize = false;
 
     $scope.toBeCategorized = function(){
       $scope.noCategory = [];
@@ -58,20 +57,15 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.updateConnection = function(connection, data, index) {
       $scope.connections[index] = data.response;
+      console.log(data);
+      $scope.thisContact = data.response;
     };
 
     $scope.createLog = function(contact) {
-      console.log("Creating...");
-      console.log(contact);
-      var createdLog = {};
-      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source}, function(successResponse){$scope.createComment(successResponse, $scope.newLog.comment)});
+      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source, comment: $scope.newLog.comment}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact))});
     };
 
-    $scope.createComment = function(data, comment) {
-      Comment.save({connection_id:data.response.connection_id, log_id:data.response.id}, {comment: comment}, function(){console.log("comment saved!");});
-      console.log("hit the createComment function with:");
-      console.log(data);
-    }
+    $scope.categorize = false;
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 }]);
