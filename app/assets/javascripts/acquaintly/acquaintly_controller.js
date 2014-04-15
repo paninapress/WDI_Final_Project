@@ -39,7 +39,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.toBeCategorized = function(){
       $scope.noCategory = [];
       for (var i = 0; i < $scope.connections.length; i++) {
-        if ($scope.connections[i].info.category === null || $scope.connections[i].info.category === 0) {
+        if ($scope.connections[i].info.category === null) {
           var connection = {data: $scope.connections[i], index: i};
           $scope.noCategory.push(connection);
         } 
@@ -50,8 +50,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         $scope.categorize = false;
       };
     };
-
-    $scope.categorizeOff = function(){$scope.categorize = false;};
 
     $scope.categorized = function(contact, cat, index) {
       Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index)});
