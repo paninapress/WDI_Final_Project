@@ -9,24 +9,8 @@ AppRouter.config(['$routeProvider','$locationProvider',
         templateUrl: '/templates/login.html',
         controller: 'LoginCtrl'
       }).
-      when('/signup', {
-        templateUrl: '/templates/signup.html',
-        controller: 'LoginCtrl'
-      }).
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',
-        controller: 'AppCtrl'
-      }).
-      when('/categorize', {
-        templateUrl: '/templates/categorize.html',
-        controller: 'AppCtrl'
-      }).
-      when('/site', {
-        templateUrl: '/templates/dashboard.html',
-        controller: 'AppCtrl'
-      }).
-      when('/connections/:id', {
-        templateUrl: '/templates/contact_show.html',
         controller: 'AppCtrl'
       });
       // $locationProvider.html5Mode(true)
