@@ -92,7 +92,7 @@ class Connection < ActiveRecord::Base
           }
     result['logs'] = []
     Log.where(connection_id: connection.id).each do |log|
-      result['logs'] << {log: log}
+      result['logs'] << {log: log, timestamp: log.timestamp.to_i}
     end
     result
   end

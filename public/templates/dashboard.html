@@ -103,7 +103,7 @@
         <!-- end of create new log/coment -->
         </br></br>
         <div ng-repeat="log in thisContact.logs">
-          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
+          {{dateify(log.timestamp)}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
           <div ng-show="showComment">
             {{log.log.comment}}
           </div>
