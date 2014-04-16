@@ -26,7 +26,7 @@ body {
 .contactsList {
   list-style: none;
 }
-.contactsList img{
+.contactsList img {
   height: 100px;
 }
 #learn, #signin, #signup {
@@ -35,12 +35,19 @@ body {
 }
 .wideBtn button {
   width: 50%;
+  min-height: 50px;
   float: left;
 }
-.squareBtn button{
+.bigBtn button {
   width: 50%;
   float: left;
   min-height: 150px;
+}
+.leftBtn {
+  border-radius: 4px 0 0 4px;
+}
+.rightBtn {
+  border-radius: 0 4px 4px 0;
 }
 /*--------------03-GLOBAL STYLES-----------*/
 

@@ -16,28 +16,29 @@
     <img src="{{noCategory[0].data.info.picture}}"></img>
     </div>
     <div class="col-md-4">
-      <h3>{{noCategory[0].data.info.first_name}} {{noCategory[0].data.info.last_name}}</h3>
+      <h3>{{noCategory[0].data.info.first_name}}</h3>
+      <h3>{{noCategory[0].data.info.last_name}}</h3>
     </div> 
   </div>
 
   <div class="row">
     <div class="col-md-8 col-md-offset-2 wideBtn">
-    <button ng-click="toBeCategorized()" type="button" class="btn btn-danger">Exit</button>
-    <button ng-click="categorized(noCategory[0].data, 5, noCategory[0].index)" type="button" class="btn btn-info">>Skip/None</button>
+    <button ng-click="toBeCategorized()" type="button" class="btn btn-danger leftBtn">Exit</button>
+    <button ng-click="categorized(noCategory[0].data, 5, noCategory[0].index)" type="button" class="btn btn-info rightBtn">>Skip/None</button>
     </div>
   </div>
   </br>
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 squareBtn">
-        <button ng-click="categorized(noCategory[0].data, 1, noCategory[0].index)" type="button" class="btn btn-primary">Category 1</button>
-        <button ng-click="categorized(noCategory[0].data, 2, noCategory[0].index)" type="button" class="btn btn-primary">Category 2</button>
+    <div class="col-md-8 col-md-offset-2 bigBtn">
+        <button ng-click="categorized(noCategory[0].data, 1, noCategory[0].index)" type="button" class="btn btn-primary leftBtn">Category 1</button>
+        <button ng-click="categorized(noCategory[0].data, 2, noCategory[0].index)" type="button" class="btn btn-primary rightBtn">Category 2</button>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 squareBtn">
-        <button ng-click="categorized(noCategory[0].data, 3, noCategory[0].index)" type="button" class="btn btn-primary">Category 3</button>
-        <button ng-click="categorized(noCategory[0].data, 4, noCategory[0].index)" type="button" class="btn btn-primary">Category 4</button>
+    <div class="col-md-8 col-md-offset-2 bigBtn">
+        <button ng-click="categorized(noCategory[0].data, 3, noCategory[0].index)" type="button" class="btn btn-primary leftBtn">Category 3</button>
+        <button ng-click="categorized(noCategory[0].data, 4, noCategory[0].index)" type="button" class="btn btn-primary rightBtn">Category 4</button>
     </div>
   </div>
 </div>
