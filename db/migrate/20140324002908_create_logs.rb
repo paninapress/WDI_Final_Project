@@ -2,7 +2,7 @@ class CreateLogs < ActiveRecord::Migration
   def change
     create_table :logs do |t|
       t.belongs_to :connection, index: true
-      t.date :timestamp
+      t.datetime :timestamp
       t.string :source
       t.text :comment
 

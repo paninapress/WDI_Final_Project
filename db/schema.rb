@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20140326183516) do
 
   create_table "logs", force: true do |t|
     t.integer  "connection_id"
-    t.date     "timestamp"
+    t.datetime "timestamp"
     t.string   "source"
     t.text     "comment"
     t.datetime "created_at"
