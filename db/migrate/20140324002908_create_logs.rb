@@ -4,6 +4,7 @@ class CreateLogs < ActiveRecord::Migration
       t.belongs_to :connection, index: true
       t.date :timestamp
       t.string :source
+      t.text :comment
 
       t.timestamps
     end

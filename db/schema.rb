@@ -16,15 +16,6 @@ ActiveRecord::Schema.define(version: 20140326183516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comments", force: true do |t|
-    t.integer  "log_id"
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comments", ["log_id"], name: "index_comments_on_log_id", using: :btree
-
   create_table "connections", force: true do |t|
     t.integer  "user_id"
     t.integer  "contact_id"
@@ -72,6 +63,7 @@ ActiveRecord::Schema.define(version: 20140326183516) do
     t.integer  "connection_id"
     t.date     "timestamp"
     t.string   "source"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
