@@ -1,13 +1,39 @@
 <!-- Site#Index: Landing page & sign in-->
-<nav class="navbar navbar-default navbar-fixed-bottom visible-xs" role="navigation">
+
+<!-- LogIn nav bar visible all times except XS devices -->
+<nav class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
   <ul class="nav nav-pills">
-    <li ng-click="scrollTo('signInUser')"><a>Sign In</a></li>
-    <li ng-click="scrollTo('signUpUser')"><a>Get Started now</a></li>
+    <form class="navbar-form navbar-right">
+      <span class="error" ng-show="login_error.message">
+      {{ login_error.message }}
+      </span>
+      Email: 
+        <span id='login-email' ng-class="{error: login_error.errors.email}"  ng-show="login_error.errors.email" ng-repeat="field_error in login_error.errors.email"> 
+          {{ field_error }}
+        </span>
+      <input type="email" ng-model="login_user.email"/>
+      Password: 
+        <span id="login-password" ng-class="{error: login_error.errors.password}" ng-show="login_error.errors.password" ng-repeat="field_error in login_error.errors.password">
+          {{ field_error }}
+        </span>
+      <input type="password" ng-model="login_user.password"/>
+      <button ng-click="login()" class="btn">Login</button>
+    </form>  
   </ul>
 </nav>
+<!-- This nav bar ONLY visible on XS devices -->
+<nav class="navbar navbar-default navbar-fixed-bottom visible-xs" role="navigation">
+  <ul class="nav nav-pills">
+    <li ng-click="scrollTo('signin')"><a>Sign In</a></li>
+    <li ng-click="scrollTo('signup')"><a>Get Started now</a></li>
+  </ul>
+</nav> 
+<!-- end Nav bar section -->
+
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <h1>{{appName}}</h1>
+    
   </div>
 </div>
 <div class="row">
@@ -18,16 +44,16 @@
     size otherwise the page displays the 
     get started button -->
     <h4 class="visible-xs">
-      <a href="#learn">Learn more --></a>
+      <a ng-click="scrollTo('learn')">Learn more --></a>
     </h4>
-    <button type="button" class="btn btn-info hidden-xs" ng-click="scrollTo('signUpUser')">
+    <button type="button" class="btn btn-info hidden-xs" ng-click="scrollTo('signin')">
       Get started now -->
     </button>
 
   </div>
 </div>
 
-<div class="row">
+<div id="learn" class="row">
   <div class="col-md-8 col-md-offset-2">
     <h5>What does Acquaintly do?</h5>
       <p>Keffiyeh letterpress street art gluten-free occupy, Odd Future Tumblr VHS roof party sartorial bicycle rights butcher pour-over. Organic ethnic chia, YOLO flannel Wes Anderson kitsch mustache selfies keytar skateboard Blue Bottle swag. Chia viral jean shorts actually, try-hard meh Marfa flexitarian salvia twee disrupt. Pug pop-up YOLO 8-bit, Portland Odd Future try-hard meh readymade chia tofu. Literally shabby chic PBR food truck. Synth scenester XOXO butcher, irony umami food truck plaid shabby chic mumblecore vinyl farm-to-table tote bag fanny pack. Single-origin coffee mumblecore yr, artisan dreamcatcher ugh DIY tote bag fixie typewriter quinoa YOLO.
@@ -38,35 +64,13 @@
 
 <!-- THIS IS THE LOG IN SECTION -->
 
-<div id="signInUser" class="row">
-  <div class="login col-md-8 col-md-offset-2">
-    <h1>Login</h1>
-  </div>
+<div id="signin" class="row">
+  <div class="col-md-8 col-md-offset-2">
+    
+    
+      
 
-  <div class="error" ng-show="login_error.message">
-    <p>{{ login_error.message }}</p>
-  </div>  
-
-
-  <div class="login-body">
-    <div id='login-email' ng-class="{ error: login_error.errors.email }" >  Email: <br>
-      <input ng-model="login_user.email" />
-      <div ng-show="login_errors.errors.email">
-        <div ng-repeat="field_error in login_error.errors.email">
-          {{ field_error }}
-        </div>
-      </div>
-    </div>
-
-    <div id="login-password" ng-class="{ error: login_error.errors.password }"> 
-      Password: <br>
-      <input type="password" ng-model="login_user.password" />
-      <div ng-show="login_error.errors.password">
-        <div ng-repeat="field_error in login_error.errors.password">{{ field_error }}</div>
-      </div>
-    </div>
-
-    <button ng-click="login()" class="btn">Login</button>
+    
     <button ng-click="logout()" class="btn">Logout</button>
     
   </div>
@@ -74,7 +78,7 @@
 
 <!-- THIS IS THE REGISTER SECTION -->
 
-<div id="signUpUser" class="row">
+<div id="signup" class="row">
   <div class="col-md-8 col-md-offset-2">
     </h3>Add an image here that displays next steps to the user.</h3>
 
