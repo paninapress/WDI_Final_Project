@@ -96,8 +96,9 @@
             <option value="Facebook">Facebook</option>
             <option value="Twitter">Twitter</option>
           </select></br>
-          <input type="textarea" ng-model="newLog.comment" placeholder="text"></input></br>
-          <input type="hidden" ng-model="newLog.time"></placeholder>
+          <input type="textarea" ng-model="newLog.comment" placeholder="Comment"></input>
+          <input type="date" ng-model="newLog.date"></input>
+          </br>
           <button ng-click="createLog(thisContact)">Add New Log</button>
         <!-- end of create new log/coment -->
         </br></br>

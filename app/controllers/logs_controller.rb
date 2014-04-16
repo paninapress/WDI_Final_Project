@@ -3,7 +3,8 @@ class LogsController < ApplicationController
     id = params[:connection_id]
     user = current_user
     connection = Connection.find(id)
-    log = Log.create(source: params.require(:source), comment: params[:comment], timestamp: Time.now)
+    date = params[:log][:date] != "" ? Time.parse(params.require(:log)[:date]) : Time.now
+    log = Log.create(source: params.require(:log)[:source], comment: params[:log][:comment], timestamp: date)
     connection.logs << log
     updated = Connection.get_connection(user, connection)
     render :json => {response: updated}

@@ -60,7 +60,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     $scope.createLog = function(contact) {
-      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source, comment: $scope.newLog.comment}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
+      Log.save({connection_id:contact.info.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
     };
 
     $scope.categorize = false;
