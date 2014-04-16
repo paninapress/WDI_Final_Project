@@ -12,8 +12,7 @@ h1, h4 {
 
 /*--------------02-BODY--------------------*/
 body {
-  padding-bottom: 70px;
-  padding-top: 70px;
+  padding: 70px 20px;
 }
 .largeBtn {
   width: 100%
@@ -24,12 +23,24 @@ body {
 .navbar-fixed-top li{
   float: right;
 }
+.contactsList {
+  list-style: none;
+}
 .contactsList img{
   height: 100px;
 }
 #learn, #signin, #signup {
   min-height: 800px;
   padding-top: 70px;
+}
+.wideBtn button {
+  width: 50%;
+  float: left;
+}
+.squareBtn button{
+  width: 50%;
+  float: left;
+  min-height: 150px;
 }
 /*--------------03-GLOBAL STYLES-----------*/
 
