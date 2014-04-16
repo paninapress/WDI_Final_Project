@@ -15,7 +15,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
-    Comment = $resource('/connections/:connection_id/logs/:log_id/comments/:id');
     
     $scope.connections = Connection.query();
 
@@ -47,11 +46,11 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         $scope.categorize = true;
       } else {
         $scope.categorize = false;
-      };
+      }
     };
 
     $scope.categorized = function(contact, cat, index) {
-      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index)});
+      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
       $scope.noCategory.shift();
     };
 
@@ -61,7 +60,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     $scope.createLog = function(contact) {
-      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source, comment: $scope.newLog.comment}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact))});
+      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source, comment: $scope.newLog.comment}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
     };
 
     $scope.categorize = false;
