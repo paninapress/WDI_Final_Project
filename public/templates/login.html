@@ -2,7 +2,6 @@
 
 <!-- LogIn nav bar visible all times except XS devices -->
 <nav class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
-  <ul class="nav nav-pills">
     <form class="navbar-form navbar-right">
       <span class="error" ng-show="login_error.message">
       {{ login_error.message }}
@@ -19,7 +18,6 @@
       <input type="password" ng-model="login_user.password"/>
       <button ng-click="login()" class="btn">Login</button>
     </form>  
-  </ul>
 </nav>
 <!-- This nav bar ONLY visible on XS devices -->
 <nav class="navbar navbar-default navbar-fixed-bottom visible-xs" role="navigation">
@@ -46,12 +44,13 @@
     <h4 class="visible-xs">
       <a ng-click="scrollTo('learn')">Learn more --></a>
     </h4>
-    <button type="button" class="btn btn-info hidden-xs" ng-click="scrollTo('signin')">
+    <button type="button" class="btn btn-info hidden-xs" ng-click="scrollTo('signup')">
       Get started now -->
     </button>
 
   </div>
 </div>
+
 
 <div id="learn" class="row">
   <div class="col-md-8 col-md-offset-2">
@@ -62,17 +61,26 @@
   </div>
 </div>
 
+
 <!-- THIS IS THE LOG IN SECTION -->
-
-<div id="signin" class="row">
+<div id="signin" class="row visible-xs">
   <div class="col-md-8 col-md-offset-2">
-    
-    
-      
-
-    
-    <button ng-click="logout()" class="btn">Logout</button>
-    
+    <form>
+      <span class="error" ng-show="login_error.message">
+      {{ login_error.message }}
+      </span>
+      Email: 
+        <span id='login-email' ng-class="{error: login_error.errors.email}"  ng-show="login_error.errors.email" ng-repeat="field_error in login_error.errors.email"> 
+          {{ field_error }}
+        </span>
+      <input type="email" ng-model="login_user.email"/>
+      Password: 
+        <span id="login-password" ng-class="{error: login_error.errors.password}" ng-show="login_error.errors.password" ng-repeat="field_error in login_error.errors.password">
+          {{ field_error }}
+        </span>
+      <input type="password" ng-model="login_user.password"/>
+      <button ng-click="login()" class="btn">Login</button>
+    </form> 
   </div>
 </div>
 
