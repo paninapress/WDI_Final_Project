@@ -3,7 +3,7 @@ class Connection < ActiveRecord::Base
   belongs_to :contact
   belongs_to :first_name
   belongs_to :last_name
-  has_many :logs, include: [:comments]
+  has_many :logs
 
 
   def self.collect_data (auth, user)
