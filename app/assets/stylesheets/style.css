@@ -1,7 +1,7 @@
 /* Table Of Contents */
 /* 01- HEADERS       */
 /* 02- BODY          */
-/* 03- GLOBAL STYLES */
+/* 03- BUTTON STYLES */
 
 
 /*--------------01-HEADERS-----------------*/
@@ -23,9 +23,6 @@ body {
 .navbar-fixed-top li{
   float: right;
 }
-.contactsList {
-  list-style: none;
-}
 .contactsList img {
   height: 100px;
 }
@@ -33,6 +30,9 @@ body {
   min-height: 800px;
   padding-top: 70px;
 }
+
+/*--------------03-BUTTON STYLES-----------*/
+
 .wideBtn button {
   width: 50%;
   min-height: 50px;
@@ -132,5 +132,3 @@ body {
   border-bottom: 10px solid transparent;
   border-right: 10px solid black;
 }
-/*--------------03-GLOBAL STYLES-----------*/
-
