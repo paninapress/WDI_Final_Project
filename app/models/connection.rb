@@ -80,17 +80,6 @@ class Connection < ActiveRecord::Base
 
   def self.get_connection(user, connection)
     contact = Contact.find(connection.contact_id)
-    # def multiplier
-    #   if connection.category = 21
-    #     return 4
-    #   elsif connection.category = 42 || connection.category = 90
-    #     return 3
-    #   elsif connection.category = 180
-    #     return 2
-    #   else
-    #     return 0
-    #   end
-    # end
     result = {
             info: {
               connection_id: connection.id,
@@ -105,15 +94,11 @@ class Connection < ActiveRecord::Base
     result['logs'] = []
     Log.where(connection_id: connection.id).each do |log|
       last_date = log if log.timestamp > last_date.timestamp
-      result['logs'] << {log: log, timestamp: log.timestamp.to_i}
+      result['logs'] << {log: log}
     end
     if connection.category && !last_date.nil?
-      i_health = ((Date.today - last_date.timestamp.to_date) / connection.category).to_f
-      result['c_health'] = {
-        last_date: last_date.timestamp,
-        health: i_health,
-        # color: i_health <= 0.8 ? "green" : (i_health > 0.8 && i_health <= multiplier) ? "red" : "grey"
-      }
+      i_health = ((Date.today - last_date.timestamp) / connection.category).to_f
+      result['c_health'] = i_health
     end
     result
   end
