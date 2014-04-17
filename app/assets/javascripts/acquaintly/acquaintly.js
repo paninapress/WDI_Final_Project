@@ -7,7 +7,7 @@ AppRouter.config(['$routeProvider','$locationProvider',
     $routeProvider.
       when('/', {
         templateUrl: '/templates/login.html',
-        controller: 'LoginCtrl'
+        controller: 'AppCtrl'
       }).
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',

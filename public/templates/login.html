@@ -2,7 +2,7 @@
 
 <!-- LogIn nav bar visible all times except XS devices -->
 <nav class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
-    <form class="navbar-form navbar-right">
+    <form ng-controller="LoginCtrl" class="navbar-form navbar-right">
       <span class="error" ng-show="login_error.message">
       {{ login_error.message }}
       </span>
@@ -64,7 +64,7 @@
 <!-- THIS IS THE LOG IN SECTION -->
 <div id="signin" class="row visible-xs">
   <div class="col-md-8 col-md-offset-2">
-    <form>
+    <form ng-controller="LoginCtrl">
       <span class="error" ng-show="login_error.message">
       {{ login_error.message }}
       </span>
@@ -85,7 +85,7 @@
 
 <!-- THIS IS THE REGISTER SECTION -->
 
-<div id="signup" class="row">
+<div id="signup" class="row" ng-controller="LoginCtrl">
   <div class="col-md-8 col-md-offset-2">
     </h3>Add an image here that displays next steps to the user.</h3>
 
