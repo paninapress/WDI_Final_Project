@@ -8,13 +8,13 @@ class Connection < ActiveRecord::Base
 
   def self.collect_data (auth, user)
     # auth == oauth response object, user = current_user
-    linkedin_connections_array = auth.extra.raw_info.connections.values[1]
+    linkedin_connections_array = auth.extra.raw_info.connections.values[-1]
 
     # USER CREATION
 
     l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
     if auth.info.image.nil?
-      picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+      picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
     else
       picture = Picture.where(user_id: user.id)[0] || Picture.create(linkedin_pic: auth.info.image)
     end
@@ -55,7 +55,7 @@ class Connection < ActiveRecord::Base
       first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
       last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
       if c.pictureUrl.nil? 
-        picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+        picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
       else 
         picture = Picture.find_by(contact_id: contact.id) || Picture.create(linkedin_pic: c.pictureUrl)
       end
@@ -80,6 +80,17 @@ class Connection < ActiveRecord::Base
 
   def self.get_connection(user, connection)
     contact = Contact.find(connection.contact_id)
+    # def multiplier
+    #   if connection.category = 21
+    #     return 4
+    #   elsif connection.category = 42 || connection.category = 90
+    #     return 3
+    #   elsif connection.category = 180
+    #     return 2
+    #   else
+    #     return 0
+    #   end
+    # end
     result = {
             info: {
               connection_id: connection.id,
@@ -90,9 +101,19 @@ class Connection < ActiveRecord::Base
               picture: contact.picture.linkedin_pic
             }
           }
+    last_date = connection.logs[0];
     result['logs'] = []
     Log.where(connection_id: connection.id).each do |log|
+      last_date = log if log.timestamp > last_date.timestamp
       result['logs'] << {log: log, timestamp: log.timestamp.to_i}
+    end
+    if connection.category && !last_date.nil?
+      i_health = ((Date.today - last_date.timestamp.to_date) / connection.category).to_f
+      result['c_health'] = {
+        last_date: last_date.timestamp,
+        health: i_health,
+        # color: i_health <= 0.8 ? "green" : (i_health > 0.8 && i_health <= multiplier) ? "red" : "grey"
+      }
     end
     result
   end
