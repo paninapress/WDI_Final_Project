@@ -59,7 +59,7 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <ul id="contactsList">
+      <ul class="contactsList">
         <li ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
           <img src="{{contact.info.picture}}"></img> 
           {{contact['info'].first_name}}
@@ -96,12 +96,15 @@
             <option value="Facebook">Facebook</option>
             <option value="Twitter">Twitter</option>
           </select></br>
-          <input type="textarea" ng-model="newLog.comment" placeholder="text"></input></br>
-          <input type="hidden" ng-model="newLog.time"></placeholder>
+          <input type="textarea" ng-model="newLog.comment" placeholder="Comment"></input>
+          <input type="date" ng-model="newLog.date"></input>
+          </br>
           <button ng-click="createLog(thisContact)">Add New Log</button>
         <!-- end of create new log/coment -->
         </br></br>
-        <div ng-repeat="log in thisContact.logs">
+        {{thisContact.c_health}}
+        <div ng-repeat="log in thisContact.logs | orderBy:'-timestamp'">
+          <button ng-click="removeLog(thisContact,log.log.id)">-</button>
           {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
           <div ng-show="showComment">
             {{log.log.comment}}
