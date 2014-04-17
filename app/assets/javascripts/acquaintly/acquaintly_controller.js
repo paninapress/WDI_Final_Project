@@ -67,12 +67,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       Log.remove({connection_id:contact.info.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));})
     };
 
-    $scope.dateify = function(log) {
-      // convert datetime to date
-      var date = new Date(Number(log)*1000);
-      return ((date.getMonth()+1) + "/" + (date.getDate()) + "/" + (date.getYear()+1900));
-    };
-
     $scope.categorize = false;
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
