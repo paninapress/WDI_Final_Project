@@ -9,4 +9,15 @@ class LogsController < ApplicationController
     updated = Connection.get_connection(user, connection)
     render :json => {response: updated}
   end
+
+  def destroy
+    id = params[:id]
+    connection_id = params[:connection_id]
+    user = current_user
+    connection = Connection.find(connection_id)
+    log = Log.find(id)
+    log.destroy
+    updated = Connection.get_connection(user, connection)
+    render :json => {response: updated}
+  end
 end

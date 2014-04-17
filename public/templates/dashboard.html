@@ -104,6 +104,7 @@
         </br></br>
         {{thisContact.c_health}}
         <div ng-repeat="log in thisContact.logs | orderBy:'-timestamp'">
+          <button ng-click="removeLog(thisContact,log.log.id)">-</button>
           {{dateify(log.timestamp)}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
           <div ng-show="showComment">
             {{log.log.comment}}
