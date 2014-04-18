@@ -16,7 +16,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
     
-    $scope.connections = Connection.query(function(){$scope.getAverageGroupHealth()});
+    $scope.connections = Connection.query(function(successResponse){$scope.getAverageGroupHealth(successResponse)});
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -59,6 +59,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.updateConnection = function(connection, data, index) {
       $scope.connections[index] = data.response;
       $scope.thisContact = data.response;
+      $scope.getAverageGroupHealth($scope.connections);
     };
 
     $scope.createLog = function(contact) {
@@ -77,7 +78,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.groupHealthTwo = null;
     $scope.groupHealthThree = null;
     $scope.groupHealthFour = null;
-    $scope.getAverageGroupHealth = function(){
+    $scope.getAverageGroupHealth = function(connectionsArray){
         var group1 = 0;
         var group2 = 0;
         var group3 = 0;
@@ -86,7 +87,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         var count2 = 0;
         var count3 = 0;
         var count4 = 0;
-        angular.forEach($scope.connections, function(contact){
+        angular.forEach(connectionsArray, function(contact){
         if (contact.info.category === 21 && contact.c_health){
           group1 += contact.c_health;
           count1 += 1;
