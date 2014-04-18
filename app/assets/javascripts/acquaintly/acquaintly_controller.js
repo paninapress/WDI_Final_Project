@@ -44,8 +44,10 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       }
       if ($scope.categorize === false) {
         $scope.categorize = true;
+        $scope.allContacts = false;
       } else {
         $scope.categorize = false;
+        $scope.allContacts = true;
       }
     };
 
