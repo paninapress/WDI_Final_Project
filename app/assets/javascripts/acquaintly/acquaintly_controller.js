@@ -72,4 +72,26 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.categorize = false;
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
+
+    $scope.groupOne = [];
+    $scope.groupTwo = [];
+    $scope.groupThree = [];
+    $scope.groupFour = [];
+    $scope.categoryArrSort = function(){
+        angular.forEach($scope.connections, function(contact){
+        if (contact.info.category === 21){
+          $scope.groupOne.push(contact);
+        }
+        else if (contact.info.category === 42){
+          $scope.groupTwo.push(contact)
+        }
+        else if (contact.info.category === 90){
+          $scope.groupThree.push(contact)
+        }
+        else if (contact.info.category === 180){
+          $scope.groupFour.push(contact)
+        }
+      })
+        console.log($scope.groupFour);
+    };
 }]);
