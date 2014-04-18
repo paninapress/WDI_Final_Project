@@ -79,19 +79,28 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.groupFour = [];
     $scope.categoryArrSort = function(){
         angular.forEach($scope.connections, function(contact){
-        if (contact.info.category === 21){
+        if (contact.info.category === 21 && contact.c_health){
           $scope.groupOne.push(contact);
         }
-        else if (contact.info.category === 42){
+        else if (contact.info.category === 42 && contact.c_health){
           $scope.groupTwo.push(contact)
         }
-        else if (contact.info.category === 90){
+        else if (contact.info.category === 90 && contact.c_health){
           $scope.groupThree.push(contact)
         }
-        else if (contact.info.category === 180){
+        else if (contact.info.category === 180 && contact.c_health){
           $scope.groupFour.push(contact)
         }
       })
-        console.log($scope.groupFour);
+    };
+    $scope.averageHealth = 0;
+    $scope.groupHealth = function(groupArray){
+      var totalHealth = 0;
+      angular.forEach(groupArray, function(contact){
+        totalHealth += contact.c_health;
+        console.log(totalHealth);
+      })
+      $scope.averageHealth = (totalHealth/groupArray.length);
+      console.log($scope.averageHealth);
     };
 }]);
