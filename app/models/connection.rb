@@ -3,18 +3,18 @@ class Connection < ActiveRecord::Base
   belongs_to :contact
   belongs_to :first_name
   belongs_to :last_name
-  has_many :logs, include: [:comments]
+  has_many :logs
 
 
   def self.collect_data (auth, user)
     # auth == oauth response object, user = current_user
-    linkedin_connections_array = auth.extra.raw_info.connections.values[1]
+    linkedin_connections_array = auth.extra.raw_info.connections.values[-1]
 
     # USER CREATION
 
     l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
     if auth.info.image.nil?
-      picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+      picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
     else
       picture = Picture.where(user_id: user.id)[0] || Picture.create(linkedin_pic: auth.info.image)
     end
@@ -55,7 +55,7 @@ class Connection < ActiveRecord::Base
       first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
       last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
       if c.pictureUrl.nil? 
-        picture = Picture.create(linkedin_pic: "http://memeorama.com/wp-content/uploads/2012/01/lolol-meme-face-gif.gif")
+        picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
       else 
         picture = Picture.find_by(contact_id: contact.id) || Picture.create(linkedin_pic: c.pictureUrl)
       end
@@ -65,61 +65,42 @@ class Connection < ActiveRecord::Base
     end
   end
 
-
-
   def self.get_all_connections(user)
     # assemble a 'connections' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
     connections = []
     list = Connection.where(user_id: user.id)
     list.each do |connection|
-      contact = Contact.find(connection.contact_id)
-      result = {
-              info: {
-                connection_id: connection.id,
-                linkedin_id: Linkedin.find_by(contact_id: connection.contact_id).linkedin_id,
-                first_name: FirstName.find(connection.first_name_id).name,
-                last_name: LastName.find(connection.last_name_id).name,
-                category: connection.category,
-                picture: contact.picture.linkedin_pic
-                }
-              }
-      result['logs'] = []
-      Log.where(connection_id: connection.id).each do |log|
-        comments = []
-        log.comments.each do |comment|
-          comments << comment
-        end
-        log = {log: log, comments: comments}
-        result['logs'] << log
-      end
-    connections << result
+      item = get_connection(user, connection)
+      connections << item
     end
     # return the 'connections' array
     connections
   end
 
   def self.get_connection(user, connection)
-  contact = Contact.find(connection.contact_id)
-  result = {
-          info: {
-            linkedin_id: contact.linkedin,
-            first_name: FirstName.find(connection.first_name_id).name,
-            last_name: LastName.find(connection.first_name_id).name,
-            category: connection.category,
-            picture: contact.picture.linkedin_pic
+    contact = Contact.find(connection.contact_id)
+    result = {
+            info: {
+              connection_id: connection.id,
+              linkedin_id: contact.linkedin.linkedin_id,
+              first_name: FirstName.find(connection.first_name_id).name,
+              last_name: LastName.find(connection.last_name_id).name,
+              category: connection.category,
+              picture: contact.picture.linkedin_pic
+            }
           }
-        }
-  result['logs'] = []
-  Log.where(connection_id: connection.id).each do |log|
-    comments = []
-    log.comments.each do |comment|
-      comments << comment
+    last_date = connection.logs[0];
+    result['logs'] = []
+    Log.where(connection_id: connection.id).each do |log|
+      last_date = log if log.timestamp > last_date.timestamp
+      result['logs'] << {log: log}
     end
-    log = {log: log, comments: comments}
-    result['logs'] << log
+    if connection.category && !last_date.nil?
+      i_health = ((Date.today - last_date.timestamp) / connection.category).to_f
+      result['c_health'] = i_health
+    end
+    result
   end
-  result
-end
 
 end

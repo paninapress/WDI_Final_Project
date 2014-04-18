@@ -15,7 +15,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
-    Comment = $resource('/connections/:connection_id/logs/:log_id/comments/:id');
     
     $scope.connections = Connection.query();
 
@@ -34,7 +33,6 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
-    $scope.categorize = false;
 
     $scope.toBeCategorized = function(){
       $scope.noCategory = [];
@@ -50,30 +48,28 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       } else {
         $scope.categorize = false;
         $scope.allContacts = true;
-      };
+      }
     };
 
     $scope.categorized = function(contact, cat, index) {
-      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index)});
+      Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
       $scope.noCategory.shift();
     };
 
     $scope.updateConnection = function(connection, data, index) {
       $scope.connections[index] = data.response;
+      $scope.thisContact = data.response;
     };
 
     $scope.createLog = function(contact) {
-      console.log("Creating...");
-      console.log(contact);
-      var createdLog = {};
-      Log.save({connection_id:contact.info.connection_id}, {source: $scope.newLog.source}, function(successResponse){$scope.createComment(successResponse, $scope.newLog.comment)});
+      Log.save({connection_id:contact.info.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
     };
 
-    $scope.createComment = function(data, comment) {
-      Comment.save({connection_id:data.response.connection_id, log_id:data.response.id}, {comment: comment}, function(){console.log("comment saved!");});
-      console.log("hit the createComment function with:");
-      console.log(data);
-    }
+    $scope.removeLog = function(contact, log_id) {
+      Log.remove({connection_id:contact.info.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));})
+    };
+
+    $scope.categorize = false;
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 }]);
