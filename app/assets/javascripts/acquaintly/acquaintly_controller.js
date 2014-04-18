@@ -16,7 +16,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
     
-    $scope.connections = Connection.query();
+    $scope.connections = Connection.query(function(){$scope.getAverageGroupHealth()});
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -102,13 +102,12 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         else if (contact.info.category === 180 && contact.c_health){
           group4 += contact.c_health;
           count4 += 1;
-          console.log(group4)
         }
       })
+      console.log('attempted');
       $scope.groupHealthOne = group1/count1;
       $scope.groupHealthTwo = group2/count2;
       $scope.groupHealthThree = group3/count3;
       $scope.groupHealthFour = group4/count4;
-      console.log($scope.groupHealthFour)
-    };
+    };   
 }]);
