@@ -73,34 +73,42 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 
-    $scope.groupOne = [];
-    $scope.groupTwo = [];
-    $scope.groupThree = [];
-    $scope.groupFour = [];
-    $scope.categoryArrSort = function(){
+    $scope.groupHealthOne = null;
+    $scope.groupHealthTwo = null;
+    $scope.groupHealthThree = null;
+    $scope.groupHealthFour = null;
+    $scope.getAverageGroupHealth = function(){
+        var group1 = 0;
+        var group2 = 0;
+        var group3 = 0;
+        var group4 = 0;
+        var count1 = 0;
+        var count2 = 0;
+        var count3 = 0;
+        var count4 = 0;
         angular.forEach($scope.connections, function(contact){
         if (contact.info.category === 21 && contact.c_health){
-          $scope.groupOne.push(contact);
+          group1 += contact.c_health;
+          count1 += 1;
         }
         else if (contact.info.category === 42 && contact.c_health){
-          $scope.groupTwo.push(contact)
+          group2 += contact.c_health;
+          count2 += 1;
         }
         else if (contact.info.category === 90 && contact.c_health){
-          $scope.groupThree.push(contact)
+          group3 += contact.c_health;
+          count3 += 1;
         }
         else if (contact.info.category === 180 && contact.c_health){
-          $scope.groupFour.push(contact)
+          group4 += contact.c_health;
+          count4 += 1;
+          console.log(group4)
         }
       })
-    };
-    $scope.averageHealth = 0;
-    $scope.groupHealth = function(groupArray){
-      var totalHealth = 0;
-      angular.forEach(groupArray, function(contact){
-        totalHealth += contact.c_health;
-        console.log(totalHealth);
-      })
-      $scope.averageHealth = (totalHealth/groupArray.length);
-      console.log($scope.averageHealth);
+      $scope.groupHealthOne = group1/count1;
+      $scope.groupHealthTwo = group2/count2;
+      $scope.groupHealthThree = group3/count3;
+      $scope.groupHealthFour = group4/count4;
+      console.log($scope.groupHealthFour)
     };
 }]);
