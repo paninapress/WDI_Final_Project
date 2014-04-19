@@ -16,7 +16,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
     Log = $resource('/connections/:connection_id/logs/:id');
     
-    $scope.connections = Connection.query(function(successResponse){$scope.getAverageGroupHealth(successResponse)});
+    $scope.connections = Connection.query(function(successResponse){$scope.sortGroup(successResponse)});
 
     //allows all contacts to show
     $scope.allContacts = true;
@@ -59,7 +59,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.updateConnection = function(connection, data, index) {
       $scope.connections[index] = data.response;
       $scope.thisContact = data.response;
-      $scope.getAverageGroupHealth($scope.connections);
+      $scope.sortGroup($scope.connections);
     };
 
     $scope.createLog = function(contact) {
@@ -74,11 +74,12 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 
-    $scope.groupHealthOne = null;
-    $scope.groupHealthTwo = null;
-    $scope.groupHealthThree = null;
-    $scope.groupHealthFour = null;
-    $scope.getAverageGroupHealth = function(connectionsArray){
+    $scope.groupOne = {contacts: [], averageHealth: null};
+    $scope.groupTwo = {contacts: [], averageHealth: null};
+    $scope.groupThree = {contacts: [], averageHealth: null};
+    $scope.groupFour = {contacts: [], averageHealth: null};
+    $scope.overallHeatlh = null;
+    $scope.sortGroup = function(connectionsArray){
         var group1 = 0;
         var group2 = 0;
         var group3 = 0;
@@ -89,26 +90,29 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
         var count4 = 0;
         angular.forEach(connectionsArray, function(contact){
         if (contact.info.category === 21 && contact.c_health){
+          $scope.groupOne['contacts'] = contact;
           group1 += contact.c_health;
           count1 += 1;
         }
         else if (contact.info.category === 42 && contact.c_health){
+          $scope.groupTwo['contacts'] = contact;
           group2 += contact.c_health;
           count2 += 1;
         }
         else if (contact.info.category === 90 && contact.c_health){
+          $scope.groupThree['contacts'] = contact;
           group3 += contact.c_health;
           count3 += 1;
         }
         else if (contact.info.category === 180 && contact.c_health){
+          $scope.groupFour['contacts'] = contact;
           group4 += contact.c_health;
           count4 += 1;
         }
       })
-      console.log('attempted');
-      $scope.groupHealthOne = group1/count1;
-      $scope.groupHealthTwo = group2/count2;
-      $scope.groupHealthThree = group3/count3;
-      $scope.groupHealthFour = group4/count4;
-    };   
+      $scope.groupOne['averageHealth'] = group1/count1;
+      $scope.groupTwo['averageHealth'] = group2/count2;
+      $scope.groupThree['averageHealth'] = group3/count3;
+      $scope.groupFour['averageHealth'] = group4/count4;
+    };
 }]);
