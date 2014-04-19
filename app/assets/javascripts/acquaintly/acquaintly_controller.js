@@ -83,46 +83,41 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     $scope.groupFour = {contacts: [], averageHealth: null};
     $scope.overallHealth = null;
     $scope.sortGroup = function(connectionsArray){
-        var group1 = 0;
-        var group2 = 0;
-        var group3 = 0;
-        var group4 = 0;
-        var count1 = 0;
-        var count2 = 0;
-        var count3 = 0;
-        var count4 = 0;
+        var g1 = {sum: null, count: null};
+        var g2 = {sum: null, count: null};
+        var g3 = {sum: null, count: null};
+        var g4 = {sum: null, count: null};
         angular.forEach(connectionsArray, function(contact){
         if (contact.info.category === 21 && contact.c_health){
           $scope.groupOne['contacts'] = contact;
-          group1 += contact.c_health;
-          count1 += 1;
+          g1['sum'] += contact.c_health;
+          g1['count'] += 1;
         }
         else if (contact.info.category === 42 && contact.c_health){
           $scope.groupTwo['contacts'] = contact;
-          group2 += contact.c_health;
-          count2 += 1;
+          g2['sum'] += contact.c_health;
+          g2['count'] += 1;
         }
         else if (contact.info.category === 90 && contact.c_health){
           $scope.groupThree['contacts'] = contact;
-          group3 += contact.c_health;
-          count3 += 1;
+          g3['sum'] += contact.c_health;
+          g3['count'] += 1;
         }
         else if (contact.info.category === 180 && contact.c_health){
           $scope.groupFour['contacts'] = contact;
-          group4 += contact.c_health;
-          count4 += 1;
+          g4['sum'] += contact.c_health;
+          g4['count'] += 1;
         }
       })
-      calculateAverages(group1,group2,group3,group4,count1,count2,count3,count4);
+      calcAverages(g1, g2, g3, g4);
     };
-    calculateAverages = function(g1,g2,g3,g4,c1,c2,c3,c4){
-      $scope.groupOne['averageHealth'] = g1/c1;
-      $scope.groupTwo['averageHealth'] = g2/c2;
-      $scope.groupThree['averageHealth'] = g3/c3;
-      $scope.groupFour['averageHealth'] = g4/c4;
-      var groupSum = g1 + g2 + g3 + g4;
-      var groupCount = c1 + c2 + c3 + c4;
-      $scope.overallHealth = groupSum / groupCount;
-      console.log($scope.overallHealth)
+    calcAverages = function(g1, g2, g3, g4){
+      $scope.groupOne['averageHealth'] = g1.sum / g1.count;
+      $scope.groupTwo['averageHealth'] = g2.sum / g2.count;
+      $scope.groupThree['averageHealth'] = g3.sum / g3.count;
+      $scope.groupFour['averageHealth'] = g4.sum / g4.count;
+      var allGroupSum = g1.sum + g2.sum + g3.sum + g4.sum;
+      var allGroupCount = g1.count + g2.count + g3.count + g4.count;
+      $scope.overallHealth = allGroupSum / allGroupCount;
     };
 }]);
