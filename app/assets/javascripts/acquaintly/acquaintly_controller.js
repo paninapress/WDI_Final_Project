@@ -74,11 +74,14 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
 
     $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 
+// START functions to get average/overall social health
+    // Choosing to include contacts in this hash because we can use
+    // them later for the queue/recommender feature
     $scope.groupOne = {contacts: [], averageHealth: null};
     $scope.groupTwo = {contacts: [], averageHealth: null};
     $scope.groupThree = {contacts: [], averageHealth: null};
     $scope.groupFour = {contacts: [], averageHealth: null};
-    $scope.overallHeatlh = null;
+    $scope.overallHealth = null;
     $scope.sortGroup = function(connectionsArray){
         var group1 = 0;
         var group2 = 0;
@@ -110,9 +113,16 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
           count4 += 1;
         }
       })
-      $scope.groupOne['averageHealth'] = group1/count1;
-      $scope.groupTwo['averageHealth'] = group2/count2;
-      $scope.groupThree['averageHealth'] = group3/count3;
-      $scope.groupFour['averageHealth'] = group4/count4;
+      calculateAverages(group1,group2,group3,group4,count1,count2,count3,count4);
+    };
+    calculateAverages = function(g1,g2,g3,g4,c1,c2,c3,c4){
+      $scope.groupOne['averageHealth'] = g1/c1;
+      $scope.groupTwo['averageHealth'] = g2/c2;
+      $scope.groupThree['averageHealth'] = g3/c3;
+      $scope.groupFour['averageHealth'] = g4/c4;
+      var groupSum = g1 + g2 + g3 + g4;
+      var groupCount = c1 + c2 + c3 + c4;
+      $scope.overallHealth = groupSum / groupCount;
+      console.log($scope.overallHealth)
     };
 }]);
