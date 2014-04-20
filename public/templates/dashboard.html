@@ -55,7 +55,7 @@
     </div>
   </div> <!-- end row with categorize btn and search -->
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+    <div ng-style="{{contact.c_health < 1 ? good : bad}}" class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2">
         <img src="{{contact.info.picture}}"></img>
       </div>

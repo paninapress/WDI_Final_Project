@@ -156,4 +156,8 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       return "n/a";
     }
   };
+  // Calculate div style based on health status
+  $scope.good = "{background: 'green'}";
+  $scope.bad = "{background: 'red'}";
+  console.log($scope.good)
 }]);
