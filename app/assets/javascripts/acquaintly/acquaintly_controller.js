@@ -109,15 +109,31 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
           g4['count'] += 1;
         }
       })
-      calcAverages(g1, g2, g3, g4);
+      calcGroupAverages(g1, g2, g3, g4);
+      calcOverallAverage(g1, g2, g3, g4);
     };
-    calcAverages = function(g1, g2, g3, g4){
+    calcGroupAverages = function(g1, g2, g3, g4){
       $scope.groupOne['averageHealth'] = g1.sum / g1.count;
       $scope.groupTwo['averageHealth'] = g2.sum / g2.count;
       $scope.groupThree['averageHealth'] = g3.sum / g3.count;
       $scope.groupFour['averageHealth'] = g4.sum / g4.count;
-      var allGroupSum = g1.sum + g2.sum + g3.sum + g4.sum;
-      var allGroupCount = g1.count + g2.count + g3.count + g4.count;
+    };
+    // calcOverallAverage is separate func becuase 
+    // the groups are weighted differently: g1 is 2x of g2 
+    // then g2 is 2x of g3 and so on...
+    calcOverallAverage = function(g1, g2, g3, g4){
+      var allGroupSum = null;
+      var allGroupCount = null;
+      
+      allGroupSum += (g1.sum * Math.pow(2,3)); //g1 weighted 2*2*2
+      allGroupSum += (g2.sum * Math.pow(2,2)); //g2 weighted 2*2
+      allGroupSum += (g3.sum * 2); //g3 weighted double 
+      allGroupSum += g4.sum;
+
+      allGroupCount += (g1.count * Math.pow(2,3));
+      allGroupCount += (g2.count * Math.pow(2,2));
+      allGroupCount += (g3.count * 2);
+      allGroupCount += g4.count;
       $scope.overallHealth = allGroupSum / allGroupCount;
     };
 }]);
