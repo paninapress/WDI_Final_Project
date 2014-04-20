@@ -157,7 +157,21 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     }
   };
   // Calculate div style based on health status
-  $scope.good = "{background: 'green'}";
-  $scope.bad = "{background: 'red'}";
-  console.log($scope.good)
+  $scope.changeStyle = function(health){
+    if (health < 0.8){
+      return "{background: 'green'}";
+    }
+    else if (health <= 1){
+      return "{background: 'orange'}";
+    }
+    else if (health > 1){
+      return "{background: 'red'}";
+    }
+    else if (health > 2){
+      return "{background: 'grey'}";
+    }
+    else {
+      return "{background: 'white'}";
+    }
+  };
 }]);
