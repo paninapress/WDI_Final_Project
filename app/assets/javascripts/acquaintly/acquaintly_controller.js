@@ -1,6 +1,6 @@
-var AppController = angular.module('AppController', []);
+var AppController = angular.module("AppController", []);
 
-AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$resource', function($scope, $location, $anchorScroll, $resource) {
+AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$resource", function($scope, $location, $anchorScroll, $resource) {
 
     $scope.appName = "Acquaintly";
 
@@ -13,8 +13,8 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $location.path(path);
     };
 
-    Connection = $resource('/connections/:id', {id: "@id"}, {update: {method: "PUT"}});
-    Log = $resource('/connections/:connection_id/logs/:id');
+    var Connection = $resource("/connections/:id", {id: "@id"}, {update: {method: "PUT"}});
+    var Log = $resource("/connections/:connection_id/logs/:id");
     
     $scope.connections = Connection.query();
 
@@ -33,6 +33,19 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       $scope.allContacts = true;
     };
 
+    $scope.categoryMessage = function(contact) {
+      var response = "";
+      if (contact.info.category === null) {
+        response = "Uncategorized";
+      }
+      else if (contact.info.category === 0) {
+        response = "Not categorized";
+      }
+      else {
+        response = ("Current category: " + contact.info.category + "days");
+      }
+      return response;
+    };
 
     $scope.toBeCategorized = function(){
       $scope.noCategory = [];
@@ -51,9 +64,11 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
       }
     };
 
-    $scope.categorized = function(contact, cat, index) {
+    $scope.categorized = function(contact, cat, index, list) {
       Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
-      $scope.noCategory.shift();
+      if (list === true) {
+        $scope.noCategory.shift();
+      }
     };
 
     $scope.updateConnection = function(connection, data, index) {
@@ -66,7 +81,7 @@ AppController.controller("AppCtrl",['$scope','$location','$anchorScroll', '$reso
     };
 
     $scope.removeLog = function(contact, log_id) {
-      Log.remove({connection_id:contact.info.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));})
+      Log.remove({connection_id:contact.info.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
     };
 
     $scope.categorize = false;
