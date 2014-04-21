@@ -81,13 +81,16 @@ class Connection < ActiveRecord::Base
   def self.get_connection(user, connection)
     contact = Contact.find(connection.contact_id)
     result = {
-            info: {
+            ids: {
               connection_id: connection.id,
               linkedin_id: contact.linkedin.linkedin_id,
-              first_name: FirstName.find(connection.first_name_id).name,
-              last_name: LastName.find(connection.last_name_id).name,
               category: connection.category,
               picture: contact.picture.linkedin_pic
+              
+            }
+            info: {
+              first_name: FirstName.find(connection.first_name_id).name,
+              last_name: LastName.find(connection.last_name_id).name,
             }
           }
     last_date = connection.logs[0];
