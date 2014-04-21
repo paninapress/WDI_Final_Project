@@ -87,18 +87,22 @@
     </div> <!-- end row for individual info -->
     <div id="recategorize">
       <h3>{{categoryMessage(thisContact)}}</h3>
-      <button ng-click="categorized(thisContact, 21, connections.indexOf(thisContact), false)">3 weeks</button>
-      <button ng-click="categorized(thisContact, 42, connections.indexOf(thisContact), false)">6 weeks</button>
-      <button ng-click="categorized(thisContact, 90, connections.indexOf(thisContact), false)">3 months</button>
-      <button ng-click="categorized(thisContact, 180, connections.indexOf(thisContact), false)">6 months</button>
-      <button ng-click="categorized(thisContact, 0, connections.indexOf(thisContact), false)">None</button>
-      <button ng-click="categorized(thisContact, 'null', connections.indexOf(thisContact), false)">Reset</button>
+      <select ng-model="newCategory">
+      <option value="21">3 weeks</option>
+      <option value="42">6 weeks</option>
+      <option value="90">3 months</option>
+      <option value="180">6 months</option>
+      <option value="0">None</option>
+      <option value="null">Reset</option>
+    </select>
+    <button ng-click="categorized(thisContact, newCategory, connections.indexOf(thisContact), false)">Recategorize</button>
     </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <!-- CREATE NEW LOG/COMMENT -->
           <!-- Dropdown menu to select source of communication -->
           <select name="Source"ng-model="newLog.source">
+            <option value="">Select source</option>
             <option value="Email">Email</option>
             <option value="Phone">Phone</option>
             <option value="In Person">In-Person</option>
