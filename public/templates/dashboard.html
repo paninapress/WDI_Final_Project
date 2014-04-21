@@ -24,15 +24,15 @@
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div> 
-
-  <!--   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h5>
-        Your overall social state: 
-        add % or img?
-      </h5>
+    <div class="row">
+      <div ng-hide="overallHealth === null" class="col-md-6 col-md-offset-3">
+        <h5>Your overall social state is {{overallHealth.status}} ({{overallHealth.percentage | number:0}}%)</h5>
+        <h5>Category 1 is {{groupOne.status}} ({{groupOne.percentage | number:0}}%)</h5>
+        <h5>Category 2 is {{groupTwo.status}} ({{groupTwo.percentage | number:0}}%)</h5>
+        <h5>Category 3 is {{groupThree.status}} ({{groupThree.percentage | number:0}}%)</h5>
+        <h5>Category 4 is {{groupFour.status}} ({{groupFour.percentage | number:0}}%)</h5>
+      </div>
     </div>
-  </div> -->
   <br>
     <div class="row">
       <div class="col-md-4 col-md-offset-2">
@@ -55,7 +55,7 @@
     </div>
   </div> <!-- end row with categorize btn and search -->
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+    <div ng-style="{{changeStyle(contact.c_health)}}" class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2">
         <img src="{{contact.info.picture}}"></img>
       </div>
