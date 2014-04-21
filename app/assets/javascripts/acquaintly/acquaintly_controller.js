@@ -113,10 +113,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       calcOverallAverage(g1, g2, g3, g4);
     };
   var calcGroupAverages = function(g1, g2, g3, g4){
-    $scope.groupOne.averageHealth = calcHealthStatus(g1.sum / g1.count);
-    $scope.groupTwo.averageHealth = calcHealthStatus(g2.sum / g2.count);
-    $scope.groupThree.averageHealth = calcHealthStatus(g3.sum / g3.count);
-    $scope.groupFour.averageHealth = calcHealthStatus(g4.sum / g4.count);
+    $scope.groupOne.averageHealth = g1.sum / g1.count;
+    $scope.groupTwo.averageHealth = g2.sum / g2.count;
+    $scope.groupThree.averageHealth = g3.sum / g3.count;
+    $scope.groupFour.averageHealth = g4.sum / g4.count;
   };
   // calcOverallAverage is separate func becuase 
   // the groups are weighted differently: g1 is 2x of g2 
@@ -124,7 +124,6 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   var calcOverallAverage = function(g1, g2, g3, g4){
     var allGroupSum = null;
     var allGroupCount = null;
-    var average = null;
     
     allGroupSum += (g1.sum * Math.pow(2,3)); //g1 weighted 2*2*2
     allGroupSum += (g2.sum * Math.pow(2,2)); //g2 weighted 2*2
@@ -136,8 +135,19 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     allGroupCount += (g3.count * 2);
     allGroupCount += g4.count;
     
-    average = allGroupSum / allGroupCount;
-    $scope.overallHealth = calcHealthStatus(average);
+    $scope.overallHealth = allGroupSum / allGroupCount;
+  };
+  // this is a function to calculate a percentage for the user
+  // on how well they're doing. Trying to get all Groups to 100%
+  // rather than how we use the numbers where lower is better
+  $scope.reversePercent = function(average){
+    if (average > 0){
+      console.log((100 - (average * 100)));
+      return (100 - (average * 100));
+    }
+    else {
+      return 0;
+    }
   };
   var calcHealthStatus = function(average){
     if (average <= 0.2){

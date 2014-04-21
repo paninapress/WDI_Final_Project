@@ -26,11 +26,11 @@
     </div> 
     <div class="row">
       <div ng-hide="overallHealth === null" class="col-md-6 col-md-offset-3">
-        <h5>Your overall social state: {{overallHealth}}</h5>
-        <h5>Category 1 is {{groupOne.averageHealth}}</h5>
-        <h5>Category 2 is {{groupTwo.averageHealth}}</h5>
-        <h5>Category 3 is {{groupThree.averageHealth}}</h5>
-        <h5>Category 4 is {{groupFour.averageHealth}}</h5>
+        <h5>Your overall social state is ({{reversePercent(overallHealth) | number:0}}%)</h5>
+        <h5>Category 1 is ({{reversePercent(groupOne.averageHealth) | number:0}}%)</h5>
+        <h5>Category 2 is ({{reversePercent(groupTwo.averageHealth) | number:0}}%)</h5>
+        <h5>Category 3 is ({{reversePercent(groupThree.averageHealth) | number:0}}%)</h5>
+        <h5>Category 4 is ({{reversePercent(groupFour.averageHealth) | number:0}}%)</h5>
       </div>
     </div>
   <br>
