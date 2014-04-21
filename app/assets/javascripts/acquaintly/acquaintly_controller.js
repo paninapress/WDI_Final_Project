@@ -98,28 +98,32 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   $scope.groupFour = {contacts: [], average: null, percentage: null, status: null};
   $scope.overallHealth = {average: null, percentage: null, status: null};
   $scope.sortGroup = function(connectionsArray){
+      $scope.groupOne.contacts = [];
+      $scope.groupTwo.contacts = [];
+      $scope.groupThree.contacts = [];
+      $scope.groupFour.contacts = [];
       var g1 = {sum: null, count: null};
       var g2 = {sum: null, count: null};
       var g3 = {sum: null, count: null};
       var g4 = {sum: null, count: null};
       angular.forEach(connectionsArray, function(contact){
-        if (contact.info.category === 21 && contact.c_health){
-          $scope.groupOne.contacts = contact;
+        if (contact.info.category === 21 && contact.c_health >= 0){
+          $scope.groupOne.contacts.push(contact);
           g1.sum += contact.c_health;
           g1.count += 1;
         }
-      else if (contact.info.category === 42 && contact.c_health){
-          $scope.groupTwo.contacts = contact;
+      else if (contact.info.category === 42 && contact.c_health >= 0){
+          $scope.groupTwo.contacts.push(contact);
           g2.sum += contact.c_health;
           g2.count += 1;
         }
-      else if (contact.info.category === 90 && contact.c_health){
-          $scope.groupThree.contacts = contact;
+      else if (contact.info.category === 90 && contact.c_health >= 0){
+          $scope.groupThree.contacts.push(contact);
           g3.sum += contact.c_health;
           g3.count += 1;
         }
-      else if (contact.info.category === 180 && contact.c_health){
-          $scope.groupFour.contacts = contact;
+      else if (contact.info.category === 180 && contact.c_health >= 0){
+          $scope.groupFour.contacts.push(contact);
           g4.sum += contact.c_health;
           g4.count += 1;
         }
@@ -156,7 +160,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     average = allGroupSum / allGroupCount;
     $scope.overallHealth.average = average;
     $scope.overallHealth.percentage =reversePercent(average);
-    $scope.overallHealth.status = calcHealthStatus(average)
+    $scope.overallHealth.status = calcHealthStatus(average);
   };
   var calcGroupPercentages = function(){
     $scope.groupOne.percentage = reversePercent($scope.groupOne.average);
@@ -174,7 +178,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   // on how well they're doing. Trying to get all Groups to 100%
   // rather than how we use the numbers where lower is better
   var reversePercent = function(average){
-    if (average > 0){
+    if (average >= 0){
       return (100 - (average * 100));
     }
     else {
