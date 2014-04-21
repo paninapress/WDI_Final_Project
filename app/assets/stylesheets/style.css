@@ -26,6 +26,7 @@ body {
 .contactsList img {
   height: 100px;
 }
+
 #learn, #signin, #signup {
   min-height: 800px;
   padding-top: 70px;
