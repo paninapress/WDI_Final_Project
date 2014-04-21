@@ -77,11 +77,11 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 // START functions to get average/overall social health
   // Choosing to include contacts in this hash because we can use
   // them later for the queue/recommender feature
-  $scope.groupOne = {contacts: [], averageHealth: null};
-  $scope.groupTwo = {contacts: [], averageHealth: null};
-  $scope.groupThree = {contacts: [], averageHealth: null};
-  $scope.groupFour = {contacts: [], averageHealth: null};
-  $scope.overallHealth = null;
+  $scope.groupOne = {contacts: [], average: null, percentage: null};
+  $scope.groupTwo = {contacts: [], average: null, percentage: null};
+  $scope.groupThree = {contacts: [], average: null, percentage: null};
+  $scope.groupFour = {contacts: [], average: null, percentage: null};
+  $scope.overallHealth = {average: null, percentage: null};
   $scope.sortGroup = function(connectionsArray){
       var g1 = {sum: null, count: null};
       var g2 = {sum: null, count: null};
@@ -113,10 +113,11 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       calcOverallAverage(g1, g2, g3, g4);
     };
   var calcGroupAverages = function(g1, g2, g3, g4){
-    $scope.groupOne.averageHealth = g1.sum / g1.count;
-    $scope.groupTwo.averageHealth = g2.sum / g2.count;
-    $scope.groupThree.averageHealth = g3.sum / g3.count;
-    $scope.groupFour.averageHealth = g4.sum / g4.count;
+    $scope.groupOne.average = g1.sum / g1.count;
+    $scope.groupTwo.average = g2.sum / g2.count;
+    $scope.groupThree.average = g3.sum / g3.count;
+    $scope.groupFour.average = g4.sum / g4.count;
+    calcGroupPercentages();
   };
   // calcOverallAverage is separate func becuase 
   // the groups are weighted differently: g1 is 2x of g2 
@@ -124,6 +125,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   var calcOverallAverage = function(g1, g2, g3, g4){
     var allGroupSum = null;
     var allGroupCount = null;
+    var average = null;
     
     allGroupSum += (g1.sum * Math.pow(2,3)); //g1 weighted 2*2*2
     allGroupSum += (g2.sum * Math.pow(2,2)); //g2 weighted 2*2
@@ -135,14 +137,21 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     allGroupCount += (g3.count * 2);
     allGroupCount += g4.count;
     
-    $scope.overallHealth = allGroupSum / allGroupCount;
+    average = allGroupSum / allGroupCount;
+    $scope.overallHealth.average = average;
+    $scope.overallHealth.percentage =reversePercent(average);
+  };
+  var calcGroupPercentages = function(){
+    $scope.groupOne.percentage = reversePercent($scope.groupOne.average);
+    $scope.groupTwo.percentage = reversePercent($scope.groupTwo.average);
+    $scope.groupThree.percentage = reversePercent($scope.groupThree.average);
+    $scope.groupFour.percentage = reversePercent($scope.groupFour.average);
   };
   // this is a function to calculate a percentage for the user
   // on how well they're doing. Trying to get all Groups to 100%
   // rather than how we use the numbers where lower is better
-  $scope.reversePercent = function(average){
+  var reversePercent = function(average){
     if (average > 0){
-      console.log((100 - (average * 100)));
       return (100 - (average * 100));
     }
     else {
