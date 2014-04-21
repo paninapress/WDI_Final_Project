@@ -83,13 +83,27 @@
       </div>
       <div class="col-md-4">
          <h3>{{thisContact.info.first_name}} {{thisContact.info.last_name}}</h3>
-      </div> 
+      </div>
     </div> <!-- end row for individual info -->
+    <div class="row" id="recategorize">
+      <div class="col-md-8 col-md-offset-2">
+        <h3>{{categoryMessage(thisContact)}}</h3>
+        <select ng-model="newCategory">
+          <option value="21">3 weeks</option>
+          <option value="42">6 weeks</option>
+          <option value="90">3 months</option>
+          <option value="180">6 months</option>
+          <option value="0">None</option>
+        </select>
+        <button ng-click="categorized(thisContact, newCategory, connections.indexOf(thisContact), false)">Recategorize</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <!-- CREATE NEW LOG/COMMENT -->
           <!-- Dropdown menu to select source of communication -->
           <select name="Source"ng-model="newLog.source">
+            <option value="">Select source</option>
             <option value="Email">Email</option>
             <option value="Phone">Phone</option>
             <option value="In Person">In-Person</option>

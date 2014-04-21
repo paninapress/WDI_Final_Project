@@ -96,7 +96,7 @@ class Connection < ActiveRecord::Base
       last_date = log if log.timestamp > last_date.timestamp
       result['logs'] << {log: log}
     end
-    if connection.category && !last_date.nil?
+    if (connection.category != 0 && connection.category != nil) && !last_date.nil?
       i_health = ((Date.today - last_date.timestamp) / connection.category).to_f
       result['c_health'] = i_health
     end

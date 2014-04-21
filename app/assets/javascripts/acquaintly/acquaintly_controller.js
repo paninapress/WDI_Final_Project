@@ -33,6 +33,19 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.allContacts = true;
   };
 
+  $scope.categoryMessage = function(contact) {
+    var response = "";
+    if (contact.info.category === null) {
+      response = "Uncategorized";
+    }
+    else if (contact.info.category === 0) {
+      response = "Not categorized";
+    }
+    else {
+      response = ("Current category: " + contact.info.category + "days");
+    }
+    return response;
+  };
 
   $scope.toBeCategorized = function(){
     $scope.noCategory = [];
