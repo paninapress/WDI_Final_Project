@@ -83,8 +83,15 @@
       </div>
       <div class="col-md-4">
          <h3>{{thisContact.info.first_name}} {{thisContact.info.last_name}}</h3>
-      </div> 
+      </div>
     </div> <!-- end row for individual info -->
+    <div id="recategorize">
+      <h3> Current category: {{thisContact.info.category}} days</h3>
+      <button ng-click="categorized(thisContact, 21, connections.indexOf(thisContact))">3 weeks</button>
+      <button ng-click="categorized(thisContact, 42, connections.indexOf(thisContact))">6 weeks</button>
+      <button ng-click="categorized(thisContact, 90, connections.indexOf(thisContact))">3 months</button>
+      <button ng-click="categorized(thisContact, 180, connections.indexOf(thisContact))">6 months</button>
+    </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <!-- CREATE NEW LOG/COMMENT -->
