@@ -30,6 +30,9 @@ body {
   min-height: 800px;
   padding-top: 70px;
 }
+#colorTab{
+  padding-left: 30px;
+}
 
 /*--------------03-BUTTON STYLES-----------*/
 
