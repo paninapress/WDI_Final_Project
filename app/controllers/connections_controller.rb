@@ -23,8 +23,7 @@ class ConnectionsController < ApplicationController
     user = current_user
     connection = Connection.find(id)
     cat = nil
-    cat = params.require(:category) if params.require(:category) != "null"
-    connection.update_attributes(category: cat)
+    connection.update_attributes(category: params.require(:category))
     responseData = Connection.get_connection(user,connection)
     render :json => {response: responseData}
   end
