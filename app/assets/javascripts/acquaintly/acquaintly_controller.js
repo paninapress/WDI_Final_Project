@@ -66,9 +66,11 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     }
   };
 
-  $scope.categorized = function(contact, cat, index) {
+  $scope.categorized = function(contact, cat, index, list) {
     Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
-    $scope.noCategory.shift();
+    if (list === true) {
+      $scope.noCategory.shift();
+    }
   };
 
   $scope.updateConnection = function(connection, data, index) {
