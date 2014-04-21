@@ -85,17 +85,19 @@
          <h3>{{thisContact.info.first_name}} {{thisContact.info.last_name}}</h3>
       </div>
     </div> <!-- end row for individual info -->
-    <div id="recategorize">
-      <h3>{{categoryMessage(thisContact)}}</h3>
-      <select ng-model="newCategory">
-      <option value="21">3 weeks</option>
-      <option value="42">6 weeks</option>
-      <option value="90">3 months</option>
-      <option value="180">6 months</option>
-      <option value="0">None</option>
-      <option value="null">Reset</option>
-    </select>
-    <button ng-click="categorized(thisContact, newCategory, connections.indexOf(thisContact), false)">Recategorize</button>
+    <div class="row" id="recategorize">
+      <div class="col-md-8 col-md-offset-2">
+        <h3>{{categoryMessage(thisContact)}}</h3>
+        <select ng-model="newCategory">
+          <option value="21">3 weeks</option>
+          <option value="42">6 weeks</option>
+          <option value="90">3 months</option>
+          <option value="180">6 months</option>
+          <option value="0">None</option>
+          <option value="null">Reset</option>
+        </select>
+        <button ng-click="categorized(thisContact, newCategory, connections.indexOf(thisContact), false)">Recategorize</button>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
