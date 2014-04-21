@@ -26,6 +26,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   $scope.contactShow = function(contact){
     $scope.allContacts = false;
     $scope.thisContact = contact;
+    getCategoryMessage(contact);
   };
 
   //click the back button to view the list again
@@ -33,18 +34,19 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.allContacts = true;
   };
 
-  $scope.categoryMessage = function(contact) {
-    var response = "";
+  $scope.categoryMessage = "";
+
+  var getCategoryMessage = function(contact) {
     if (contact.info.category === null) {
-      response = "Uncategorized";
+      $scope.categoryMessage = "Uncategorized";
     }
     else if (contact.info.category === 0) {
-      response = "Not categorized";
+      $scope.categoryMessage = "Not categorized";
     }
     else {
-      response = ("Current category: " + contact.info.category + "days");
+      $scope.categoryMessage = ("Current category: " + contact.info.category + " days");
     }
-    return response;
+    return $scope.categoryMessage;
   };
 
   $scope.toBeCategorized = function(){
