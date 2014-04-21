@@ -9,14 +9,16 @@
     </li>
   </ul>
 </nav>
-<div class="row">
+
+  <div ng-show="categorize == true" ng-include="templates[0].url"></div>
+
+<!-- Start all contacts span (show/hide) -->
+<span ng-show="allContacts">
+  <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <h1>{{appName}}</h1>
   </div> 
 </div>
-  <div ng-show="categorize == true" ng-include="templates[0].url"></div>
-<!-- Start all contacts span (show/hide) -->
-<span ng-show="allContacts">
 
 </br>
 
@@ -55,9 +57,9 @@
     </div>
   </div> <!-- end row with categorize btn and search -->
   <div class="row">
-    <div ng-style="{{changeStyle(contact.c_health)}}" class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+    <div class="col-md-8 col-md-offset-2 contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2">
-        <img src="{{contact.info.picture}}"></img>
+        <img id="colorTab" ng-style="{{changeStyle(contact.c_health)}}" src="{{contact.info.picture}}"></img>
       </div>
       <div class="col-md-5">
         <h3>{{contact['info'].first_name}}
@@ -87,7 +89,7 @@
     </div> <!-- end row for individual info -->
     <div class="row" id="recategorize">
       <div class="col-md-8 col-md-offset-2">
-        <h3>{{categoryMessage(thisContact)}}</h3>
+        <h3>{{categoryMessage}}</h3>
         <select ng-model="newCategory">
           <option value="21">3 weeks</option>
           <option value="42">6 weeks</option>
