@@ -35,14 +35,14 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 
   $scope.categoryMessage = function(contact) {
     var response = "";
-    if (contact.info.category === null) {
+    if (contact.ids.category === null) {
       response = "Uncategorized";
     }
-    else if (contact.info.category === 0) {
+    else if (contact.ids.category === 0) {
       response = "Not categorized";
     }
     else {
-      response = ("Current category: " + contact.info.category + "days");
+      response = ("Current category: " + contact.ids.category + "days");
     }
     return response;
   };
@@ -50,7 +50,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   $scope.toBeCategorized = function(){
     $scope.noCategory = [];
     for (var i = 0; i < $scope.connections.length; i++) {
-      if ($scope.connections[i].info.category === null) {
+      if ($scope.connections[i].ids.category === null) {
         var connection = {data: $scope.connections[i], index: i};
         $scope.noCategory.push(connection);
       }
@@ -65,7 +65,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.categorized = function(contact, cat, index) {
-    Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
+    Connection.update({id: contact.ids.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
     $scope.noCategory.shift();
   };
 
@@ -76,11 +76,11 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.createLog = function(contact) {
-    Log.save({connection_id:contact.info.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
+    Log.save({connection_id:contact.ids.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.removeLog = function(contact, log_id) {
-    Log.remove({connection_id:contact.info.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
+    Log.remove({connection_id:contact.ids.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.categorize = false;
@@ -101,22 +101,22 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       var g3 = {sum: null, count: null};
       var g4 = {sum: null, count: null};
       angular.forEach(connectionsArray, function(contact){
-        if (contact.info.category === 21 && contact.c_health){
+        if (contact.ids.category === 21 && contact.c_health){
           $scope.groupOne.contacts = contact;
           g1.sum += contact.c_health;
           g1.count += 1;
         }
-      else if (contact.info.category === 42 && contact.c_health){
+      else if (contact.ids.category === 42 && contact.c_health){
           $scope.groupTwo.contacts = contact;
           g2.sum += contact.c_health;
           g2.count += 1;
         }
-      else if (contact.info.category === 90 && contact.c_health){
+      else if (contact.ids.category === 90 && contact.c_health){
           $scope.groupThree.contacts = contact;
           g3.sum += contact.c_health;
           g3.count += 1;
         }
-      else if (contact.info.category === 180 && contact.c_health){
+      else if (contact.ids.category === 180 && contact.c_health){
           $scope.groupFour.contacts = contact;
           g4.sum += contact.c_health;
           g4.count += 1;
