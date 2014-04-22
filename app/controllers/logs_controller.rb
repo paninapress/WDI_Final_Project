@@ -3,12 +3,9 @@ class LogsController < ApplicationController
     id = params[:connection_id]
     user = current_user
     connection = Connection.find(id)
-    # date = params[:log][:date] != "" ? Date.parse(params.require(:log)[:date]) : Date.today
-    date = params[:log][:date] != "" ? params[:log][:date] : Date.today
-    comment = params[:log][:comment] != "" ? params[:log][:comment] : "n/a"
     data = {source: params.require(:log)[:source],
-            comment: comment,
-            timestamp: date
+            comment: params[:log][:comment] != "" ? params[:log][:comment] : "n/a",
+            timestamp: params[:log][:date] != "" ? params[:log][:date] : Date.today
             }
     log = Log.create(data)
     connection.logs << log

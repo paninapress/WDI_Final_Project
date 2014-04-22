@@ -93,13 +93,11 @@ class Connection < ActiveRecord::Base
               last_name: LastName.find(connection.last_name_id).name,
             }
           }
-    if connection.logs.length > 0
-      last_date = connection.logs[0];
-      result['logs'] = []
-      Log.where(connection_id: connection.id).each do |log|
-        last_date = log if log.timestamp > last_date.timestamp
-        result['logs'] << {log: log}
-      end
+    last_date = connection.logs[0];
+    result['logs'] = []
+    Log.where(connection_id: connection.id).each do |log|
+      last_date = log if log.timestamp > last_date.timestamp
+      result['logs'] << {log: log}
     end
     if (connection.category != 0 && connection.category != nil) && !last_date.nil?
       i_health = ((Date.today - last_date.timestamp) / connection.category).to_f
