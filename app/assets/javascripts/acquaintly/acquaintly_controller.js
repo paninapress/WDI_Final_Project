@@ -68,7 +68,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.categorized = function(contact, cat, index, list) {
-    Connection.update({id: contact.info.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(contact, successResponse, index);});
+    Connection.update({id: contact.ids.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(successResponse, index);});
     if (list === true) {
       $scope.noCategory.shift();
     }
@@ -86,7 +86,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.removeLog = function(contact, log_id) {
-    Log.remove({connection_id:contact.ids.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
+    Log.remove({connection_id:contact.ids.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.categorize = false;
