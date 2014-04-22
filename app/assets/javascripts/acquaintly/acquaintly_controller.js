@@ -150,14 +150,22 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     var average = null;
     
     allGroupSum += (g1.sum * Math.pow(2,3)); //g1 weighted 2*2*2
+    console.log("g1 sum" + allGroupSum);
     allGroupSum += (g2.sum * Math.pow(2,2)); //g2 weighted 2*2
+    console.log("g2 sum" + allGroupSum);
     allGroupSum += (g3.sum * 2); //g3 weighted double 
+    console.log("g3 sum" + allGroupSum);
     allGroupSum += g4.sum;
+    console.log("g4 sum" + allGroupSum);
 
     allGroupCount += (g1.count * Math.pow(2,3));
+    console.log(allGroupCount);
     allGroupCount += (g2.count * Math.pow(2,2));
+    console.log(allGroupCount);
     allGroupCount += (g3.count * 2);
+    console.log(allGroupCount);
     allGroupCount += g4.count;
+    console.log(allGroupCount);
     
     average = allGroupSum / allGroupCount;
     $scope.overallHealth.average = average;
@@ -180,10 +188,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   // on how well they're doing. Trying to get all Groups to 100%
   // rather than how we use the numbers where lower is better
   var reversePercent = function(average){
-    if (average > 1){
-      return 0;
-    }
-    else if (average >= 0){
+    if (average >= 0){
       return (100 - (average * 100));
     }
     else {
