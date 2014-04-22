@@ -37,16 +37,15 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 
   $scope.categoryMessage = "";
 
-  $scope.categoryMessage = function(contact) {
-    var response = "";
+  var getCategoryMessage = function(contact) {
     if (contact.ids.category === null) {
-      response = "Uncategorized";
+      $scope.categoryMessage = "Uncategorized";
     }
     else if (contact.ids.category === 0) {
-      response = "Not categorized";
+      $scope.categoryMessage = "Not categorized";
     }
     else {
-      response = ("Current category: " + contact.ids.category + " days");
+      $scope.categoryMessage = ("Current category: " + contact.ids.category + " days");
     }
     return $scope.categoryMessage;
   };
@@ -76,6 +75,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   $scope.updateConnection = function(connection, data, index) {
     $scope.connections[index] = data.response;
     $scope.thisContact = data.response;
+    getCategoryMessage(data.response);
     $scope.sortGroup($scope.connections);
   };
 
