@@ -72,7 +72,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.noCategory.shift();
   };
 
-  $scope.updateConnection = function(connection, data, index) {
+  $scope.updateConnection = function(data, index) {
     $scope.connections[index] = data.response;
     $scope.thisContact = data.response;
     getCategoryMessage(data.response);
@@ -80,7 +80,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.createLog = function(contact) {
-    Log.save({connection_id:contact.ids.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(contact, successResponse, $scope.connections.indexOf(contact));});
+    Log.save({connection_id:contact.ids.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.removeLog = function(contact, log_id) {
