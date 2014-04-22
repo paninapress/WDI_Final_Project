@@ -36,11 +36,13 @@ end
 gem 'rails_12factor', group: :production
 
 group :development, :test do
-  gem 'dotenv-rails'
+  
   gem 'better_errors'
   gem 'pry'
   gem 'binding_of_caller'
 end
+
+gem 'dotenv-rails'
 
 gem 'oauth2'
 gem 'omniauth-linkedin-oauth2'
