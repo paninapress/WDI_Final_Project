@@ -57,10 +57,10 @@
     </div>
   </div> <!-- end row with categorize btn and search -->
   <div class="row contactsList" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
-      <div class="col-md-2 col-xs-4">
+      <div class="col-md-2 col-xs-5">
         <img id="colorTab" ng-style="{{changeStyle(contact.c_health)}}" src="{{contact.info.picture}}"></img>
       </div>
-      <div class="col-md-4 col-xs-5">
+      <div class="col-md-4 col-xs-6">
         <h3>{{contact['info'].first_name}}
             {{contact['info'].last_name}}</h3>
       </div>
