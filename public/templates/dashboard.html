@@ -38,25 +38,25 @@
   <br>
     <div class="row">
       <div class="col-md-4 col-md-offset-2">
-        <h5>
+        <h4>
           Who would you like to touch 
           base with today?
-        </h5>
+        </h4>
       </div>
       <div class="col-md-4">
         <h5>
-          Search: <input type="text" ng-model="query.info" />
-          Order By:
+          Search your contacts by name: <input type="text" ng-model="query.info" />
+<!--           Order By:
             <select ng-model="contactSort">
               <option value="first_name">First Name</option>
               <option value="last_name"> Last Name</option>
               <option value="category">Category</option>
-            </select>
+            </select> -->
         </h5>
       </div>
     </div>
   </div> <!-- end row with categorize btn and search -->
-
+<br>
   <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2 col-xs-5">
         <img id="colorTab" ng-style="{{changeStyle(contact.c_health)}}" src="{{contact.ids.picture}}"></img>
