@@ -28,11 +28,11 @@
     </div> 
     <div class="row">
       <div ng-hide="overallHealth === null" class="col-md-6 col-md-offset-3">
-        <h5>Your overall social state is {{overallHealth.status}} ({{overallHealth.percentage | number:0}}%)</h5>
-        <h5>Category 1 is {{groupOne.status}} ({{groupOne.percentage | number:0}}%)</h5>
-        <h5>Category 2 is {{groupTwo.status}} ({{groupTwo.percentage | number:0}}%)</h5>
-        <h5>Category 3 is {{groupThree.status}} ({{groupThree.percentage | number:0}}%)</h5>
-        <h5>Category 4 is {{groupFour.status}} ({{groupFour.percentage | number:0}}%)</h5>
+        <h5>Your overall social state is {{overallHealth.percentage | number:0}}% ... {{overallHealth.status}}</h5>
+        <h5>Category 1 is {{groupOne.percentage | number:0}}% ... {{groupOne.status}}</h5>
+        <h5>Category 2 is {{groupTwo.percentage | number:0}}% ... {{groupTwo.status}}</h5>
+        <h5>Category 3 is {{groupThree.percentage | number:0}}% ... {{groupThree.status}} </h5>
+        <h5>Category 4 is {{groupFour.percentage | number:0}}% ... {{groupFour.status}}</h5>
       </div>
     </div>
   <br>
