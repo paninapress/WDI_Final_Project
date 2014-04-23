@@ -79,6 +79,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.thisContact = data.response;
     getCategoryMessage(data.response);
     $scope.sortGroup($scope.connections);
+    $scope.newLog.comment = "";
   };
 
   $scope.createLog = function(contact) {
