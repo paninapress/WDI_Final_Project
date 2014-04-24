@@ -23,8 +23,8 @@ body {
 .navbar-fixed-top li{
   float: right;
 }
-.contactsList img {
-  height: 100px;
+.contactsListImg img {
+  height: 125px;
 }
 
 #learn, #signin, #signup {
