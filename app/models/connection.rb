@@ -20,7 +20,6 @@ class Connection < ActiveRecord::Base
 
       # connection.linkedin_link = li_conns[i].siteStandarsProfileRequest.url
 
-
     # update user
     user_data = {
       linkedin_id: auth.uid,
@@ -47,42 +46,12 @@ class Connection < ActiveRecord::Base
   def self.get_all_connections(user)
     # assemble a 'connections' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
-    connections = []
-    list = Connection.where(user_id: user.id)
-    list.each do |connection|
-      item = get_connection(user, connection)
-      connections << item
-    end
+    return Connection.where(user_id: user.id)
     # return the 'connections' array
-    connections
   end
 
   def self.get_connection(user, connection)
-    contact = Contact.find(connection.contact_id)
-    result = {
-            ids: {
-              connection_id: connection.id,
-              linkedin_id: contact.linkedin.linkedin_id,
-              category: connection.category,
-              picture: contact.picture.linkedin_pic
-              
-            },
-            info: {
-              first_name: FirstName.find(connection.first_name_id).name,
-              last_name: LastName.find(connection.last_name_id).name,
-            }
-          }
-    last_date = connection.logs[0];
-    result['logs'] = []
-    Log.where(connection_id: connection.id).each do |log|
-      last_date = log if log.timestamp > last_date.timestamp
-      result['logs'] << {log: log}
-    end
-    if (connection.category != 0 && connection.category != nil) && !last_date.nil?
-      i_health = ((Date.today - last_date.timestamp) / connection.category).to_f
-      result['c_health'] = i_health
-    end
-    result
+    return Connection.find(connection.id)
   end
 
 end

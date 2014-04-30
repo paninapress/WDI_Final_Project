@@ -15,16 +15,10 @@ class ConnectionsController < ApplicationController
     render :json => contacts
   end
 
-  def show
-  end
-
   def update
-    id = params[:id]
-    user = current_user
-    connection = Connection.find(id)
-    cat = nil
+    connection = Connection.find(params[:id])
     connection.update_attributes(category: params.require(:category))
-    responseData = Connection.get_connection(user,connection)
+    responseData = connection
     render :json => {response: responseData}
   end
 
