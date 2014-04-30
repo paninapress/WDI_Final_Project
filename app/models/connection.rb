@@ -50,8 +50,4 @@ class Connection < ActiveRecord::Base
     # return the 'connections' array
   end
 
-  def self.get_connection(user, connection)
-    return Connection.find(connection.id)
-  end
-
 end
