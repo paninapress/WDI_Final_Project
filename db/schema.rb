@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20140430194050) do
     t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "picture"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "custom_first_name"

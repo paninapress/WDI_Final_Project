@@ -1,6 +1,5 @@
 class AddColumnsToConnections < ActiveRecord::Migration
   def change
-    add_column :connections, :picture, :string
     add_column :connections, :first_name, :string
     add_column :connections, :last_name, :string
     add_column :connections, :custom_first_name, :string

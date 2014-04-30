@@ -1,68 +1,47 @@
 class Connection < ActiveRecord::Base
   belongs_to :user
-  belongs_to :contact
-  belongs_to :first_name
-  belongs_to :last_name
   has_many :logs
 
 
   def self.collect_data (auth, user)
+    binding.pry
     # auth == oauth response object, user = current_user
-    linkedin_connections_array = auth.extra.raw_info.connections.values[-1]
+    li_conns = auth.extra.raw_info.connections.values[-1]
 
-    # USER CREATION
+    # FROM LINKEDIN:
+      # user.linkedin_id = auth.uid
+      # user.access_token = auth.credentials.token
+      # user.expires_at = auth.credentials.expires_at
 
-    l_id = Linkedin.find_by(linkedin_id: auth.uid) || Linkedin.create(linkedin_id: auth.uid)
-    if auth.info.image.nil?
-      picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
-    else
-      picture = Picture.where(user_id: user.id)[0] || Picture.create(linkedin_pic: auth.info.image)
-    end
-    # find user & set/update linkedin_id/access_token/linkedin picture
-    user.linkedin = l_id
-    user.access_token = auth.credentials.token
-    user.expires_at = auth.credentials.expires_at
-    user.picture = picture
-    # find/create corresponding contact to user
-    if l_id.contact_id.nil?
-      user_contact = Contact.create()
-      user_contact.linkedin = l_id
-    else 
-      user_contact = Contact.find(l_id.contact_id) 
-    end
-    user_contact.linkedin = l_id
-    user_contact.picture = picture
+      # connection.first_name = li_conns[i].firstName
+      # connection.last_name = li_conns[i].lastName
+      # connection.linkedin_pic = li_conns[i].pictureUrl
+      # connection.linkedin_id = li_conns[i].id
+
+      # connection.linkedin_link = li_conns[i].siteStandarsProfileRequest.url
+
+
+    # update user
+    user_data = {
+      linkedin_id: auth.uid,
+      access_token: auth.credentials.token,
+      expires_at: auth.credentials.expires_at
+    }
+
+    user.update_attributes(user_data)
 
     # create/update user's connections:
-    linkedin_connections_array.each do |c|
-      # 1.a) look for existing LinkedIN ID in DB
-      if Linkedin.find_by(linkedin_id: c.id)
-        contact = Contact.find(Linkedin.find_by(linkedin_id: c.id).contact_id)
-      # 1.b) if not in DB, need to create the contact
-      else
-        contact = Contact.create()
-        contact.linkedin = Linkedin.create(linkedin_id: c.id)
-      end
-      # 2) create/update the connection between user and contact
-      connection = Connection.where(user_id: user.id).where(contact_id: contact.id)
-        # create connection if none exist
-      if (connection.empty?)
-        connection = Connection.create()
-        user.connections << connection
-        contact.connections << connection
-      end
-      # create/update names/picture
-      first_name = FirstName.find_by(name: c['firstName']) || FirstName.create(name: c['firstName'])
-      last_name = LastName.find_by(name: c['lastName']) || LastName.create(name: c['lastName'])
-      if c.pictureUrl.nil? 
-        picture = Picture.create(linkedin_pic: "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif")
-      else 
-        picture = Picture.find_by(contact_id: contact.id) || Picture.create(linkedin_pic: c.pictureUrl)
-      end
-      first_name.connections << connection
-      last_name.connections << connection
-      contact.picture = picture
+    li_conns.each do |c|
+      c_data = {
+        first_name: c.firstName,
+        last_name: c.lastName,
+        linkedin_pic: c.pictureUrl,
+        linkedin_id: c.id
+      }
+      connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
+      connection ? connection.update_attributes(c_data) : user.connections << Connection.create(c_data)
     end
+
   end
 
   def self.get_all_connections(user)
