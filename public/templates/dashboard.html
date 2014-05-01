@@ -110,10 +110,10 @@
         </br></br>
         <!-- testing to see {{thisContact.c_health}} -->
         <div ng-repeat="log in thisContact.logs | orderBy:'-timestamp'">
-          <button class="btn btn-muted" ng-click="removeLog(thisContact,log.log.id)">x</button>
-          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
+          <button class="btn btn-muted" ng-click="removeLog(thisContact,log.id)">x</button>
+          {{log.timestamp}} - {{log.source}} <button ng-show="log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
           <div ng-show="showComment">
-            {{log.log.comment}}
+            {{log.comment}}
           </div>
         </div>
       </div>

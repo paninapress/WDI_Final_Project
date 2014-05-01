@@ -4,7 +4,6 @@ class Connection < ActiveRecord::Base
 
 
   def self.collect_data (auth, user)
-    binding.pry
     # auth == oauth response object, user = current_user
     li_conns = auth.extra.raw_info.connections.values[-1]
 
@@ -39,14 +38,14 @@ class Connection < ActiveRecord::Base
       }
       connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
       if connection
-        if connection.logs.count > 0
+        if connection.logs.count > 0 && connection.category
           last_date = connection.logs.order("timestamp DESC").first
           c_data['health'] = ((Date.today - last_date.timestamp) / connection.category).to_f
         end
         connection.update_attributes(c_data)
       else
-          user.connections << Connection.create(c_data)
-        end
+        user.connections << Connection.create(c_data)
+      end
     end
 
   end
@@ -54,13 +53,14 @@ class Connection < ActiveRecord::Base
   def self.get_all_connections(user)
     # assemble a 'connections' array with all of the user's connections
     # need first_name, last_name, linkedin_id, category
-    return Connection.where(user_id: user.id)
+    return Connection.includes(:logs).where(user_id: user.id)
     # return the 'connections' array
   end
 
   def self.update_connection(connection, data)
-    last_date = connection.logs.order("timestamp DESC").first
-    if (connection.category != 0 && connection.category != nil) && !last_date.nil?
+    data['category'] = data['category'].to_i
+    if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
+      last_date = connection.logs.order("timestamp DESC").first
       data['health'] = ((Date.today - last_date.timestamp) / connection.category).to_f
     end
     connection.update_attributes(data)
