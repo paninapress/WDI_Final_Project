@@ -1,7 +1,7 @@
 class Log < ActiveRecord::Base
   belongs_to :connection
 
-  def create_log connection, data
+  def self.create_log connection, data
     log = Log.create(data)
     connection.logs << log
     last_date = log
