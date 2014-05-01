@@ -59,14 +59,16 @@
 <br>
   <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2 col-xs-5">
-        <img style="height:125px" id="colorTab" ng-style="{{changeStyle(contact.c_health)}}" src="{{contact.ids.picture}}"></img>
+
+        <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
+        <img style="height:125px" id="colorTab" ng-style="{{changeStyle(contact.health)}}" src="{{contact.linkedin_pic}}"></img>
       </div>
       <div class="col-md-4 col-xs-6">
-        <h3>{{contact['info'].first_name}}
-            {{contact['info'].last_name}}</h3>
+        <h3>{{contact.custom_first_name || contact.first_name}}
+            {{contact.custom_last_name || contact.last_name}}</h3>
       </div>
       <div class="col-md-4 hidden-sm hidden-xs">
-        Category: {{contact.ids.category || "none"}}
+        Category: {{contact.category || "none"}}
       </div>
       <div class="col-md-2 col-xs-1">
         <span class="glyphicon glyphicon-chevron-right"></span>
@@ -83,7 +85,7 @@
         <img style="height:125px" src="{{thisContact.ids.picture}}"></img>
       </div>
       <div class="col-md-4">
-         <h3>{{thisContact.info.first_name}} {{thisContact.info.last_name}}</h3>
+         <h3>{{thisContact.custom_first_name || thisContact.first_name}} {{thisContact.custom_last_name || thisContact.last_name}}</h3>
       </div>
     </div> <!-- end row for individual info -->
     <div class="row">
