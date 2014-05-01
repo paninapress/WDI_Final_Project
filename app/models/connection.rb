@@ -38,7 +38,15 @@ class Connection < ActiveRecord::Base
         linkedin_id: c.id
       }
       connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
-      connection ? connection.update_attributes(c_data) : user.connections << Connection.create(c_data)
+      if connection
+        if connection.logs.count > 0
+          last_date = connection.logs.order("timestamp DESC").first
+          c_data['health'] = ((Date.today - last_date.timestamp) / connection.category).to_f
+        end
+        connection.update_attributes(c_data)
+      else
+          user.connections << Connection.create(c_data)
+        end
     end
 
   end
@@ -48,6 +56,15 @@ class Connection < ActiveRecord::Base
     # need first_name, last_name, linkedin_id, category
     return Connection.where(user_id: user.id)
     # return the 'connections' array
+  end
+
+  def self.update_connection(connection, data)
+    last_date = connection.logs.order("timestamp DESC").first
+    if (connection.category != 0 && connection.category != nil) && !last_date.nil?
+      data['health'] = ((Date.today - last_date.timestamp) / connection.category).to_f
+    end
+    connection.update_attributes(data)
+    return connection
   end
 
 end
