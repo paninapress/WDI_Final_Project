@@ -3,8 +3,8 @@ class LogsController < ApplicationController
     user = current_user
     connection = Connection.find(params[:connection_id])
     binding.pry
-    log = Log.create_log(connection, {source: params.require(:log)[:source], comment: params[:log][:comment] != "" ? params[:log][:comment] : "n/a", timestamp: params[:log][:date] != "" ? params[:log][:date] : Date.today})
-    render :json => {response: log}
+    Log.create_log(connection, {source: params.require(:log)[:source], comment: params[:log][:comment] != "" ? params[:log][:comment] : "n/a", timestamp: params[:log][:date] ? params[:log][:date] : Date.today})
+    render :json => Connection.find(params[:connection_id]).as_json(:include => {:logs => {:only => [:source, :comment, :timestamp]}}).as_json
   end
 
   def destroy
@@ -12,6 +12,6 @@ class LogsController < ApplicationController
     connection_id = params[:connection_id]
     connection = Connection.find(params[:connection_id])
     Log.find(id).destroy
-    render :json => {response: connection}
+    render :json => Connection.find(connection_id).as_json(:include => {:logs => {:only => [:source, :comment, :timestamp]}}).as_json
   end
 end

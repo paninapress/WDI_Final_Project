@@ -10,6 +10,6 @@ class Log < ActiveRecord::Base
       connection.health = ((Date.today - last_date.timestamp) / connection.category).to_f
     end
     binding.pry
-    return Connection.includes(:logs).find(connection.id)
+    return connection
   end
 end

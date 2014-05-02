@@ -74,9 +74,9 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
 
   $scope.updateConnection = function(data, index) {
-    $scope.connections[index] = data.response;
-    $scope.thisContact = data.response;
-    getCategoryMessage(data.response);
+    $scope.connections[index] = data;
+    $scope.thisContact = data;
+    getCategoryMessage(data);
     $scope.sortGroup($scope.connections);
     $scope.newLog.comment = "";
   };

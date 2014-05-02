@@ -18,7 +18,7 @@ class ConnectionsController < ApplicationController
   def update
     connection = Connection.find(params[:id])
     responseData = Connection.update_connection(connection, params.require(:connection).permit(:category))
-    render :json => {response: responseData}
+    render :json => responseData
   end
 
 end
