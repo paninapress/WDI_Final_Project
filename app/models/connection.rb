@@ -50,13 +50,6 @@ class Connection < ActiveRecord::Base
 
   end
 
-  def self.get_all_connections(user)
-    # assemble a 'connections' array with all of the user's connections
-    # need first_name, last_name, linkedin_id, category
-    return Connection.includes(:logs).where(user_id: user.id)
-    # return the 'connections' array
-  end
-
   def self.update_connection(connection, data)
     data['category'] = data['category'].to_i
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0

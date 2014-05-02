@@ -4,11 +4,12 @@ class Log < ActiveRecord::Base
   def self.create_log connection, data
     log = Log.create(data)
     connection.logs << log
-    last_date = log
-    connection.logs.each {|log| last_date = log if log.timestamp > last_date.timestamp}
+    last_date = connection.logs.order("timestamp DESC").first
+    binding.pry
     if (connection.category != 0 && connection.category != nil) && !last_date.nil?
       connection.health = ((Date.today - last_date.timestamp) / connection.category).to_f
     end
-    connection
+    binding.pry
+    return Connection.includes(:logs).find(connection.id)
   end
 end

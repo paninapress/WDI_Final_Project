@@ -11,8 +11,8 @@ class ConnectionsController < ApplicationController
 
   def index
     user = current_user
-    contacts = Connection.get_all_connections(user)
-    render :json => contacts
+    # contacts = Connection.get_all_connections(user)
+    render :json => Connection.where(user_id: user.id).as_json(:include => {:logs => {:only => [:source, :comment, :timestamp]}}).as_json
   end
 
   def update
