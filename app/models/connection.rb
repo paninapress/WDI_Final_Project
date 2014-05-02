@@ -52,7 +52,7 @@ class Connection < ActiveRecord::Base
     data['category'] = data['category'].to_i
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
       last_date = connection.logs.order("timestamp DESC").first
-      data['health'] = ((Date.today - last_date.timestamp) / connection.category).to_f
+      data['health'] = ((Date.today - last_date.timestamp) / data['category']).to_f
     end
     # 2) Update attributes for 'connection'.
     connection.update_attributes(data)
