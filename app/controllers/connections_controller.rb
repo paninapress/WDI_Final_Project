@@ -12,13 +12,13 @@ class ConnectionsController < ApplicationController
   def index
     user = current_user
     # contacts = Connection.get_all_connections(user)
-    render :json => Connection.where(user_id: user.id).as_json(:include => {:logs => {:only => [:source, :comment, :timestamp]}}).as_json
+    render :json => Connection.where(user_id: user.id).as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 
   def update
     connection = Connection.find(params[:id])
-    responseData = Connection.update_connection(connection, params.require(:connection).permit(:category))
-    render :json => responseData
+    Connection.update_connection(connection, params.require(:connection).permit(:category))
+    render :json => connection.as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 
 end
