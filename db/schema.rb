@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140501002649) do
     t.string   "custom_pic"
     t.string   "linkedin_id"
     t.string   "facebook_id"
-    t.decimal  "health"
+    t.float    "health"
   end
 
   add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree

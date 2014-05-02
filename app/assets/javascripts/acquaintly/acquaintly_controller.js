@@ -106,33 +106,37 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       $scope.groupTwo.contacts = [];
       $scope.groupThree.contacts = [];
       $scope.groupFour.contacts = [];
-      var g1 = {sum: null, count: null};
-      var g2 = {sum: null, count: null};
-      var g3 = {sum: null, count: null};
-      var g4 = {sum: null, count: null};
+      var g1 = {sum: 0.0, count: 0};
+      var g2 = {sum: 0.0, count: 0};
+      var g3 = {sum: 0.0, count: 0};
+      var g4 = {sum: 0.0, count: 0};
       angular.forEach(connectionsArray, function(contact){
 
-        if (contact.category === 21 && contact.c_health >= 0){
+        if (contact.category === 21 && contact.health >= 0){
           $scope.groupOne.contacts.push(contact);
-          g1.sum += contact.c_health;
+          g1.sum += contact.health;
           g1.count += 1;
         }
-      else if (contact.category === 42 && contact.c_health >= 0){
+      else if (contact.category === 42 && contact.health >= 0){
           $scope.groupTwo.contacts.push(contact);
-          g2.sum += contact.c_health;
+          g2.sum += contact.health;
           g2.count += 1;
         }
-      else if (contact.category === 90 && contact.c_health >= 0){
+      else if (contact.category === 90 && contact.health >= 0){
           $scope.groupThree.contacts.push(contact);
-          g3.sum += contact.c_health;
+          g3.sum += contact.health;
           g3.count += 1;
         }
-      else if (contact.category === 180 && contact.c_health >= 0){
+      else if (contact.category === 180 && contact.health >= 0){
           $scope.groupFour.contacts.push(contact);
-          g4.sum += contact.c_health;
+          g4.sum += contact.health;
           g4.count += 1;
         }
       });
+      console.log(g1);
+      console.log(g2);
+      console.log(g3);
+      console.log(g4);
       calcGroupAverages(g1, g2, g3, g4);
       calcOverallHealth(g1, g2, g3, g4);
     };
@@ -209,7 +213,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
   // Calculate div style based on health status
   $scope.changeStyle = function(health){
-    if (health < 0.8){
+    if (health === null) {
+      return "{background: white}";
+    }
+    else if (health < 0.8){
       return "{background: 'green'}";
     }
     else if (health <= 1){

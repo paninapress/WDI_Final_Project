@@ -36,9 +36,8 @@ class Connection < ActiveRecord::Base
               }
       connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
       if connection
-        last_date = connection.logs.order("timestamp DESC").first
         category_true = connection.category != nil && connection.category > 0
-        c_data['health'] = last_date && category_true ? (((Date.today - connection.logs.order("timestamp DESC").first.timestamp) / connection.category).to_f) : nil
+        c_data['health'] = connection.last_date && category_true ? (((Date.today - connection.logs.order("timestamp DESC").first.timestamp) / connection.category).to_f) : nil
         connection.update_attributes(c_data)
       else
         user.connections << Connection.create(c_data)
@@ -51,22 +50,26 @@ class Connection < ActiveRecord::Base
     # 1) Assemble data attributes to update 'connection' with.
     data['category'] = data['category'].to_i
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      last_date = connection.logs.order("timestamp DESC").first
-      data['health'] = ((Date.today - last_date.timestamp) / data['category']).to_f
+      data['health'] = ((Date.today - connection.last_date.timestamp) / data['category']).to_f
     end
     # 2) Update attributes for 'connection'.
     connection.update_attributes(data)
+    binding.pry
     return connection
   end
 
   def self.recalculate_health (connection)
     # 1a) If 'connection' has both a category and logs, calculate health.  Else set health to nil
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      last_date = connection.logs.order("timestamp DESC").first
-      connection.update_attributes(health: ((Date.today - last_date.timestamp) / connection.category).to_f)
+      connection.update_attributes(health: ((Date.today - connection.last_date.timestamp) / connection.category).to_f)
     else
       connection.update_attributes(health: 0.0)
     end
+  end
+
+  # Return log with most recent timestamp (to DRY up code):
+  def last_date
+    return self.logs.order("timestamp DESC").first
   end
 
 end
