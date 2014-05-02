@@ -31,6 +31,7 @@ class Connection < ActiveRecord::Base
       c_data = {
                 first_name: c.firstName,
                 last_name: c.lastName,
+                fullname: "#{c.firstName} #{c.lastName}",
                 linkedin_pic: c.pictureUrl || "http://media1.giphy.com/media/TOW0EepfvMCLS/giphy.gif",
                 linkedin_id: c.id
               }
