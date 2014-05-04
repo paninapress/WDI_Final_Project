@@ -55,7 +55,6 @@ class Connection < ActiveRecord::Base
     end
     # 2) Update attributes for 'connection'.
     connection.update_attributes(data)
-    binding.pry
     return connection
   end
 
