@@ -133,10 +133,6 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
           g4.count += 1;
         }
       });
-      console.log(g1);
-      console.log(g2);
-      console.log(g3);
-      console.log(g4);
       calcGroupAverages(g1, g2, g3, g4);
       calcOverallHealth(g1, g2, g3, g4);
     };

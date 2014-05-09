@@ -10,7 +10,7 @@
   </ul>
 </nav>
 
-  <div ng-show="categorize == true" ng-include="templates[0].url"></div>
+  <div id="categorize_template" ng-show="categorize == true" ng-include="templates[0].url"></div>
 
 <!-- Start all contacts span (show/hide) -->
 <span ng-show="allContacts">
@@ -21,7 +21,6 @@
 </div>
 
 </br>
-
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
