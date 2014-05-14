@@ -38,7 +38,8 @@ class Connection < ActiveRecord::Base
       connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
       if connection
         category_true = connection.category != nil && connection.category > 0
-        c_data['health'] = connection.last_date && category_true ? (((Date.today - connection.logs.order("timestamp DESC").first.timestamp) / connection.category).to_f) : nil
+        health = connection.last_date && category_true ? (((Date.today - connection.logs.order("timestamp DESC").first.timestamp) / connection.category).to_f) : nil
+        c_data['health'] = health.nil? ? nil : health >= 0.0 ? health : 0.0
         connection.update_attributes(c_data)
       else
         user.connections << Connection.create(c_data)
