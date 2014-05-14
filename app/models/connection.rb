@@ -51,7 +51,9 @@ class Connection < ActiveRecord::Base
     # 1) Assemble data attributes to update 'connection' with.
     data['category'] = data['category'].to_i
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      data['health'] = ((Date.today - connection.last_date.timestamp) / data['category']).to_f
+      health = ((Date.today - connection.last_date.timestamp) / data['category']).to_f
+      c_health = health >= 0.0 ? health : 0.0
+      data['health'] = c_health
     end
     # 2) Update attributes for 'connection'.
     connection.update_attributes(data)
@@ -61,7 +63,9 @@ class Connection < ActiveRecord::Base
   def self.recalculate_health (connection)
     # 1a) If 'connection' has both a category and logs, calculate health.  Else set health to nil
     if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      connection.update_attributes(health: ((Date.today - connection.last_date.timestamp) / connection.category).to_f)
+      health = ((Date.today - connection.last_date.timestamp) / connection.category).to_f
+      c_health = health >= 0.0 ? health : 0.0
+      connection.update_attributes(health: c_health)
     else
       connection.update_attributes(health: 0.0)
     end
