@@ -32,7 +32,9 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   //click the back button to view the list again
   $scope.allShow = function(){
     $scope.allContacts = true;
-    $scope.query.fullname = "";
+    if (angular.isDefined($scope.query)) {
+      $scope.query.fullname = "";
+    }
   };
 
   $scope.categoryMessage = "";
