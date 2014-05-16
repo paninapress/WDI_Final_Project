@@ -32,20 +32,22 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   //click the back button to view the list again
   $scope.allShow = function(){
     $scope.allContacts = true;
-    $scope.query.info = "";
+    if (angular.isDefined($scope.query)) {
+      $scope.query.fullname = "";
+    }
   };
 
   $scope.categoryMessage = "";
 
   var getCategoryMessage = function(contact) {
-    if (contact.ids.category === null) {
+    if (contact.category === null) {
       $scope.categoryMessage = "Uncategorized";
     }
-    else if (contact.ids.category === 0) {
+    else if (contact.category === 0) {
       $scope.categoryMessage = "Not categorized";
     }
     else {
-      $scope.categoryMessage = ("Current category: " + contact.ids.category + " days");
+      $scope.categoryMessage = ("Current category: " + contact.category + " days");
     }
     return $scope.categoryMessage;
   };
@@ -53,9 +55,8 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   $scope.toBeCategorized = function(){
     $scope.noCategory = [];
     for (var i = 0; i < $scope.connections.length; i++) {
-      if ($scope.connections[i].ids.category === null) {
-        var connection = {data: $scope.connections[i], index: i};
-        $scope.noCategory.push(connection);
+      if ($scope.connections[i].category === null) {
+        $scope.noCategory.push($scope.connections[i]);
       }
     }
     if ($scope.categorize === false) {
@@ -67,27 +68,30 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     }
   };
 
-  $scope.categorized = function(contact, cat, index, list) {
-    Connection.update({id: contact.ids.connection_id}, {category: cat}, function(successResponse){$scope.updateConnection(successResponse, index);});
+  $scope.categorized = function(contact, cat, list) {
+    Connection.update({id: contact.id}, {category: cat}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
     if (list === true) {
       $scope.noCategory.shift();
     }
   };
 
   $scope.updateConnection = function(data, index) {
-    $scope.connections[index] = data.response;
-    $scope.thisContact = data.response;
-    getCategoryMessage(data.response);
+    $scope.connections[index] = data;
+    $scope.thisContact = data;
+    getCategoryMessage(data);
     $scope.sortGroup($scope.connections);
-    $scope.newLog.comment = "";
+    if (angular.isDefined($scope.newLog)) {
+      $scope.newLog.comment = "";
+    }
   };
 
   $scope.createLog = function(contact) {
-    Log.save({connection_id:contact.ids.connection_id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
+    if (angular.isUndefined($scope.newLog)){$scope.newLog = {source: ""};};
+    Log.save({connection_id:contact.id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.removeLog = function(contact, log_id) {
-    Log.remove({connection_id:contact.ids.connection_id, id: log_id}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
+    Log.remove({connection_id:contact.id, id: log_id}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
   };
 
   $scope.categorize = false;
@@ -107,30 +111,30 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       $scope.groupTwo.contacts = [];
       $scope.groupThree.contacts = [];
       $scope.groupFour.contacts = [];
-      var g1 = {sum: null, count: null};
-      var g2 = {sum: null, count: null};
-      var g3 = {sum: null, count: null};
-      var g4 = {sum: null, count: null};
+      var g1 = {sum: 0.0, count: 0};
+      var g2 = {sum: 0.0, count: 0};
+      var g3 = {sum: 0.0, count: 0};
+      var g4 = {sum: 0.0, count: 0};
       angular.forEach(connectionsArray, function(contact){
 
-        if (contact.ids.category === 21 && contact.c_health >= 0){
+        if (contact.category === 21 && contact.health >= 0){
           $scope.groupOne.contacts.push(contact);
-          g1.sum += contact.c_health;
+          g1.sum += contact.health;
           g1.count += 1;
         }
-      else if (contact.ids.category === 42 && contact.c_health >= 0){
+      else if (contact.category === 42 && contact.health >= 0){
           $scope.groupTwo.contacts.push(contact);
-          g2.sum += contact.c_health;
+          g2.sum += contact.health;
           g2.count += 1;
         }
-      else if (contact.ids.category === 90 && contact.c_health >= 0){
+      else if (contact.category === 90 && contact.health >= 0){
           $scope.groupThree.contacts.push(contact);
-          g3.sum += contact.c_health;
+          g3.sum += contact.health;
           g3.count += 1;
         }
-      else if (contact.ids.category === 180 && contact.c_health >= 0){
+      else if (contact.category === 180 && contact.health >= 0){
           $scope.groupFour.contacts.push(contact);
-          g4.sum += contact.c_health;
+          g4.sum += contact.health;
           g4.count += 1;
         }
       });
@@ -210,7 +214,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   };
   // Calculate div style based on health status
   $scope.changeStyle = function(health){
-    if (health < 0.8){
+    if (health === null) {
+      return "{background: white}";
+    }
+    else if (health < 0.8){
       return "{background: 'green'}";
     }
     else if (health <= 1){

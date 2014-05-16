@@ -10,7 +10,7 @@
   </ul>
 </nav>
 
-  <div ng-show="categorize == true" ng-include="templates[0].url"></div>
+  <div id="categorize_template" ng-show="categorize == true" ng-include="templates[0].url"></div>
 
 <!-- Start all contacts span (show/hide) -->
 <span ng-show="allContacts">
@@ -21,7 +21,6 @@
 </div>
 
 </br>
-
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
@@ -45,7 +44,7 @@
       </div>
       <div class="col-md-4">
         <h5>
-          Search your contacts by name: <input type="text" ng-model="query.info" />
+          Search your contacts by name: <input type="text" ng-model="query.fullname" />
 <!--           Order By:
             <select ng-model="contactSort">
               <option value="first_name">First Name</option>
@@ -59,14 +58,15 @@
 <br>
   <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2 col-xs-5">
-        <img id="colorTab" ng-style="{{changeStyle(contact.c_health)}}" src="{{contact.ids.picture}}"></img>
+        <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
+        <img style="height:125px" id="colorTab" ng-style="{{changeStyle(contact.health)}}" src="{{contact.linkedin_pic}}"></img>
       </div>
       <div class="col-md-4 col-xs-6">
-        <h3>{{contact['info'].first_name}}
-            {{contact['info'].last_name}}</h3>
+        <h3>{{contact.custom_first_name || contact.first_name}}
+            {{contact.custom_last_name || contact.last_name}}</h3>
       </div>
       <div class="col-md-4 hidden-sm hidden-xs">
-        Category: {{contact.ids.category || "none"}}
+        Category: {{contact.category || "none"}}
       </div>
       <div class="col-md-2 col-xs-1">
         <span class="glyphicon glyphicon-chevron-right"></span>
@@ -80,10 +80,10 @@
     <button class="btn btn-muted"  ng-click='allShow()'>back</button>
     <div class="row">
       <div class="contactsListImg col-md-4  col-md-offset-2">
-        <img src="{{thisContact.ids.picture}}"></img>
+        <img style="height:125px" src="{{thisContact.linkedin_pic}}"></img>
       </div>
       <div class="col-md-4">
-         <h3>{{thisContact.info.first_name}} {{thisContact.info.last_name}}</h3>
+         <h3>{{thisContact.custom_first_name || thisContact.first_name}} {{thisContact.custom_last_name || thisContact.last_name}}</h3>
       </div>
     </div> <!-- end row for individual info -->
     <div class="row">
@@ -108,14 +108,15 @@
         </br></br>
         <!-- testing to see {{thisContact.c_health}} -->
         <div ng-repeat="log in thisContact.logs | orderBy:'-timestamp'">
-          <button class="btn btn-muted" ng-click="removeLog(thisContact,log.log.id)">x</button>
-          {{log.log.timestamp}} - {{log.log.source}} <button ng-show="log.log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
+          <button class="btn btn-muted" ng-click="removeLog(thisContact,log.id)">x</button>
+          {{log.timestamp}} - {{log.source}} <button ng-show="log.comment"ng-click="showComment = !showComment">{{showComment ? '-' : '+'}}</button>
           <div ng-show="showComment">
-            {{log.log.comment}}
+            {{log.comment}}
           </div>
         </div>
       </div>
     </div> <!-- end row for logs -->
+      {{thisContact.health}}
     <div class="row" id="recategorize">
       <div class="col-md-6">
         <h3>{{categoryMessage}}</h3>

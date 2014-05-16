@@ -6,6 +6,7 @@ WdiFinal::Application.routes.draw do
     resources :logs
   end
   get '/dashboard', to: 'site#show'
+  get '/callback', to: 'connections#collect'
   get '/auth/:provider/callback', to: 'connections#collect'
   put '/category/:id/:category', to: 'connection#category'
 end

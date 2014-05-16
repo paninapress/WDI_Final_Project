@@ -13,31 +13,30 @@
 <div>
   <div class="row contactsListImg">
     <div class="col-md-4  col-md-offset-2">
-    <img src="{{noCategory[0].data.ids.picture}}"></img>
+    <img style="height:125px" src="{{noCategory[0].linkedin_pic}}"></img>
     </div>
     <div class="col-md-4">
-      <h3>{{noCategory[0].data.info.first_name}}</h3>
-      <h3>{{noCategory[0].data.info.last_name}}</h3>
+      <h3>{{noCategory[0].first_name}}</h3>
+      <h3>{{noCategory[0].last_name}}</h3>
     </div> 
   </div>
-
   <div class="row">
     <div class="col-md-8 col-md-offset-2 wideBtn">
         <button ng-click="toBeCategorized()" type="button" class="btn btn-danger leftBtn">Exit</button>
-        <button ng-click="categorized(noCategory[0].data, 0, noCategory[0].index, true)" type="button" class="btn btn-info rightBtn">>Skip/None</button>
+        <button ng-click="categorized(noCategory[0], 0, true)" type="button" class="btn btn-info rightBtn">>Skip/None</button>
     </div>
   </div>
   </br>
   <div class="row">
     <div class="col-md-8 col-md-offset-2 bigBtn">
-        <button id="catBtn1" ng-click="categorized(noCategory[0].data, 21, noCategory[0].index, true)" type="button" class="btn btn-category">Category 1</button>
-        <button id="catBtn2" ng-click="categorized(noCategory[0].data, 42, noCategory[0].index, true)" type="button" class="btn btn-category">Category 2</button>
+        <button id="catBtn1" ng-click="categorized(noCategory[0], 21, true)" type="button" class="btn btn-category">Category 1</button>
+        <button id="catBtn2" ng-click="categorized(noCategory[0], 42, true)" type="button" class="btn btn-category">Category 2</button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2 bigBtn">
-        <button id="catBtn3" ng-click="categorized(noCategory[0].data, 90, noCategory[0].index, true)" type="button" class="btn btn-category">Category 3</button>
-        <button id="catBtn4" ng-click="categorized(noCategory[0].data, 180, noCategory[0].index, true)" type="button" class="btn btn-category">Category 4</button>
+        <button id="catBtn3" ng-click="categorized(noCategory[0], 90, true)" type="button" class="btn btn-category">Category 3</button>
+        <button id="catBtn4" ng-click="categorized(noCategory[0], 180, true)" type="button" class="btn btn-category">Category 4</button>
     </div>
   </div>
 </div>

@@ -4,28 +4,18 @@ class ConnectionsController < ApplicationController
 
   def collect
     auth = request.env['omniauth.auth'] || nil
-    @current_user = current_user
-    Connection.collect_data(auth, @current_user) if auth != nil
+    Connection.collect_data(auth, current_user) if auth != nil
     redirect_to '/#/dashboard'
   end
 
   def index
-    user = current_user
-    contacts = Connection.get_all_connections(user)
-    render :json => contacts
-  end
-
-  def show
+    render :json => Connection.where(user_id: current_user.id).as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 
   def update
-    id = params[:id]
-    user = current_user
-    connection = Connection.find(id)
-    cat = nil
-    connection.update_attributes(category: params.require(:category))
-    responseData = Connection.get_connection(user,connection)
-    render :json => {response: responseData}
+    connection = Connection.find(params[:id])
+    Connection.update_connection(connection, params.require(:connection).permit(:category))
+    render :json => connection.as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 
 end
