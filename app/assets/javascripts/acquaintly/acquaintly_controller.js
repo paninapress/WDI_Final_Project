@@ -80,10 +80,13 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.thisContact = data;
     getCategoryMessage(data);
     $scope.sortGroup($scope.connections);
-    $scope.newLog.comment = "";
+    if (angular.isDefined($scope.newLog)) {
+      $scope.newLog.comment = "";
+    }
   };
 
   $scope.createLog = function(contact) {
+    if (angular.isUndefined($scope.newLog)){$scope.newLog = {source: ""};};
     Log.save({connection_id:contact.id}, {log: {source: $scope.newLog.source, comment: $scope.newLog.comment, date: $scope.newLog.date}}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
   };
 
