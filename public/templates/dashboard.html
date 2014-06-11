@@ -45,18 +45,20 @@
       <div class="col-md-4">
         <h5>
           Search your contacts by name: <input type="text" ng-model="query.fullname" />
-<!--           Order By:
-            <select ng-model="contactSort">
-              <option value="first_name">First Name</option>
-              <option value="last_name"> Last Name</option>
-              <option value="category">Category</option>
-            </select> -->
+          Order By:
+            <select ng-model="contactSort.category">
+              <option value="21">Cat 1</option>
+              <option value="42">Cat 2</option>
+              <option value="90">Cat 3</option>
+              <option value="180">Cat 4</option>
+              <!-- <option value="">None</option> -->
+            </select>
         </h5>
       </div>
     </div>
   </div> <!-- end row with categorize btn and search -->
 <br>
-  <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | orderBy: contactSort' ng-click='contactShow(contact)'>
+  <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: contactSort' ng-click='contactShow(contact)'>
       <div class="col-md-2 col-xs-5">
         <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
         <img style="height:125px" id="colorTab" ng-style="{{changeStyle(contact.health)}}" src="{{contact.linkedin_pic}}"></img>
