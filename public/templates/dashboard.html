@@ -25,8 +25,8 @@
     <div class="col-md-6 col-md-offset-3">
       <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div> 
-    <div class="row">
-      <div ng-hide="overallHealth === null" class="col-md-6 col-md-offset-3">
+    <div ng-hide="overallHealth.average === null" class="row">
+      <div class="col-md-6 col-md-offset-3">
         <h5>Your overall social state is {{overallHealth.percentage | number:0}}% ... {{overallHealth.status}}</h5>
         <h5>Category 1 is {{groupOne.percentage | number:0}}% ... {{groupOne.status}}</h5>
         <h5>Category 2 is {{groupTwo.percentage | number:0}}% ... {{groupTwo.status}}</h5>
