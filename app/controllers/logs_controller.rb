@@ -8,7 +8,7 @@ class LogsController < ApplicationController
   def destroy
     connection = Connection.find(params[:connection_id])
     Log.destroy(params[:id])
-    Connection.recalculate_health(connection)
+    Log.find_recent_log(connection)
     render :json => connection.as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 end
