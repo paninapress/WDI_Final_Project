@@ -43,8 +43,8 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     if (contact.category === null) {
       $scope.categoryMessage = "Uncategorized";
     }
-    else if (contact.category === 0) {
-      $scope.categoryMessage = "Not categorized";
+    else if (contact.category === 11) {
+      $scope.categoryMessage = ("Current category: None");
     }
     else {
       $scope.categoryMessage = ("Current category: " + contact.category + " days");
@@ -116,27 +116,28 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       var g3 = {sum: 0.0, count: 0};
       var g4 = {sum: 0.0, count: 0};
       angular.forEach(connectionsArray, function(contact){
-
-        if (contact.category === 21 && contact.health >= 0){
-          $scope.groupOne.contacts.push(contact);
-          g1.sum += contact.health;
-          g1.count += 1;
-        }
-      else if (contact.category === 42 && contact.health >= 0){
-          $scope.groupTwo.contacts.push(contact);
-          g2.sum += contact.health;
-          g2.count += 1;
-        }
-      else if (contact.category === 90 && contact.health >= 0){
-          $scope.groupThree.contacts.push(contact);
-          g3.sum += contact.health;
-          g3.count += 1;
-        }
-      else if (contact.category === 180 && contact.health >= 0){
-          $scope.groupFour.contacts.push(contact);
-          g4.sum += contact.health;
-          g4.count += 1;
-        }
+        if(contact.health !== null){
+          if (contact.category === 21 && contact.health >= 0){
+              $scope.groupOne.contacts.push(contact);
+              g1.sum += contact.health;
+              g1.count += 1;
+          }
+          else if (contact.category === 42 && contact.health >= 0){
+              $scope.groupTwo.contacts.push(contact);
+              g2.sum += contact.health;
+              g2.count += 1;
+          }
+          else if (contact.category === 90 && contact.health >= 0){
+              $scope.groupThree.contacts.push(contact);
+              g3.sum += contact.health;
+              g3.count += 1;
+          }
+          else if (contact.category === 180 && contact.health >= 0){
+              $scope.groupFour.contacts.push(contact);
+              g4.sum += contact.health;
+              g4.count += 1;
+          }
+        };
       });
       calcGroupAverages(g1, g2, g3, g4);
       calcOverallHealth(g1, g2, g3, g4);
