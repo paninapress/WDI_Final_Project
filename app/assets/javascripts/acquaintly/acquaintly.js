@@ -12,8 +12,12 @@ AppRouter.config(['$routeProvider','$locationProvider',
       when('/dashboard', {
         templateUrl: '/templates/dashboard.html',
         controller: 'AppCtrl'
+      }).
+      when('/users/sign_in', {
+        templateUrl: '/templates/login.html',
+        controller: 'AppCtrl'
       });
-      // $locationProvider.html5Mode(true)
+    $locationProvider.html5Mode(true);
   }]);
 
 // login = index
