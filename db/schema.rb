@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502234534) do
+ActiveRecord::Schema.define(version: 20140825005012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "connections", force: true do |t|
     t.integer  "user_id"
-    t.integer  "category"
+    t.integer  "category",          default: 180
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140502234534) do
     t.string   "facebook_id"
     t.float    "health"
     t.string   "fullname"
+    t.date     "recent_log"
   end
 
   add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree

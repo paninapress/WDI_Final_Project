@@ -37,44 +37,38 @@ class Connection < ActiveRecord::Base
               }
       connection = Connection.find_by(user_id: user.id, linkedin_id: c.id)
       if connection
-        category_true = connection.category != nil && connection.category > 0
-        health = connection.last_date && category_true ? (((Date.today - connection.logs.order("timestamp DESC").first.timestamp) / connection.category).to_f) : nil
-        c_data['health'] = health.nil? ? nil : health >= 0.0 ? health : 0.0
         connection.update_attributes(c_data)
       else
         user.connections << Connection.create(c_data)
       end
     end
-
   end
 
-  def self.update_connection (connection, data)
-    # 1) Assemble data attributes to update 'connection' with.
-    data['category'] = data['category'].to_i
-    if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      health = ((Date.today - connection.last_date.timestamp) / data['category']).to_f
-      c_health = health >= 0.0 ? health : 0.0
-      data['health'] = c_health
-    end
-    # 2) Update attributes for 'connection'.
-    connection.update_attributes(data)
-    return connection
-  end
+  # def self.update_connection (connection, data)
+  #   # 1) Assemble data attributes to update 'connection' with.
+  #   data['category'] = data['category'].to_i
+  #   if connection.category && connection.recent_log
+  #     calculate_health(connection)
+  #   end
+  #   # 2) Update attributes for 'connection'.
+  #   connection.update_attributes(data)
+  #   return connection
+  # end
 
-  def self.recalculate_health (connection)
-    # 1a) If 'connection' has both a category and logs, calculate health.  Else set health to nil
-    if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
-      health = ((Date.today - connection.last_date.timestamp) / connection.category).to_f
-      c_health = health >= 0.0 ? health : 0.0
-      connection.update_attributes(health: c_health)
-    else
-      connection.update_attributes(health: 0.0)
-    end
-  end
+  # def self.recalculate_health (connection)
+  #   # 1a) If 'connection' has both a category and logs, calculate health.  Else set health to nil
+  #   if (connection.category != 0 && connection.category != nil) && connection.logs.count > 0
+  #     health = ((Date.today - connection.last_date.timestamp) / connection.category).to_f
+  #     c_health = health >= 0.0 ? health : 0.0
+  #     connection.update_attributes(health: c_health)
+  #   else
+  #     connection.update_attributes(health: 0.0)
+  #   end
+  # end
 
-  # Return log with most recent timestamp (to DRY up code):
-  def last_date
-    return self.logs.order("timestamp DESC").first
-  end
+  # # Return log with most recent timestamp (to DRY up code):
+  # def last_date
+  #   return self.logs.order("timestamp DESC").first
+  # end
 
 end
