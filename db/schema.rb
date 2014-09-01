@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140825005012) do
 
   create_table "connections", force: true do |t|
     t.integer  "user_id"
-    t.integer  "category",          default: 180
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"

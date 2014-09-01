@@ -45,12 +45,14 @@ class Connection < ActiveRecord::Base
   end
 
   def self.calculate_health(connection)
-    if connection.recent_log && connection.category > 0
-      health = (Date.today - connection.recent_log) / connection.category
-      c_health = health >= 0.0 ? health : 0.0
-      connection.update_attributes(health: c_health)
-    else
-      connection.update_attributes(health: null)
+    if connection.category
+      if connection.recent_log && connection.category > 0
+        health = (Date.today - connection.recent_log) / connection.category
+        c_health = health >= 0.0 ? health : 0.0
+        connection.update_attributes(health: c_health)
+      else
+        connection.update_attributes(health: nil)
+      end
     end
   end
   # def self.update_connection (connection, data)
