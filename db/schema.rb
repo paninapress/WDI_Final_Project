@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902010143) do
+ActiveRecord::Schema.define(version: 20140916012935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 20140902010143) do
   end
 
   add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.integer  "user_id"
+    t.float    "averageOne"
+    t.float    "averageTwo"
+    t.float    "averageThree"
+    t.float    "averageFour"
+    t.float    "averageOverall"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
   create_table "logs", force: true do |t|
     t.integer  "connection_id"
@@ -67,13 +80,11 @@ ActiveRecord::Schema.define(version: 20140902010143) do
     t.string   "last_sign_in_ip"
     t.string   "linkedin_id"
     t.string   "facebook_id"
-    t.float    "groupOneAverage"
-    t.float    "groupTwoAverage"
-    t.float    "groupThreeAverage"
-    t.float    "groupFourAverage"
+    t.integer  "group_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

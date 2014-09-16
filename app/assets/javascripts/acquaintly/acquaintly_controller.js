@@ -173,6 +173,8 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   //   $scope.overallHealth.percentage =reversePercent(average);
   //   $scope.overallHealth.status = calcHealthStatus(average);
   // };
+  //   this is to calculate a percentage for the user
+  //   on how well they're doing. Trying to get all Groups to 100%
   // var calcGroupPercentages = function(){
   //   $scope.groupOne.percentage = reversePercent($scope.groupOne.average);
   //   $scope.groupTwo.percentage = reversePercent($scope.groupTwo.average);

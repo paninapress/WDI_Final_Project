@@ -5,6 +5,12 @@ class ConnectionsController < ApplicationController
   def collect
     auth = request.env['omniauth.auth'] || nil
     Connection.collect_data(auth, current_user) if auth != nil
+    # create group row for average and overall health
+      if current_user.group_id == nil
+          Group.create(user_id: current_user.id)
+          id = Group.find_by(user_id: current_user.id).id
+          current_user.update_attributes(group_id: id)
+      end
     redirect_to '/#/dashboard'
   end
 
