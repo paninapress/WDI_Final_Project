@@ -53,7 +53,7 @@ class Connection < ActiveRecord::Base
       else
         connection.update_attributes(health: nil)
       end
-      Group.calculate_group_average(connection.user, connection.category)
+      Group.calculate_group_averages(connection.user_id)
     end
   end
 
