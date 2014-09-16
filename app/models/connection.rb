@@ -53,6 +53,56 @@ class Connection < ActiveRecord::Base
       else
         connection.update_attributes(health: nil)
       end
+      calculate_group_average(connection)
+    end
+  end
+
+  def self.calculate_group_average(connection)
+    user = User.find(connection.user_id)
+    cat = connection.category
+    sum = 0.0
+    count = 0
+    user.connections.each do |contact|
+      if contact.health != nil && contact.category == cat
+        if contact.health >= 0
+          sum += contact.health
+          count += 1
+        end
+      end
+    end
+    if count == 0
+      if cat == 21
+        user.update_attributes(groupOneAverage: nil)
+      elsif cat == 42
+        user.update_attributes(groupTwoAverage: nil)
+      elsif cat == 90
+        user.update_attributes(groupThreeAverage: nil)
+      elsif cat == 180
+        user.update_attributes(groupFourAverage: nil)
+      end
+    else
+      average = sum/count
+      group_percent = reverse_percent(average)
+      if cat == 21
+        user.update_attributes(groupOneAverage: group_percent)
+      elsif cat == 42
+        user.update_attributes(groupTwoAverage: group_percent)
+      elsif cat == 90
+        user.update_attributes(groupThreeAverage: group_percent)
+      elsif cat == 180
+        user.update_attributes(groupFourAverage: group_percent)
+      end
+    end
+  end
+
+  
+  # this is to calculate a percentage for the user
+  # on how well they're doing. Trying to get all Groups to 100%
+  def self.reverse_percent(average)
+    if average >= 0
+      return (100 - (average * 100))
+    else
+      return 0
     end
   end
   # def self.update_connection (connection, data)

@@ -13,7 +13,8 @@ class Log < ActiveRecord::Base
 		Connection.calculate_health(connection)
 	else
 		connection.update_attributes(recent_log: nil, health: nil)
-	end
+    Connection.calculate_group_average(connection)
+	 end
   end
 
 end
