@@ -15,8 +15,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 
   var Connection = $resource("/connections/:id", {id: "@id"}, {update: {method: "PUT"}});
   var Log = $resource("/connections/:connection_id/logs/:id");
-  
-  $scope.connections = Connection.query(function(successResponse){$scope.sortGroup(successResponse);});
+  var Group = $resource("/groups/:id", {id: "@id"});
+
+  $scope.groups = Group.query();
+  $scope.connections = Connection.query();
 
   //allows all contacts to show
   $scope.allContacts = true;
@@ -79,7 +81,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     $scope.connections[index] = data;
     $scope.thisContact = data;
     getCategoryMessage(data);
-    $scope.sortGroup($scope.connections);
+    $scope.groups = Group.query();
     if (angular.isDefined($scope.newLog)) {
       $scope.newLog.comment = "";
     }
@@ -98,142 +100,54 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 
   $scope.templates = [ {name: "categorize.html", url: "/templates/categorize.html"}];
 
-// START functions to get average/overall social health
-  // Choosing to include contacts in this hash because we can use
-  // them later for the queue/recommender feature
-  // $scope.groupOne = {contacts: [], average: null, percentage: null, status: null};
-  // $scope.groupTwo = {contacts: [], average: null, percentage: null, status: null};
-  // $scope.groupThree = {contacts: [], average: null, percentage: null, status: null};
-  // $scope.groupFour = {contacts: [], average: null, percentage: null, status: null};
-  // $scope.overallHealth = {average: null, percentage: null, status: null};
-  // $scope.sortGroup = function(connectionsArray){
-  //     $scope.groupOne.contacts = [];
-  //     $scope.groupTwo.contacts = [];
-  //     $scope.groupThree.contacts = [];
-  //     $scope.groupFour.contacts = [];
-  //     var g1 = {sum: 0.0, count: 0};
-  //     var g2 = {sum: 0.0, count: 0};
-  //     var g3 = {sum: 0.0, count: 0};
-  //     var g4 = {sum: 0.0, count: 0};
-  //     angular.forEach(connectionsArray, function(contact){
-  //       if(contact.health !== null){
-  //         if (contact.category === 21 && contact.health >= 0){
-  //             $scope.groupOne.contacts.push(contact);
-  //             g1.sum += contact.health;
-  //             g1.count += 1;
-  //         }
-  //         else if (contact.category === 42 && contact.health >= 0){
-  //             $scope.groupTwo.contacts.push(contact);
-  //             g2.sum += contact.health;
-  //             g2.count += 1;
-  //         }
-  //         else if (contact.category === 90 && contact.health >= 0){
-  //             $scope.groupThree.contacts.push(contact);
-  //             g3.sum += contact.health;
-  //             g3.count += 1;
-  //         }
-  //         else if (contact.category === 180 && contact.health >= 0){
-  //             $scope.groupFour.contacts.push(contact);
-  //             g4.sum += contact.health;
-  //             g4.count += 1;
-  //         }
-  //       };
-  //     });
-  //     calcGroupAverages(g1, g2, g3, g4);
-  //     calcOverallHealth(g1, g2, g3, g4);
-  //   };
-  // var calcGroupAverages = function(g1, g2, g3, g4){
-  //   $scope.groupOne.average = g1.sum / g1.count;
-  //   $scope.groupTwo.average = g2.sum / g2.count;
-  //   $scope.groupThree.average = g3.sum / g3.count;
-  //   $scope.groupFour.average = g4.sum / g4.count;
-  //   calcGroupPercentages();
-  //   calcGroupStatuses();
-  // };
-  // // calcOverallHealth is separate func becuase 
-  // // the groups are weighted differently: g1 is 2x of g2 
-  // // then g2 is 2x of g3 and so on...
-  // var calcOverallHealth = function(g1, g2, g3, g4){
-  //   var allGroupSum = null;
-  //   var allGroupCount = null;
-  //   var average = null;
-    
-  //   allGroupSum += (g1.sum * Math.pow(2,3)); //g1 weighted 2*2*2
-  //   allGroupSum += (g2.sum * Math.pow(2,2)); //g2 weighted 2*2
-  //   allGroupSum += (g3.sum * 2); //g3 weighted double
-  //   allGroupSum += g4.sum;
 
-  //   allGroupCount += (g1.count * Math.pow(2,3));
-  //   allGroupCount += (g2.count * Math.pow(2,2));
-  //   allGroupCount += (g3.count * 2);
-  //   allGroupCount += g4.count;
-    
-  //   average = allGroupSum / allGroupCount;
-  //   $scope.overallHealth.average = average;
-  //   $scope.overallHealth.percentage =reversePercent(average);
-  //   $scope.overallHealth.status = calcHealthStatus(average);
-  // };
-  //   this is to calculate a percentage for the user
-  //   on how well they're doing. Trying to get all Groups to 100%
-  // var calcGroupPercentages = function(){
-  //   $scope.groupOne.percentage = reversePercent($scope.groupOne.average);
-  //   $scope.groupTwo.percentage = reversePercent($scope.groupTwo.average);
-  //   $scope.groupThree.percentage = reversePercent($scope.groupThree.average);
-  //   $scope.groupFour.percentage = reversePercent($scope.groupFour.average);
-  // };
-  // var calcGroupStatuses = function(){
-  //   $scope.groupOne.status = calcHealthStatus($scope.groupOne.average);
-  //   $scope.groupTwo.status = calcHealthStatus($scope.groupTwo.average);
-  //   $scope.groupThree.status = calcHealthStatus($scope.groupThree.average);
-  //   $scope.groupFour.status = calcHealthStatus($scope.groupFour.average);
-  // };
-  // // this is a function to calculate a percentage for the user
-  // // on how well they're doing. Trying to get all Groups to 100%
-  // // rather than how we use the numbers where lower is better
-  // var reversePercent = function(average){
-  //   if (average >= 0){
-  //     return (100 - (average * 100));
-  //   }
-  //   else {
-  //     return 0;
-  //   }
-  // };
-  // var calcHealthStatus = function(average){
-  //   if (average <= 0.2){
-  //     return "GREAT";
-  //   }
-  //   else if (average <= 0.5){
-  //     return "GOOD";
-  //   }
-  //   else if (average <= 1 ){
-  //     return "OK";
-  //   }
-  //   else if (average > 1){
-  //     return "You're in the DANGER ZONE!";
-  //   }
-  //   else{
-  //     return "none";
-  //   }
-  // };
-  // // Calculate div style based on health status
-  // $scope.changeStyle = function(health){
-  //   if (health === null) {
-  //     return "{background: white}";
-  //   }
-  //   else if (health < 0.8){
-  //     return "{background: 'green'}";
-  //   }
-  //   else if (health <= 1){
-  //     return "{background: 'orange'}";
-  //   }
-  //   else if (health > 1){
-  //     return "{background: 'red'}";
-  //   }
-  //   else if (health > 2){
-  //     return "{background: 'grey'}";
-  //   }
-  //   else {
-  //     return "{background: 'white'}";
-  //   }
-  // };
+// START functions to get Percent/Status/Style of social health
+// this is to calculate a percentage for the user
+// on how well they're doing. Trying to get all Groups to 100%
+  $scope.reversePercent = function(average){
+    if (average >= 0){
+      return (100 - (average * 100));
+    }
+    else {
+      return 0;
+    }
+  };
+  $scope.calcHealthStatus = function(average){
+    if (average <= 0.2){
+      return "GREAT";
+    }
+    else if (average <= 0.5){
+      return "GOOD";
+    }
+    else if (average <= 1 ){
+      return "OK";
+    }
+    else if (average > 1){
+      return "You're in the DANGER ZONE!";
+    }
+    else{
+      return "none";
+    }
+  };
+  // Calculate div style based on health status
+  $scope.changeStyle = function(health){
+    if (health === null) {
+      return "{background: 'white'}";
+    }
+    else if (health < 0.8){
+      return "{background: 'green'}";
+    }
+    else if (health <= 1){
+      return "{background: 'orange'}";
+    }
+    else if (health > 1){
+      return "{background: 'red'}";
+    }
+    else if (health > 2){
+      return "{background: 'grey'}";
+    }
+    else {
+      return "{background: 'white'}";
+    }
+  };
 }]);
