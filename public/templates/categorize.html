@@ -23,19 +23,20 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2 wideBtn">
         <button ng-click="toBeCategorized()" type="button" class="btn btn-danger leftBtn">Exit</button>
-        <button ng-click="categorized(noCategory[0], 180, true)" type="button" class="btn btn-info rightBtn">Skip >></button>
+        <button ng-click="categorized(noCategory[0], 11, true)" type="button" class="btn btn-info rightBtn">>Skip/None</button>
     </div>
   </div>
   </br>
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <button id="catBtn3" ng-click="categorized(noCategory[0], 90, true)" type="button" class="btn btn-category">Acquaintence</button>
+    <div class="col-md-8 col-md-offset-2 bigBtn">
+        <button id="catBtn1" ng-click="categorized(noCategory[0], 21, true)" type="button" class="btn btn-category">Close Friend/Family</button>
+        <button id="catBtn2" ng-click="categorized(noCategory[0], 42, true)" type="button" class="btn btn-category">Friend</button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2 bigBtn">
-        <button id="catBtn1" ng-click="categorized(noCategory[0], 21, true)" type="button" class="btn btn-category">Close Friend</button>
-        <button id="catBtn2" ng-click="categorized(noCategory[0], 42, true)" type="button" class="btn btn-category">Friend</button>
+        <button id="catBtn3" ng-click="categorized(noCategory[0], 90, true)" type="button" class="btn btn-category">Acquaintence</button>
+        <button id="catBtn4" ng-click="categorized(noCategory[0], 180, true)" type="button" class="btn btn-category">Other</button>
     </div>
   </div>
 </div>

@@ -135,16 +135,13 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       return "{background: 'white'}";
     }
     else if (health < 0.8){
-      return "{background: 'green'}";
+      return "{background: '#89E818'}";
     }
     else if (health <= 1){
-      return "{background: 'orange'}";
+      return "{background: '#FFEB2C'}";
     }
     else if (health > 1){
-      return "{background: 'red'}";
-    }
-    else if (health > 2){
-      return "{background: 'grey'}";
+      return "{background: '#4FB2FF'}";
     }
     else {
       return "{background: 'white'}";

@@ -63,37 +63,53 @@ body {
   border: 1px solid #285e8e;
 }
 #catBtn1 {
+  border-top: transparent;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: transparent;
+  border-radius: 0 0;
+}
+#catBtn2{
+  border-top: transparent;
+  border-right: transparent;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+  border-radius: 0 0;
+}
+#catBtn3{
   border-top: 1px solid #000;
   border-right: 1px solid #000;
   border-bottom: transparent;
   border-left: transparent;
   border-radius: 0 0;
 }
-#catBtn2{
+#catBtn4{
   border-top: 1px solid #000;
   border-right: transparent;
   border-bottom: transparent;
   border-left: 1px solid #000;
   border-radius: 0 0;
 }
-#catBtn3{
-  border-top: transparent;
-  border-bottom: 1px solid #000;
-  border-left: transparent;
-  border-radius: 0 0;
-  min-height: 150px;
-  width: 100%;
-}
-
 /*Makes the tiny arrow on the border*/
 #catBtn2:after {
   content: '\A';
   position: absolute;
   right: 5px;
-  top: -10px;
+  top: 140px;
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 10px solid black;
+}
+#catBtn4:after {
+  content: '\A';
+  position: absolute;
+  right: 5px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 0px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid black;
 }
@@ -102,10 +118,21 @@ body {
   content: '\A';
   position: absolute;
   left: 5px;
-  top: -10px;
+  top: 140px;
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-right: 10px solid black;
+}
+#catBtn3:after {
+  content: '\A';
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 0px solid transparent;
   border-bottom: 10px solid transparent;
   border-right: 10px solid black;
 }
