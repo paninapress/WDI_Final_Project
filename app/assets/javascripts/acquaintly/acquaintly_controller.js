@@ -119,10 +119,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     if (average === null){
       return "none";
     }
-    else if (average <= 0.2){
+    else if (average <= 0.3){
       return "GREAT";
     }
-    else if (average <= 0.5){
+    else if (average <= 0.8){
       return "GOOD";
     }
     else if (average <= 1 ){
