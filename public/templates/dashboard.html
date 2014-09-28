@@ -54,35 +54,61 @@
       <div class="col-md-4">
         <h5>
           Search your contacts by name: <input type="text" ng-model="query.fullname" />
-          Order By:
-            <select ng-model="contactSort.category">
-              <option value="21">Cat 1</option>
-              <option value="42">Cat 2</option>
-              <option value="90">Cat 3</option>
-              <option value="180">Cat 4</option>
-              <option value="11">None/Undecided</option>
-              <option value="">All</option> <!-- Display all that have been categorized -->
-            </select>
         </h5>
       </div>
     </div>
 <br>
-  <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: contactSort' ng-click='contactShow(contact)'>
-      <div class="col-md-2 col-xs-5">
-        <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-        <img style="height:125px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
-      </div>
-      <div class="col-md-4 col-xs-6">
-        <h3>{{contact.custom_first_name || contact.first_name}}
-            {{contact.custom_last_name || contact.last_name}}</h3>
-      </div>
-      <div class="col-md-4 hidden-sm hidden-xs">
-        Category: {{contact.category > 11 ? contact.category : "none"}}
-      </div>
-      <div class="col-md-2 col-xs-1">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </div>
-  </div> <!-- end row for list of contacts -->
+   
+    <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" id="myTab">
+    <li class="active"><a ng-click="makeTabActive(0)" href="#" role="tab" data-toggle="tab">All</a></li>
+    <li><a ng-click="makeTabActive(1)" href="#" role="tab" data-toggle="tab">Group 1</a></li>
+    <li><a ng-click="makeTabActive(2)" href="#" role="tab" data-toggle="tab">Group 2</a></li>
+    <li><a ng-click="makeTabActive(3)" href="#" role="tab" data-toggle="tab">Group 3</a></li>
+    <li><a ng-click="makeTabActive(4)" href="#" role="tab" data-toggle="tab">Group 4</a></li>
+    <li><a ng-click="makeTabActive(5)" href="#" role="tab" data-toggle="tab">None</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="all-tab">
+      <div class="row contactsListImg" ng-repeat='contact in connections | filter: query' ng-click='contactShow(contact)'>
+        <div class="col-md-2 col-xs-5">
+          <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
+          <img style="height:125px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+        </div>
+        <div class="col-md-4 col-xs-6">
+          <h3>{{contact.custom_first_name || contact.first_name}}
+              {{contact.custom_last_name || contact.last_name}}</h3>
+        </div>
+        <div class="col-md-4 hidden-sm hidden-xs">
+          Category: {{contact.category > 11 ? contact.category : "none"}}
+        </div>
+        <div class="col-md-2 col-xs-1">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+      </div> 
+    </div><!-- end row of all contacts tab -->
+    <div class="tab-pane" id="category-tab">
+      <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: contactSort' ng-click='contactShow(contact)'>
+        <div class="col-md-2 col-xs-5">
+          <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
+          <img style="height:125px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+        </div>
+        <div class="col-md-4 col-xs-6">
+          <h3>{{contact.custom_first_name || contact.first_name}}
+              {{contact.custom_last_name || contact.last_name}}</h3>
+        </div>
+        <div class="col-md-4 hidden-sm hidden-xs">
+          Category: {{contact.category > 11 ? contact.category : "none"}}
+        </div>
+        <div class="col-md-2 col-xs-1">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+      </div> 
+    </div><!-- end of category tab -->
+  </div>
+
 </span> <!-- end allContacts span (show/hide) -->
 
 <!-- This is the contact show/hide -->

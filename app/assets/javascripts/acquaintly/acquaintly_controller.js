@@ -105,7 +105,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 // this is to calculate a percentage for the user
 // on how well they're doing. Trying to get all Groups to 100%
   $scope.reversePercent = function(average){
-    if (average >= 0){
+    if (average === null){
+      return 0;
+    }
+    else if (average >= 0){
       return (100 - (average * 100));
     }
     else {
@@ -113,7 +116,10 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     }
   };
   $scope.calcHealthStatus = function(average){
-    if (average <= 0.2){
+    if (average === null){
+      return "none";
+    }
+    else if (average <= 0.2){
       return "GREAT";
     }
     else if (average <= 0.5){
@@ -140,11 +146,44 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     else if (health <= 1){
       return "{background: '#FFEB2C'}";
     }
-    else if (health > 1){
+    else if (health > 1 && health < 3){
       return "{background: '#4FB2FF'}";
+    }
+    else if (health >= 3){
+      return "{background: 'lightgrey'}";
     }
     else {
       return "{background: 'white'}";
+    }
+  };
+
+// This handles tab functionality
+  $scope.contactSort = {category: null};
+  $scope.query = {fullname: ""};
+  $scope.makeTabActive = function(tab){
+    $scope.query.fullname = "";
+    if (tab == 0){
+      $('#category-tab').removeClass('active');
+      $('#all-tab').addClass('active');
+    }
+    else {
+        if (tab == 1){
+          $scope.contactSort.category = "21";
+        }
+        else if (tab == 2){
+          $scope.contactSort.category = "42";
+        }
+        else if (tab == 3){
+          $scope.contactSort.category = "90";
+        }
+        else if (tab == 4){
+          $scope.contactSort.category = "180";
+        }
+        else if (tab == 5){
+          $scope.contactSort.category = "11";
+        }
+      $('#all-tab').removeClass('active');
+      $('#category-tab').addClass('active');
     }
   };
 }]);
