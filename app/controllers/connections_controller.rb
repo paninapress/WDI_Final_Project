@@ -15,6 +15,7 @@ class ConnectionsController < ApplicationController
   end
 
   def index
+    Connection.decide_to_update(current_user.id)
     render :json => Connection.where(user_id: current_user.id).as_json(:include => {:logs => {:only => [:id, :source, :comment, :timestamp]}})
   end
 
