@@ -32,14 +32,14 @@
     </div>
     <div class="row wideBtn text-center">
       <div class="col-md-8 col-md-offset-2">
-        <button type="button" class="btn" ng-style="{{changeStyle(group.averageOne)}}">Category 1 is {{reversePercent(group.averageOne) | number:2}}% ... {{calcHealthStatus(group.averageOne)}}</button>
-        <button type="button" class="btn" ng-style="{{changeStyle(group.averageTwo)}}">Category 2 is {{reversePercent(group.averageTwo) | number:2}}% ... {{calcHealthStatus(group.averageTwo)}}</button>
+        <button type="button" class="btn" ng-style="{{changeStyle(group.averageOne)}}">Group 1 is {{reversePercent(group.averageOne) | number:2}}% ... {{calcHealthStatus(group.averageOne)}}</button>
+        <button type="button" class="btn" ng-style="{{changeStyle(group.averageTwo)}}">Group 2 is {{reversePercent(group.averageTwo) | number:2}}% ... {{calcHealthStatus(group.averageTwo)}}</button>
       </div>
     </div>
     <div class="row wideBtn text-center">
       <div class="col-md-8 col-md-offset-2">
-        <button type="button" class="btn" ng-style="{{changeStyle(group.averageThree)}}">Category 3 is {{reversePercent(group.averageThree) | number:2}}% ... {{calcHealthStatus(group.averageThree)}} </button>
-        <button type="button" class="btn" ng-style="{{changeStyle(group.averageFour)}}">Category 4 is {{reversePercent(group.averageFour) | number:2}}% ... {{calcHealthStatus(group.averageFour)}}</button>
+        <button type="button" class="btn" ng-style="{{changeStyle(group.averageThree)}}">Group 3 is {{reversePercent(group.averageThree) | number:2}}% ... {{calcHealthStatus(group.averageThree)}} </button>
+        <button type="button" class="btn" ng-style="{{changeStyle(group.averageFour)}}">Group 4 is {{reversePercent(group.averageFour) | number:2}}% ... {{calcHealthStatus(group.averageFour)}}</button>
       </div>
     </div>
   </div> <!-- end of group status display and categorize btn -->
@@ -82,7 +82,7 @@
               {{contact.custom_last_name || contact.last_name}}</h3>
         </div>
         <div class="col-sm-4 hidden-xs">
-          <p class="center-align-text">Category: {{contact.category > 11 ? contact.category : "none"}}</p>
+          <p class="center-align-text">Group: {{contact.category >= 11 ? catToGroupNum(contact.category) : "not categorized"}}</p>
         </div>
         <div class="col-sm-1 col-xs-2">
           <span class="glyphicon glyphicon-chevron-right center-align-text"></span>
@@ -100,7 +100,7 @@
               {{contact.custom_last_name || contact.last_name}}</h3>
         </div>
         <div class="col-sm-4 hidden-xs">
-          <p class="center-align-text">Last contacted: {{contact.recent_log || "none"}}</p>
+          <p class="center-align-text">Last contacted: {{contact.recent_log || "n/a"}}</p>
         </div>
         <div class="col-sm-1 col-xs-2">
           <span class="glyphicon glyphicon-chevron-right center-align-text"></span>

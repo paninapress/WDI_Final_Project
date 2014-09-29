@@ -205,8 +205,28 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
     }
   };
 
-    $scope.g1 = {category: 21};
-    $scope.g2 = {category: 42};
-    $scope.g3 = {category: 90};
-    $scope.g4 = {category: 180};
+  // for filtering on multi-group-tab
+  $scope.g1 = {category: 21};
+  $scope.g2 = {category: 42};
+  $scope.g3 = {category: 90};
+  $scope.g4 = {category: 180};
+
+  // change category number to group number
+  $scope.catToGroupNum = function(categoryNum){
+    if (categoryNum == 21){
+      return 1;
+    }
+    else if (categoryNum == 42){
+      return 2;
+    }
+    else if (categoryNum == 90){
+      return 3;
+    }
+    else if (categoryNum == 180){
+      return 4;
+    }
+    else if (categoryNum == 11){
+      return "none";
+    }
+  };
 }]);
