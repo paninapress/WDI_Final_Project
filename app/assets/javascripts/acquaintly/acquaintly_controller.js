@@ -69,7 +69,19 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       $scope.allContacts = true;
     }
   };
-
+  $scope.categorizeCount = function(){
+    var total = $scope.connections.length;
+    var sum = 0;
+    for (var i = 0; i < total; i++) {
+      if ($scope.connections[i].category === null) {
+        sum += 1;
+      }
+    }
+    if (sum == 0 && total != 0){
+      $('#categorize-btn').addClass('hide');
+    }
+    return sum + " / " + total;
+  }
   $scope.categorized = function(contact, cat, list) {
     Connection.update({id: contact.id}, {category: cat}, function(successResponse){$scope.updateConnection(successResponse, $scope.connections.indexOf(contact));});
     if (list === true) {

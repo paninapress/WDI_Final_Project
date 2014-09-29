@@ -23,7 +23,7 @@
 </br>
   <div class="row" ng-repeat="group in groups">
     <div class="col-md-6 col-md-offset-3">
-      <button type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
+      <button {{categorizeCount()}} id="categorize-btn" type="button" class="btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div>
     <div ng-hide="group.averageOverall === null" class="row">
       <div class="col-md-6 col-md-offset-3 text-center" ng-style="{{changeStyle(group.averageOverall)}}">
@@ -110,7 +110,7 @@
     <div class="tab-pane" id="multi-group-tab">
       <div class="col-md-3">
       <h3 class="text-center">Group 1</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g1' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}" >
+        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g1' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
             <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
@@ -123,7 +123,7 @@
       </div>
       <div class="col-md-3 left-border">
       <h3 class="text-center">Group 2</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g2' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}" >
+        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g2' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
             <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
@@ -136,7 +136,7 @@
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 3</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g3' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}" >
+        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g3' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
             <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
@@ -149,7 +149,7 @@
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 4</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g4' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}" >
+        <div class="row contactsListImg" ng-repeat='contact in connections | filter: query | filter: g4' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
             <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
