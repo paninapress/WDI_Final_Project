@@ -58,12 +58,14 @@ class Connection < ActiveRecord::Base
   end
 
   def self.decide_to_update(id)
-    updated_at = Connection.where(user_id: id).where.not(health: nil).order('updated_at ASC').first.updated_at.to_date
-    current_date = DateTime.now.utc.to_date
-    # if updated today then update health of each contact
-    if updated_at != current_date
-      Connection.where(user_id: id).where.not(health: nil).each do |contact|
-          calculate_health(contact)
+    if Connection.where(user_id: id).where.not(health: nil).length > 0
+      updated_at = Connection.where(user_id: id).where.not(health: nil).order('updated_at ASC').first.updated_at.to_date
+      current_date = DateTime.now.utc.to_date
+      # if updated today then update health of each contact
+      if updated_at != current_date
+        Connection.where(user_id: id).where.not(health: nil).each do |contact|
+            calculate_health(contact)
+        end
       end
     end
   end
