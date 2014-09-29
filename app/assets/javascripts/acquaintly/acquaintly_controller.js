@@ -166,6 +166,11 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       $('#category-tab').removeClass('active');
       $('#all-tab').addClass('active');
     }
+    else if (tab == 6){
+      $('#category-tab').removeClass('active');
+      $('#all-tab').removeClass('active');
+      $('#multi-group-tab').addClass('active');
+    }
     else {
         if (tab == 1){
           $scope.contactSort.category = "21";
@@ -183,7 +188,13 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
           $scope.contactSort.category = "11";
         }
       $('#all-tab').removeClass('active');
+      $('#multi-group-tab').removeClass('active');
       $('#category-tab').addClass('active');
     }
   };
+
+    $scope.g1 = {category: 21};
+    $scope.g2 = {category: 42};
+    $scope.g3 = {category: 90};
+    $scope.g4 = {category: 180};
 }]);
