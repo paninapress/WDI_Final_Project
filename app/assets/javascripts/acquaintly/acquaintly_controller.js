@@ -168,7 +168,45 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       return "{background: 'white'}";
     }
   };
-
+  var calcHealthBarWidth = function(health){
+    var num = 0;
+    var bar_width = 0;
+    var div_width = $('.health-bar button').width();
+    if (health <= 1){
+      num = 1 - health;
+    }
+    else if (health >= 1 && health <= 2){
+      num = health - 1;
+    }
+    else{
+      num = 1;
+    }
+    bar_width = div_width * num;
+    return bar_width;
+  };
+  $scope.changeHealthBar = function(health){
+      if (health === null) {
+        return "{background: 'white'}";
+      }
+      else{
+        bar_width = calcHealthBarWidth(health);
+        if (health < 0.8){
+          return "{background: '#89E818', width:"+ bar_width +"}";
+        }
+        else if (health <= 1){
+          return "{background: '#FFEB2C', width:"+ bar_width +"}";
+        }
+        else if (health > 1 && health < 3){
+          return "{background: '#4FB2FF', width:"+ bar_width +"}";
+        }
+        else if (health >= 3){
+          return "{background: 'lightgrey', width:"+ bar_width +"}";
+        }
+        else {
+          return "{background: 'white'}";
+        }
+      }
+    };
 // This handles tab functionality
   $scope.contactSort = {category: null};
   $scope.query = {fullname: ""};

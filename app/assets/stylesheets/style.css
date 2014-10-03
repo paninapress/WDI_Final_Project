@@ -145,3 +145,12 @@ body {
   border-bottom: 10px solid transparent;
   border-right: 10px solid black;
 }
+.health-bar button{
+  border: 1px solid black;
+  padding: 0 0;
+  background-color: white;
+}
+.health-bar span{
+  display: block;
+  height: 50px;
+}
