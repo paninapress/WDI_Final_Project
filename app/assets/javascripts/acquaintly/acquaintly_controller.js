@@ -19,7 +19,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
 
   $scope.groups = Group.query();
   $scope.connections = Connection.query();
-
+  $scope.predicate = 'health';
   //allows all contacts to show
   $scope.allContacts = true;
 
@@ -171,7 +171,7 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
   var calcHealthBarWidth = function(health){
     var num = 0;
     var bar_width = 0;
-    var div_width = $('.health-bar button').width();
+    var div_width = 300; //if this changes also change the css
     if (health <= 1){
       num = 1 - health;
     }
