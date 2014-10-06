@@ -54,19 +54,19 @@
 <br>
     <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist" id="myTab">
-    <li class="active"><a ng-click="makeTabActive(0)" href="#" role="tab" data-toggle="tab">All</a></li>
-    <li><a ng-click="makeTabActive(1)" href="#" role="tab" data-toggle="tab">Group 1</a></li>
-    <li><a ng-click="makeTabActive(2)" href="#" role="tab" data-toggle="tab">Group 2</a></li>
-    <li><a ng-click="makeTabActive(3)" href="#" role="tab" data-toggle="tab">Group 3</a></li>
-    <li><a ng-click="makeTabActive(4)" href="#" role="tab" data-toggle="tab">Group 4</a></li>
-    <li class="hidden-xs"><a ng-click="makeTabActive(5)" href="#" role="tab" data-toggle="tab">None</a></li>
+    <li class="active"><a ng-click="makeTabActive(0);" href="#" role="tab" data-toggle="tab">All</a></li>
+    <li><a ng-click="contactSort.category ='21'; makeTabActive(1);" href="#" role="tab" data-toggle="tab">Group 1</a></li>
+    <li><a ng-click="contactSort.category ='42'; makeTabActive(2);" href="#" role="tab" data-toggle="tab">Group 2</a></li>
+    <li><a ng-click="contactSort.category ='90'; makeTabActive(3);" href="#" role="tab" data-toggle="tab">Group 3</a></li>
+    <li><a ng-click="contactSort.category ='180'; makeTabActive(4);" href="#" role="tab" data-toggle="tab">Group 4</a></li>
+    <li class="hidden-xs"><a ng-click="contactSort.category ='11'; makeTabActive(5);" href="#" role="tab" data-toggle="tab">None</a></li>
     <li class="hidden-xs hidden-sm"><a ng-click="makeTabActive(6)" href="#" role="tab" data-toggle="tab">Groups</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div class="tab-pane active" id="all-tab">
-      <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query' ng-click='contactShow(contact)'>
+    <div class="tab-pane active" id="main-group-tab">
+      <div class="row contactsListImg" ng-repeat='contact in connections | filter: contactSort | orderBy:predicate | filter: query' ng-click='contactShow(contact)'>
         <div class="col-sm-3 col-xs-5">
           <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
           <img style="height:100px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
@@ -77,30 +77,15 @@
         </div>
         <div class="col-sm-4 hidden-xs">
           <p class="center-align-text">Group: {{contact.category >= 11 ? catToGroupNum(contact.category) : "not categorized"}}</p>
+          <p class="center-align-text hide">Last contacted: {{contact.recent_log || "n/a"}}</p>
         </div>
         <div class="col-sm-1 col-xs-2">
           <span class="glyphicon glyphicon-chevron-right center-align-text"></span>
         </div>
       </div>
     </div><!-- end row of all contacts tab -->
-    <div class="tab-pane" id="category-tab">
-      <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: contactSort' ng-click='contactShow(contact)'>
-        <div class="col-sm-3 col-xs-5">
-          <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-          <img style="height:100px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
-        </div>
-        <div class="col-sm-4 col-xs-5">
-          <h3 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-              {{contact.custom_last_name || contact.last_name}}</h3>
-        </div>
-        <div class="col-sm-4 hidden-xs">
-          <p class="center-align-text">Last contacted: {{contact.recent_log || "n/a"}}</p>
-        </div>
-        <div class="col-sm-1 col-xs-2">
-          <span class="glyphicon glyphicon-chevron-right center-align-text"></span>
-        </div>
-      </div> 
-    </div><!-- end of category tab -->
+    
+    
     <div class="tab-pane" id="multi-group-tab">
       <div class="col-md-3">
       <h3 class="text-center">Group 1</h3>

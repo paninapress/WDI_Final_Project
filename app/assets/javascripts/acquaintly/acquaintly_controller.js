@@ -208,42 +208,27 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       }
     };
 // This handles tab functionality
-  $scope.contactSort = {category: null};
-  $scope.query = {fullname: ""};
-  $scope.makeTabActive = function(tab){
-    $scope.query.fullname = "";
-    if (tab == 0){
-      $('#category-tab').removeClass('active');
-      $('#all-tab').addClass('active');
-    }
-    else if (tab == 6){
-      $('#category-tab').removeClass('active');
-      $('#all-tab').removeClass('active');
-      $('#multi-group-tab').addClass('active');
-    }
-    else {
-        if (tab == 1){
-          $scope.contactSort.category = "21";
-        }
-        else if (tab == 2){
-          $scope.contactSort.category = "42";
-        }
-        else if (tab == 3){
-          $scope.contactSort.category = "90";
-        }
-        else if (tab == 4){
-          $scope.contactSort.category = "180";
-        }
-        else if (tab == 5){
-          $scope.contactSort.category = "11";
-        }
-      $('#all-tab').removeClass('active');
-      $('#multi-group-tab').removeClass('active');
-      $('#category-tab').addClass('active');
-    }
-  };
+  $scope.contactSort = "";
+  $scope.query = "";
 
-  // for filtering on multi-group-tab
+  $scope.makeTabActive = function(tabNum){
+    $scope.query.fullname = "";
+    if (tabNum == 0){
+      $('#main-group-tab').addClass('active');
+      $('#multi-group-tab').removeClass('active');
+      $scope.contactSort = "";
+    }
+    else if (tabNum == 6){
+      $('#main-group-tab').removeClass('active');
+      $('#multi-group-tab').addClass('active');
+      $scope.contactSort = "";
+    }
+    else{
+      $('#main-group-tab').addClass('active');
+      $('#multi-group-tab').removeClass('active');
+    }
+  }
+// for filtering on multi-group-tab
   $scope.g1 = {category: 21};
   $scope.g2 = {category: 42};
   $scope.g3 = {category: 90};
