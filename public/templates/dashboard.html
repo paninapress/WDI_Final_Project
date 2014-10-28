@@ -26,14 +26,14 @@
     </div>
     <div class="row text-center health-bar">
       <div class="col-md-8 col-md-offset-2">
-        <button><span ng-style="{{changeHealthBar(group.averageOne)}}">Group 1 is {{reversePercent(group.averageOne) | number:2}}% ... {{calcHealthStatus(group.averageOne)}}</span></button>
-        <button><span ng-style="{{changeHealthBar(group.averageTwo)}}">Group 2 is {{reversePercent(group.averageTwo) | number:2}}% ... {{calcHealthStatus(group.averageTwo)}}</span></button>
+        <button><span ng-style="{{changeHealthBar(group.averageOne)}}"></span>Group 1 is {{reversePercent(group.averageOne) | number:2}}%</button>
+        <button><span ng-style="{{changeHealthBar(group.averageTwo)}}"></span>Group 2 is {{reversePercent(group.averageTwo) | number:2}}%</button>
       </div>
     </div>
     <div class="row text-center health-bar">
       <div class="col-md-8 col-md-offset-2">
-        <button><span ng-style="{{changeHealthBar(group.averageThree)}}">Group 3 is {{reversePercent(group.averageThree) | number:2}}% ... {{calcHealthStatus(group.averageThree)}}</span></button>
-        <button><span ng-style="{{changeHealthBar(group.averageFour)}}">Group 4 is {{reversePercent(group.averageFour) | number:2}}% ... {{calcHealthStatus(group.averageFour)}}</span></button>
+        <button><span ng-style="{{changeHealthBar(group.averageThree)}}"></span>Group 3 is {{reversePercent(group.averageThree) | number:2}}%</button>
+        <button><span ng-style="{{changeHealthBar(group.averageFour)}}"></span>Group 4 is {{reversePercent(group.averageFour) | number:2}}%</button>
       </div>
     </div>
   </div> <!-- end of group status display and categorize btn -->
@@ -103,10 +103,10 @@
       </div>
       <div class="col-md-3 left-border">
       <h3 class="text-center">Group 2</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g2' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
+        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g2' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
+            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
@@ -116,10 +116,10 @@
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 3</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g3' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
+        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g3' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
+            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
@@ -129,10 +129,10 @@
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 4</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g4' ng-click='contactShow(contact)' ng-style="{{changeStyle(contact.health)}}">
+        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g4' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-src="{{contact.linkedin_pic}}">
+            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
