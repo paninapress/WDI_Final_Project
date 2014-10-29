@@ -15,7 +15,7 @@
 
 <!-- Start all contacts span (show/hide) -->
 <span ng-show="allContacts">
-  <div class="row" ng-repeat="group in groups">
+  <div class="row hidden-xs" ng-repeat="group in groups">
     <div class="col-md-6 col-md-offset-3">
       <button {{categorizeCount()}} id="categorize-btn" type="button" class="hide btn btn-danger largeBtn" ng-click="toBeCategorized()">Start Categorizing</button>
     </div>
@@ -39,22 +39,20 @@
   </div> <!-- end of group status display and categorize btn -->
   <br>
     <div class="row">
-      <div class="col-md-4 col-md-offset-2">
+      <div class="col-md-8 col-md-offset-2">
         <h4>
           Who would you like to touch 
           base with today?
-        </h4>
-      </div>
-      <div class="col-md-4">
-        <h5>
-          Search your contacts by name: <input type="text" ng-model="query.fullname" />
-        </h5>
+        </h4><br>
+        <h5 class="text-center">
+          <input style="width: 80%;" type="text" ng-model="query.fullname" />
+      </h5>
       </div>
     </div>
 <br>
     <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist" id="myTab">
-    <li class="active"><a ng-click="makeTabActive(0);" href="#" role="tab" data-toggle="tab">All</a></li>
+    <li class="active hidden-xs"><a ng-click="makeTabActive(0);" href="#" role="tab" data-toggle="tab">All</a></li>
     <li><a ng-click="contactSort.category ='21'; makeTabActive(1);" href="#" role="tab" data-toggle="tab">Group 1</a></li>
     <li><a ng-click="contactSort.category ='42'; makeTabActive(2);" href="#" role="tab" data-toggle="tab">Group 2</a></li>
     <li><a ng-click="contactSort.category ='90'; makeTabActive(3);" href="#" role="tab" data-toggle="tab">Group 3</a></li>
@@ -67,14 +65,14 @@
   <div class="tab-content">
   <div class="row gradient-ribbon"></div>
     <div class="tab-pane active" id="main-group-tab">
-      <div class="row contactsListImg" ng-repeat='contact in connections | filter: contactSort | orderBy:predicate | filter: query' ng-click='contactShow(contact)'>
+      <div class="row contactsList" ng-repeat='contact in connections | filter: contactSort | orderBy:predicate | filter: query' ng-click='contactShow(contact)'>
         <div class="col-sm-3 col-xs-5">
           <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-          <img style="height:100px" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+          <img class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
         </div>
         <div class="col-sm-4 col-xs-5">
           <h3 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-              {{contact.custom_last_name || contact.last_name}}</h3>
+              <span class="hidden-xs">{{contact.custom_last_name || contact.last_name}}</span></h3>
         </div>
         <div class="col-sm-4 hidden-xs">
           <p class="center-align-text">Group: {{contact.category >= 11 ? catToGroupNum(contact.category) : "not categorized"}}</p>
@@ -90,53 +88,53 @@
     <div class="tab-pane" id="multi-group-tab">
       <div class="col-md-3">
       <h3 class="text-center">Group 1</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g1' ng-click='contactShow(contact)'>
+        <div class="row contactsList" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g1' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+            <img class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-                {{contact.custom_last_name || contact.last_name}}</h4>
+                <span class="hidden-xs">{{contact.custom_last_name || contact.last_name}}</span></h4>
           </div>
         </div>
       </div>
       <div class="col-md-3 left-border">
       <h3 class="text-center">Group 2</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g2' ng-click='contactShow(contact)'>
+        <div class="row contactsList" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g2' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+            <img class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-                {{contact.custom_last_name || contact.last_name}}</h4>
+                <span class="hidden-xs">{{contact.custom_last_name || contact.last_name}}</span></h4>
           </div>
         </div>
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 3</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g3' ng-click='contactShow(contact)'>
+        <div class="row contactsList" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g3' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+            <img class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-                {{contact.custom_last_name || contact.last_name}}</h4>
+                <span class="hidden-xs">{{contact.custom_last_name || contact.last_name}}</span></h4>
           </div>
         </div>
       </div>
       <div class="col-md-3 left-border">
         <h3 class="text-center">Group 4</h3>
-        <div class="row contactsListImg" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g4' ng-click='contactShow(contact)'>
+        <div class="row contactsList" ng-repeat='contact in connections | orderBy:predicate | filter: query | filter: g4' ng-click='contactShow(contact)'>
           <div class="col-xs-6 no-left-right-padding">
             <!-- CHANGE TO PICTURE - DEPENDING ON USER OPTION -->
-            <img style="height:100px;" class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
+            <img class="colorTab" ng-style="{{changeStyle(contact.health)}}" ng-src="{{contact.linkedin_pic}}">
           </div>
           <div class="col-xs-6 no-left-right-padding">
             <h4 class="center-align-text">{{contact.custom_first_name || contact.first_name}}
-                {{contact.custom_last_name || contact.last_name}}</h4>
+                <span class="hidden-xs">{{contact.custom_last_name || contact.last_name}}</span></h4>
           </div>
         </div>
       </div>
@@ -150,7 +148,7 @@
   <div class="col-md-8 col-md-offset-2">
     <button class="btn btn-muted"  ng-click='allShow()'>back</button>
     <div class="row">
-      <div class="contactsListImg col-md-4  col-md-offset-2">
+      <div class="contactsList col-md-4  col-md-offset-2">
         <img style="height:125px" ng-src="{{thisContact.linkedin_pic}}"></img>
       </div>
       <div class="col-md-4">

@@ -12,7 +12,11 @@ h1, h4 {
 
 /*--------------02-BODY--------------------*/
 body {
-  padding: 70px 20px;
+  padding: 70px 0px;
+}
+.container{
+  padding-left: 0;
+  padding-right: 0;
 }
 .largeBtn {
   width: 100%
@@ -23,8 +27,8 @@ body {
 .navbar-fixed-top li{
   float: right;
 }
-.contactsListImg img {
-  height: 125px;
+.contactsList img {
+  height: 90px;
 }
 
 #learn, #signin, #signup {
@@ -54,6 +58,10 @@ body {
   background: -ms-linear-gradient(left,  rgba(69,195,0,1) 0%,rgba(232,230,38,1) 50%,rgba(0,190,255,1) 100%); /* IE10+ */
   background: linear-gradient(to right,  rgba(69,195,0,1) 0%,rgba(232,230,38,1) 50%,rgba(0,190,255,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45c300', endColorstr='#00beff',GradientType=1 ); /* IE6-9 */
+}
+.nav-tabs li{
+  text-align: center;
+  width: 25%;
 }
 /*--------------03-BUTTON STYLES-----------*/
 
@@ -169,4 +177,13 @@ body {
   position: absolute;
   top: 0px;
   z-index: -1;
+}
+/*--------------04-MEDIA QUERY STYLES-----------*/
+@media (min-width: 768px){
+  .contactsList img {
+    height: 100px;
+  }
+  .nav-tabs li{
+    width: initial;
+  }
 }
