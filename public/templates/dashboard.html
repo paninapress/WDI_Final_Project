@@ -9,6 +9,7 @@
     </li>
     <li class="pull-left"><h4>{{appName}}</h4>Version 1</li>
   </ul>
+  <div class="row gradient-ribbon" style="height: 1px;"></div>
 </nav>
 
   <div id="categorize_template" ng-show="categorize == true" ng-include="templates[0].url"></div>
@@ -43,9 +44,9 @@
         <h4>
           Who would you like to touch 
           base with today?
-        </h4><br>
+        </h4>
         <h5 class="text-center">
-          <input style="width: 80%;" type="text" ng-model="query.fullname" />
+          <input style="width: 80%;" type="text" ng-model="query.fullname" /><i class="fa fa-search"></i>
       </h5>
       </div>
     </div>
