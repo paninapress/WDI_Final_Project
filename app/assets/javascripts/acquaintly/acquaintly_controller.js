@@ -235,11 +235,6 @@ AppController.controller("AppCtrl",["$scope","$location","$anchorScroll", "$reso
       $('#multi-group-tab').removeClass('active');
     }
   }
-// for filtering on multi-group-tab
-  $scope.g1 = {category: 21};
-  $scope.g2 = {category: 42};
-  $scope.g3 = {category: 90};
-  $scope.g4 = {category: 180};
 
   // change category number to group number
   $scope.catToGroupNum = function(categoryNum){
